@@ -56,6 +56,10 @@ code {
   color: white;
 }
 
+.home-banner a {
+  display: none;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;

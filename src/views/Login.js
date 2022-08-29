@@ -7,6 +7,7 @@ function Login() {
 
   return (
     <div>
+        <NavBar/>
         <h1>Login</h1>
     </div>
   )
