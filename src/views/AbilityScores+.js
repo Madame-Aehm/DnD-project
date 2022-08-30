@@ -22,29 +22,37 @@ function AbilityScores() {
         fetchList();
       }, []);
 
-    function checkChecked() {
-
+    function showMore() {
+        const infosDiv = document.getElementById("infos");
+        const textButton = document.getElementById("test-button");
+        if (infosDiv.style.display === "block") {
+            infosDiv.style.display = "none";
+            textButton.style.borderRadius = "12px";
+        } else {
+            infosDiv.style.display = "block";
+            textButton.style.borderTopLeftRadius = "12px";
+            textButton.style.borderTopRightRadius = "12px";
+            textButton.style.borderBottomLeftRadius = "0px";
+            textButton.style.borderBottomRightRadius = "0px";
+        }
     }
 
   return (
     <div className='content-container'>
         <NavBar/>
-        <h1>Ability Scores</h1>
-        <div>
+        <div className='explore-list'>
             {abilityScoresList.map((item, i) => {
                 return (
-                    <div key={i}>
-                        <input type={"radio"} name={"ability-score"} value={item.index} id={item.index}/>
-                        <label htmlFor={item.index}>{item.name}</label>
+                <div className='test-div' key={i}>
+                    <div id='test-button' onClick={() => showMore()}> 
+                        {item.name}
                     </div>
+                    <div id='infos'>Testing Testing</div>
+                </div>
                 )
             })}
         </div>
-        
-        <div className='display'>
-            Testing testing
 
-        </div>
     </div>
   )
 }

@@ -1,0 +1,50 @@
+/* #test-button {
+    text-align: center;
+    background-color: #412234;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 1em;
+    width: 50%;
+    height: 23px;
+    border-radius: 12px;
+    border: solid 2px #412234;
+  }
+  
+  .test-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  #infos {
+    transition: 0.3s;
+    display: none;
+    background-color: white;
+    border: solid 2px #412234;
+    border-top: none;
+    width: 50%;
+    padding: 1em;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  } */
+
+ label {
+    border: solid 1px black;
+ }
+
+ input[type="radio"]:checked + label {
+    border: solid 1px red;
+ }
+
+ .display {
+    background-color: white;
+    width: 80%;
+    height: 200px;
+ }
+
+ /* input {
+    display: none;
+ } */
+ 

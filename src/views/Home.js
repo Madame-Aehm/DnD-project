@@ -13,7 +13,7 @@ function Home() {
           <a className='login-button' href='/login'>Login</a>
           <p>No account? <a href='*'>Sign up</a>!</p>
         </div>
-        <a className='explore-button' href='/explore'>Explore</a>
+        <div><a className='explore-button' href='/explore'>Explore</a></div>
       </div>
     </div>
   )

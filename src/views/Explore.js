@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
-import DisplayNicely from '../components/DisplayNicely';
-import removeHyphens from '../components/RemoveHyphens';
+import { removeHyphens, displayNicely } from '../components/DisplayNicely';
 
 function Explore() {
 
@@ -32,7 +31,7 @@ function Explore() {
       <div className='explore-list'>
         {exploreList.map((item, i) => {
         return (
-          <a className='explore-button' href={removeHyphens(item.endpoint)} key={i}>{DisplayNicely(item.endpoint)}</a>
+          <a className='explore-button' href={removeHyphens(item.endpoint)} key={i}>{displayNicely(item.endpoint)}</a>
         )
       })}</div>
 

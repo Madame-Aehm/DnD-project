@@ -52,7 +52,7 @@ code {
   padding: 0.5em;
 }
 
-.home-banner a {
+.home-banner .hide {
   display: none;
 }
 
@@ -80,7 +80,8 @@ code {
 
 .explore-button:hover {
   transition: 0.3s;
-  width: 80%
+  width: 60%;
+  font-size: 1.2em;
 }
 
 h1 {

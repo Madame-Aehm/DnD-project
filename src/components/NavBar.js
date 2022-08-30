@@ -7,10 +7,10 @@ function NavBar() {
   return (
     <div id='nav-container'>
         <div className='nav-links'>
-        <a href='/'>Home</a>
-        <a>Menu</a>
+        <a className='hide' href="javascript:history.back()">Back</a>
+        <a className='hide'>Menu</a>
         </div>
-        <img src='images/d20+.png' />
+        <a href='/'><img src='images/d20+.png' alt='D20 dice icon' /></a>
     </div>
   )
 }

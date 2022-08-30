@@ -11,4 +11,9 @@ function displayNicely(string) {
     } return final;
 }
 
-export default displayNicely;
+function removeHyphens(string) {
+    let noHyphens = string.replace("-", "");
+    return noHyphens;
+}
+
+export { displayNicely, removeHyphens }
