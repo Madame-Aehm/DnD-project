@@ -49,7 +49,7 @@ function AbilityScores() {
         <NavBar/>
         <h1>Ability Scores</h1>
 
-        <div className='checkboxes-container'>
+        <div className='ability-scores-container'>
             {abilityScoresList.map((item) => {
                 return (
                     <div className='checkbox' key={item.index}>

@@ -30,7 +30,7 @@
     border-bottom-right-radius: 12px;
   } */
 
- .checkboxes-container {
+ .ability-scores-container {
    display: grid;
    grid-template-columns: auto auto auto;
    grid-template-rows: auto auto;
@@ -40,10 +40,59 @@
  }
 
  .checkbox {
-   text-align: center;
-   width: 50px;
-   margin: 1em;
- }
+  text-align: center;
+  width: 50px;
+  margin: 1em;
+}
+
+.ability-scores-label {
+  padding: 0.5em;
+  background-color: #412234;
+  border: solid 3px white;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+ .alignments-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.5em;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.alignments-container div {
+  text-align: center;
+}
+
+.alignments-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100px;
+}
+
+.alignments-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: 90%;
+  border-radius: 12px;
+  height: 120px;
+}
+
+.alignments-display p {
+  color: #2E4052;
+  font-size: small;
+  margin: 1em;
+}
+
+.alignments-label {
+  width: 180px;
+}
 
  label {
    padding: 0.5em;
@@ -105,6 +154,13 @@
    margin-top: 0;
    margin-left: 0.5em;
    margin-right: 0.5em;
+ }
 
+ .class-display {
+  background-color: white;
+  color: #2E4052;
+  width: 95%;
+  border-radius: 12px;
+  min-height: 20px;
  }
  

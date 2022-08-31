@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
 import { removeHyphens, displayNicely } from '../components/DisplayNicely';
+import { Link } from "react-router-dom";
 
 function Explore() {
 
@@ -23,28 +24,16 @@ function Explore() {
     fetchExploreList();
   }, []);
 
-  const testArray = ["test1", "test2", "test3", "test4", "test5"];
-
   return (
     <div  className='content-container'>
       <NavBar />
       <div className='explore-list'>
         {exploreList.map((item, i) => {
-        return (
-          <a className='explore-button' href={removeHyphens(item.endpoint)} key={i}>{displayNicely(item.endpoint)}</a>
-        )
-      })}</div>
-
-      {/* <div className='explore-list'>
-        {testArray.map((item, i) => {
-          return <a className='explore-button' href='*' key={i}>{DisplayNicely(item)}</a>
+          return (
+            <Link className='explore-button' to={removeHyphens(item.endpoint)} key={i}>{displayNicely(item.endpoint)}</Link>
+          )
         })}
-      </div> */}
-    
-      
-      
-
-      
+      </div>
     </div>
   )
 }
