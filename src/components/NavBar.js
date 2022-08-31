@@ -1,7 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
-   
+    
+  // let navigate = useNavigate();
+  // let goBack = () => {
+  //   navigate(-1);
+  // }
+  
 
 
   return (
