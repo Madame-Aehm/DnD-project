@@ -69,7 +69,7 @@ function AbilityScores() {
         <div className='display'>
           <h3>{abilityScoreName}</h3>
           <h5>Skills:</h5>
-          <div>
+          <div className='mini-h-list'>
             {abilityScoreSkills.length === 0 && noSkill}
             {abilityScoreSkills.map((skill) => {
               return <h6 key={skill.index}>{skill.name}</h6>

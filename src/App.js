@@ -6,7 +6,10 @@ import HereBeDragons from "./views/HereBeDragons";
 import AbilityScores from "./views/AbilityScores";
 import Alignments from "./views/Alignments";
 import Classes from "./views/Classes";
-import Barbarian from "./views/Barbarian";
+import SelectedClass from "./views/SelectedClass";
+import Backgrounds from "./views/Backgrounds";
+import SelectedBg from "./views/SelectedBg";
+
 
 
 
@@ -22,7 +25,10 @@ function App() {
     <Route path="abilityscores" element={ <AbilityScores/> } />
     <Route path="alignments" element={ <Alignments/> } />
     <Route path="classes" element={ <Classes/> } />
-    <Route path="barbarian" element={ <Barbarian/> } />
+    <Route path="selectedclass" element={ <SelectedClass/> } />
+    <Route path="backgrounds" element={ <Backgrounds/> } />
+    <Route path="selectedbg" element={ <SelectedBg/> } />
+
   </Routes>
 </BrowserRouter>
 </>

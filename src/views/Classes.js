@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
+import { Link } from "react-router-dom";
 
 function Classes() {
 
@@ -9,7 +10,6 @@ function Classes() {
         try {
           const response = await fetch("https://www.dnd5eapi.co/api/classes");
           const result = await response.json();
-          console.log(result);
           setClassList(result.results);
         } catch (error) {
           console.log("error", error)
@@ -26,14 +26,12 @@ function Classes() {
         <NavBar/>
         <h1>Classes</h1>
         <div className='explore-list'>
-        {classList.map((item, i) => {
-          return (
-            <a className='explore-button' href={item.index} key={item.index}>{item.name}</a>
-          )
-        })}
+          {classList.map((item) => {
+            return (
+              <Link className='explore-button' to={"/selectedclass"} state={item.url} key={item.index}>{item.name}</Link>
+            )
+          })}
       </div>
-
-
     </div>
   )
 }
