@@ -9,6 +9,9 @@ import Classes from "./views/Classes";
 import SelectedClass from "./views/SelectedClass";
 import Backgrounds from "./views/Backgrounds";
 import SelectedBg from "./views/SelectedBg";
+import Conditions from "./views/Conditions";
+import DamageTypes from "./views/DamageTypes";
+import Equipment from "./views/Equipment";
 
 
 
@@ -28,6 +31,9 @@ function App() {
     <Route path="selectedclass" element={ <SelectedClass/> } />
     <Route path="backgrounds" element={ <Backgrounds/> } />
     <Route path="selectedbg" element={ <SelectedBg/> } />
+    <Route path="conditions" element={ <Conditions/> } />
+    <Route path="damagetypes" element={ <DamageTypes/> } />
+    <Route path="equipment" element={ <Equipment/> } />
 
   </Routes>
 </BrowserRouter>

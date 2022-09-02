@@ -49,10 +49,10 @@ function AbilityScores() {
         <NavBar/>
         <h1>Ability Scores</h1>
 
-        <div className='ability-scores-container'>
+        <div className='checkbox-container-1'>
             {abilityScoresList.map((item) => {
                 return (
-                    <div className='checkbox' key={item.index}>
+                    <div key={item.index}>
                         <input type={"radio"} 
                           name={"ability-score"} 
                           value={item.url} id={item.index} 
@@ -76,11 +76,9 @@ function AbilityScores() {
             })}
           </div>
           <h5>Description:</h5>
-          <div>
-            {abilityScoreDescription.map((description, i) => {
-              return <p key={i}>{description}</p>
-            })}
-          </div>
+          {abilityScoreDescription.map((description, i) => {
+            return <p key={i}>{description}</p>
+          })}
         </div>
 
     </div>

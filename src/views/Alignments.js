@@ -20,11 +20,13 @@ function Alignments() {
           const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
           const result = await response.json();
           setalignmentsDescription(result.desc);
+          setalignmentsTitle(result.name);
         } catch (error) {
           console.log("error", error)
         }
       }
-  
+      
+      const [alignmentsTitle, setalignmentsTitle] = useState("")
       const [alignmentsDescription, setalignmentsDescription] = useState("");
 
     useEffect(() => {
@@ -36,22 +38,23 @@ function Alignments() {
         <NavBar/>
         <h1>Alignments</h1>
 
-        <div className='alignments-container'>
+        <div className='checkbox-container-2'>
             {alignmentsList.map((item) => {
                 return (
-                    <div className='alignments-checkbox' key={item.index}>
+                    <div className='larger-checkbox' key={item.index}>
                         <input type={"radio"} 
                           name={"alignments"} 
                           value={item.url} id={item.index} 
                           onChange={
                             (e) => scoreFetch(item.url)
                           }/>
-                        <label className='alignments-label' htmlFor={item.index}>{item.name}</label>
+                        <label htmlFor={item.index}>{item.name}</label>
                     </div>
                 )
             })}
         </div>
-        <div className='alignments-display'>
+        <div className='display'>
+            <h3>{alignmentsTitle}</h3>
             <p>{alignmentsDescription}</p>
         </div>
     

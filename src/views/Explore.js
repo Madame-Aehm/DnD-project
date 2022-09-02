@@ -7,15 +7,13 @@ function Explore() {
 
   const [exploreList, setExploreList] = useState([]);
   const fetchExploreList = async() => {
-    if (exploreList.length === 0) {
-      try {
-        const response = await fetch("https://www.dnd5eapi.co/api/");
-        const result = await response.json();
-        const convert = Object.entries(result).map(([key, value]) => ({"endpoint": key, "url": value}));
-        setExploreList(convert);
-      } catch (error) {
-        console.log("error", error)
-      }
+    try {
+      const response = await fetch("https://www.dnd5eapi.co/api/");
+      const result = await response.json();
+      const convert = Object.entries(result).map(([key, value]) => ({"endpoint": key, "url": value}));
+      setExploreList(convert);
+    } catch (error) {
+      console.log("error", error)
     }
   }
 

@@ -97,20 +97,11 @@ function DisplayBg(props) {
                             {item.alignments.map((alignment) => {
                                 return <h6 key={alignment.index}>{alignment.name}</h6>
                             })}
-                            <hr/>
                         </div>
+                        <hr/>
                     </div>
                 )
             })}
-            
-            
-
-
-
-
-           
-
-            
         </div>
     </div>
   )

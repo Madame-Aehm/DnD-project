@@ -11,7 +11,6 @@ function Backgrounds() {
           const response = await fetch("https://www.dnd5eapi.co/api/backgrounds");
           const result = await response.json();
           setBgList(result.results);
-          console.log(result);
         } catch (error) {
           console.log("error", error)
         }

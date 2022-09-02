@@ -10,7 +10,7 @@ function DisplayClass(props) {
 
         <h1>{selectedClass.name}</h1>
             
-        <div className='class-container'>
+        <div className='display'>
 
             <h4>Proficiencies:</h4>
             <div className='mini-h-list'>
