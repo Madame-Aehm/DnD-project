@@ -5,10 +5,7 @@ function DisplayClass(props) {
     const selectedClass = props.props;
     if (selectedClass.proficiencies) {
  return (
-
     <div className='content-container'>
-
-        <h1>{selectedClass.name}</h1>
             
         <div className='display'>
 

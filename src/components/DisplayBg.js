@@ -6,7 +6,7 @@ function DisplayBg(props) {
   return (
     <div className='content-container'>
         <h1>{selectedBg.name}</h1>
-        <div className='class-container'>
+        <div className='display'>
 
             <h4>Language Options</h4>
             <p>Choose: <b>{selectedBg.language_options.choose}</b></p>

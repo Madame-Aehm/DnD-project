@@ -24,6 +24,13 @@ input[type="radio"]:checked + label {
   color: #412234;
 }
 
+input[type="text"] {
+  padding: 0.5em;
+  border: solid 2px #412234;
+  border-radius: 8px;
+  font-size: large;
+}
+
 h3 {
   color: #2E4052;
   margin: 0.3em;
@@ -65,6 +72,7 @@ ul {
   width: 90%;
   border-radius: 12px;
   height: fit-content;
+  margin-bottom: 20px;
 }
 
 .checkbox-container-1 {
@@ -104,6 +112,7 @@ ul {
 }
 
 .e-choices {
+  margin-top: 0.5em;
   max-width: 100%;
   display: flex;
   flex-flow: row wrap;
@@ -111,11 +120,50 @@ ul {
   justify-content: center;
 }
 
+.e-choices div:first-of-type {
+  border-right: solid 1px #2E4052;
+}
+
+.e-choices div:last-of-type {
+  border-left: solid 1px #2E4052;
+}
+
 .aligns-with {
   margin-left: 1em;
   text-decoration: underline;
 }
 
+.cost-weight {
+  padding: 0 1em;
+}
+
+.cycle-buttons-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.cycle {
+  background-color: #412234;
+  color: white;
+  border: solid 2px white;
+  border-radius: 8px;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.cycle:disabled {
+  opacity: 20%;
+  cursor: initial;
+}
+
+.equip-cat-input-div {
+  width: 100%;
+  margin-bottom: 1em;
+  text-align: center;
+}
 
 
 

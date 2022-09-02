@@ -12,6 +12,9 @@ import SelectedBg from "./views/SelectedBg";
 import Conditions from "./views/Conditions";
 import DamageTypes from "./views/DamageTypes";
 import Equipment from "./views/Equipment";
+import SelectedEquipment from "./views/SelectedEquipment";
+import EquipmentCategories from "./views/EquipmentCategories";
+import SelectedEquipmentCategory from "./views/SelectedEquipmentCategory";
 
 
 
@@ -34,6 +37,11 @@ function App() {
     <Route path="conditions" element={ <Conditions/> } />
     <Route path="damagetypes" element={ <DamageTypes/> } />
     <Route path="equipment" element={ <Equipment/> } />
+    <Route path="selectedequipment" element={ <SelectedEquipment/> } />
+    <Route path="equipmentcategories" element={ <EquipmentCategories/> } />
+    <Route path="selectedequipmentcategory" element={ <SelectedEquipmentCategory/> } />
+
+
 
   </Routes>
 </BrowserRouter>

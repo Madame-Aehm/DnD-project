@@ -25,6 +25,7 @@ function Explore() {
   return (
     <div  className='content-container'>
       <NavBar />
+      <h1>Explore</h1>
       <div className='explore-list'>
         {exploreList.map((item, i) => {
           return (

@@ -65,14 +65,17 @@ code {
 }
 
 .explore-button {
-  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  transition: 0.3s;
   background-color: #412234;
   color: white;
   text-decoration: none;
   font-weight: bold;
   padding: 1em;
-  width: 50%;
+  width: 80%;
   height: 23px;
   border-radius: 12px;
   border: solid 2px white;
@@ -80,7 +83,7 @@ code {
 
 .explore-button:hover {
   transition: 0.3s;
-  width: 60%;
+  width: 82%;
   font-size: 1.2em;
 }
 
