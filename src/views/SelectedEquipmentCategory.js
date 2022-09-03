@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import DisplayEquipmentCategories from '../components/DisplayEquipmentCategories';
 import NavBar from '../components/NavBar'
 
 function SelectedEquipmentCategory() {
@@ -10,13 +9,16 @@ function SelectedEquipmentCategory() {
     const cycleArray = location.state.array;
     const [controlList, setControlList] = useState([]);
     const [selectedEquipmentCategory, setSelectedEquipmentCategory] = useState([]);
+    const [selectedEquipmentCategoryName, setSelectedEquipmentCategoryName] = useState([]);
+    const [selectedEquipmentCategoryIndex , setSelectedEquipmentCategoryIndex] = useState("");
 
     const fetchList = async() => {
         try {
         const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
         const result = await response.json();
-        setSelectedEquipmentCategory(result);
-        console.log(result);
+        setSelectedEquipmentCategoryIndex(result.index);
+        setSelectedEquipmentCategoryName(result.name);
+        setSelectedEquipmentCategory(result.equipment);
         setControlList(result.equipment);
       } catch (error) {
         console.log("error", error)
@@ -31,7 +33,9 @@ function SelectedEquipmentCategory() {
         try {
             const response = await fetch(`https://www.dnd5eapi.co${URL}`);
             const result = await response.json();
-            setSelectedEquipmentCategory(result);
+            setSelectedEquipmentCategoryIndex(result.index);
+            setSelectedEquipmentCategoryName(result.name);
+            setSelectedEquipmentCategory(result.equipment);
             setControlList(result.equipment);
         } catch (error) {
             console.log("error", error)
@@ -43,7 +47,7 @@ function SelectedEquipmentCategory() {
 
     function findArrayPosition() {
         for (let i = 0; i < cycleArray.length; i++) {
-            if (cycleArray[i].index === selectedEquipmentCategory.index) {
+            if (cycleArray[i].index === selectedEquipmentCategoryIndex) {
                 cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
                 cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
             }
@@ -78,18 +82,35 @@ function SelectedEquipmentCategory() {
         }
     }
 
+    function filter(input) {
+        const listClone = [...controlList];
+        const inputValue = input.value.toLowerCase().trim();
+        const newList = listClone.filter(item => item.index.includes(inputValue));
+        console.log(newList);
+        console.log(selectedEquipmentCategory);
+        setSelectedEquipmentCategory(newList);
+    }
+
   return (
     <div>
         <NavBar/>
+        <h4 className='ec-h4'>Equipment Category:</h4>
         <div className='cycle-buttons-div'>
             {prevButton()}
-            <h1>{selectedEquipmentCategory.name}</h1>
+            <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
             {nextButton()}
         </div>
-        {/* <div className='equip-cat-input-div'>
+        <div className='ec-input-div'>
             <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>
-        </div> */}
-        <DisplayEquipmentCategories props={selectedEquipmentCategory} controlList={controlList}/>
+        </div>
+
+        <div className='explore-list'>
+            {selectedEquipmentCategory && selectedEquipmentCategory.map((item) => {
+                return (
+                <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory}} key={item.index}>{item.name}</Link>
+                )
+            })}
+        </div>
     </div>
   )
 }

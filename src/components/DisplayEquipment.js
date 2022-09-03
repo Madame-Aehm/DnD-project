@@ -58,15 +58,6 @@ function DisplayEquipment(props) {
         }
     }
 
-
-
-
-
-
-
-
-    
-
     if (selectedEquipment.url) {
   return (
     <div className='content-container'>

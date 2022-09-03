@@ -89,6 +89,8 @@ code {
 
 h1 {
   color: #412234;
+  margin-top: 0;
+  margin-bottom: 0.2em;
 }
 
 .login-button {
