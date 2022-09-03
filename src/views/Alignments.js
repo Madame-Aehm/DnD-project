@@ -33,33 +33,50 @@ function Alignments() {
         fetchList();
       }, []);
 
+    function setFirstCheck() {
+      const allChecks = document.querySelectorAll("input");
+      const firstCheck = document.querySelector("input");
+      let isChecked = false;
+      for (let i = 0; i < allChecks.length; i++) {
+        if (allChecks[i].checked) {
+          isChecked = true;
+          break;
+        }
+      }
+      if (!isChecked && firstCheck) {
+        firstCheck.checked = true;
+        scoreFetch(firstCheck.value);
+      }
+    }
+
   return (
     <div className='content-container'>
-        <NavBar/>
-        <h1>Alignments</h1>
+      <NavBar/>
+      <h1>Alignments</h1>
 
-        <div className='checkbox-container-2'>
-            {alignmentsList.map((item) => {
-                return (
-                    <div className='larger-checkbox' key={item.index}>
-                        <input type={"radio"} 
-                          name={"alignments"} 
-                          value={item.url} id={item.index} 
-                          onChange={
-                            (e) => scoreFetch(item.url)
-                          }/>
-                        <label htmlFor={item.index}>{item.name}</label>
-                    </div>
-                )
-            })}
-        </div>
-        <div className='display'>
-            <h3>{alignmentsTitle}</h3>
-            <p>{alignmentsDescription}</p>
-        </div>
+      <div className='checkbox-container-2'>
+          {alignmentsList.map((item) => {
+              return (
+                  <div className='larger-checkbox' key={item.index}>
+                      <input type={"radio"} 
+                        name={"alignments"} 
+                        value={item.url} id={item.index} 
+                        onChange={
+                          (e) => scoreFetch(item.url)
+                        }/>
+                      <label htmlFor={item.index}>{item.name}</label>
+                  </div>
+              )
+          })}
+      </div>
+      <div className='display'>
+          <h3>{alignmentsTitle}</h3>
+          <p>{alignmentsDescription}</p>
+      </div>
+      
+      {setFirstCheck()}
     
-    
-    
+        
     </div>
   )
 }

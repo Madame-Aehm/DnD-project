@@ -16,4 +16,9 @@ function removeHyphens(string) {
     return noHyphens;
 }
 
-export { displayNicely, removeHyphens }
+function MakeChecked() {
+    const checks = document.querySelector("input");
+      checks.checked = true;
+  }
+
+export { displayNicely, removeHyphens, MakeChecked }

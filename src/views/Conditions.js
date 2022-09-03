@@ -33,39 +33,55 @@ function Conditions() {
     const [conditionsTitle, setconditionsTitle] = useState("");
     const [conditionsDescription, setConditionsDescription] = useState([]);
 
+    function setFirstCheck() {
+      const allChecks = document.querySelectorAll("input");
+      const firstCheck = document.querySelector("input");
+      let isChecked = false;
+      for (let i = 0; i < allChecks.length; i++) {
+        if (allChecks[i].checked) {
+          isChecked = true;
+          break;
+        }
+      }
+      if (!isChecked && firstCheck) {
+        firstCheck.checked = true;
+        scoreFetch(firstCheck.value);
+      }
+    }
+
 
 
   return (
     <div className='content-container'>
-        <NavBar/>
-        <h1>Conditions</h1>
+      <NavBar/>
+      <h1>Conditions</h1>
 
-        <div className='checkbox-container-2'>
-            {conditionsList.map((item) => {
-                return (
-                    <div className='larger-checkbox' key={item.index}>
-                        <input type={"radio"} 
-                          name={"conditions"} 
-                          value={item.url} id={item.index} 
-                          onChange={
-                            (e) => scoreFetch(item.url)
-                          }/>
-                        <label htmlFor={item.index}>{item.name}</label>
-                    </div>
-                )
-            })}
-        </div>
+      <div className='checkbox-container-2'>
+        {conditionsList.map((item) => {
+          return (
+            <div className='larger-checkbox' key={item.index}>
+              <input type={"radio"} 
+                name={"conditions"} 
+                value={item.url} id={item.index} 
+                onChange={
+                  (e) => scoreFetch(item.url)
+                }/>
+              <label htmlFor={item.index}>{item.name}</label>
+            </div>
+          )
+        })}
+      </div>
 
-        <div className='display'>
-          <h3>{conditionsTitle}</h3>
-            {conditionsDescription.map((item, i) => {
-                return (
-                    <p key={i}>{item}</p>
-                )
-            })}
-        </div>
+      <div className='display'>
+        <h3>{conditionsTitle}</h3>
+          {conditionsDescription.map((item, i) => {
+              return (
+                  <p key={i}>{item}</p>
+              )
+          })}
+      </div>
 
-
+      {setFirstCheck()}
 
     </div>
   )

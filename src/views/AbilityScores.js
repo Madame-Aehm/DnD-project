@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { MakeChecked } from '../components/DisplayNicely';
 import NavBar from '../components/NavBar';
 import '../display.css';
 
@@ -35,14 +36,25 @@ function AbilityScores() {
     const noSkill = <h6>No skills to show</h6>;
     
     function setFirstCheck() {
+      const allChecks = document.querySelectorAll("input");
       const firstCheck = document.querySelector("input");
-      firstCheck.checked = true;
+      let isChecked = false;
+      for (let i = 0; i < allChecks.length; i++) {
+        if (allChecks[i].checked) {
+          isChecked = true;
+          break;
+        }
+      }
+      if (!isChecked && firstCheck) {
+        firstCheck.checked = true;
+        scoreFetch(firstCheck.value);
+      }
     }
+    
 
     useEffect(() => {
       fetchList();
     }, []);
-
 
   return (
     <div className='content-container'>
@@ -63,7 +75,6 @@ function AbilityScores() {
                     </div>
                 )
             })}
-            
         </div>
         
         <div className='display'>
@@ -80,6 +91,8 @@ function AbilityScores() {
             return <p key={i}>{description}</p>
           })}
         </div>
+
+        {setFirstCheck()}
 
     </div>
   )

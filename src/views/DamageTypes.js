@@ -34,6 +34,22 @@ function DamageTypes() {
     const [damageTypesTitle, setdamageTypesTitle] = useState("")
     const [damageTypesDescription, setDamageTypesDescription] = useState([]);
 
+    function setFirstCheck() {
+      const allChecks = document.querySelectorAll("input");
+      const firstCheck = document.querySelector("input");
+      let isChecked = false;
+      for (let i = 0; i < allChecks.length; i++) {
+        if (allChecks[i].checked) {
+          isChecked = true;
+          break;
+        }
+      }
+      if (!isChecked && firstCheck) {
+        firstCheck.checked = true;
+        scoreFetch(firstCheck.value);
+      }
+    }
+
   return (
     <div className='content-container'>
         <NavBar/>
@@ -62,6 +78,7 @@ function DamageTypes() {
             })}
         </div>
 
+        {setFirstCheck()}
 
     </div>
   )
