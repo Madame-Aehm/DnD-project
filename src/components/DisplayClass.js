@@ -1,5 +1,4 @@
 import React from 'react'
-import Spellcaster from './Spellcaster';
 
 function DisplayClass(props) {
     const selectedClass = props.props;
@@ -59,7 +58,26 @@ function DisplayClass(props) {
 
     <hr/>
 
-            <Spellcaster props={selectedClass} />
+            {selectedClass.spellcasting &&
+                <div>
+                    <h4>Spellcasting (Ability: {selectedClass.spellcasting.spellcasting_ability.name})</h4>
+                    {selectedClass.spellcasting.info.map((item) => {
+                    return (
+                        <div key={item.name}>
+                        <h5>{item.name}</h5>
+                        {item.desc.map((desc, i) => {
+                            return (
+                            <p key={i}>{desc}</p>
+                            )
+                        })}
+                        </div>
+                    )
+                    })}
+                </div>
+            }
+            {!selectedClass.spellcasting && 
+                <div><h4>No Spellcasting</h4></div>
+            }
 
     <hr/>
 

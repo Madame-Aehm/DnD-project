@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import DisplayClass from '../components/DisplayClass';
+import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import NextCycleButton from '../components/NextCycleButton';
 
 function SelectedClass() {
 
@@ -9,14 +11,18 @@ function SelectedClass() {
   const restURL = location.state.url;
   const cycleArray = location.state.array;
   const [selectedClass, setSelectedClass] = useState([]);
+  const [pageLoader, setPageLoader] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchList = async() => {
       try {
       const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
       const result = await response.json();
       setSelectedClass(result);
+      setPageLoader(false);
     } catch (error) {
       console.log("error", error)
+      setError(error);
     }
   }
 
@@ -29,8 +35,10 @@ function SelectedClass() {
       const response = await fetch(`https://www.dnd5eapi.co${URL}`);
       const result = await response.json();
       setSelectedClass(result);
+      setPageLoader(false);
     } catch (error) {
       console.log("error", error)
+      setError(error);
     }
   }
 
@@ -57,7 +65,10 @@ function SelectedClass() {
           )
       } else {
           return (
-              <button className='cycle' onClick={() => cycleFetch(next)}>↠</button>
+              <button className='cycle' onClick={() => {
+                setPageLoader(true);
+                cycleFetch(next)
+              }}>↠</button>
           )
       }
   }
@@ -69,21 +80,30 @@ function SelectedClass() {
           )
       } else {
           return (
-              <button className='cycle' onClick={() => cycleFetch(prev)}>↞</button>
+              <button className='cycle' onClick={() => {
+                setPageLoader(true);
+                cycleFetch(prev)
+              }}>↞</button>
           )
       }
   }
 
   return (
-    <div>
+    <>
       <NavBar/>
-      <div className='cycle-buttons-div'>
-        {prevButton()}
-        <h1>{selectedClass.name}</h1>
-        {nextButton()}
-      </div>
+      {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
+      {pageLoader && <div className='content-container'><Loader/></div>}
+      {!pageLoader && 
+        <>
+        <div className='cycle-buttons-div'>
+          {prevButton()}
+          <h1>{selectedClass.name}</h1>
+          {nextButton()}
+        </div>
       <DisplayClass props={selectedClass}/>
-    </div>
+        </>
+      }
+    </>
   )
 }
 

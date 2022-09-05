@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 
 function SelectedEquipmentCategory() {
@@ -11,6 +12,8 @@ function SelectedEquipmentCategory() {
     const [selectedEquipmentCategory, setSelectedEquipmentCategory] = useState([]);
     const [selectedEquipmentCategoryName, setSelectedEquipmentCategoryName] = useState([]);
     const [selectedEquipmentCategoryIndex , setSelectedEquipmentCategoryIndex] = useState("");
+    const [pageLoader, setPageLoader] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchList = async() => {
         try {
@@ -20,8 +23,12 @@ function SelectedEquipmentCategory() {
         setSelectedEquipmentCategoryName(result.name);
         setSelectedEquipmentCategory(result.equipment);
         setControlList(result.equipment);
+        setTimeout(() => {
+            setPageLoader(false);
+        }, 1000);
       } catch (error) {
         console.log("error", error)
+        setError(error);
       }
     }
   
@@ -35,10 +42,18 @@ function SelectedEquipmentCategory() {
             const result = await response.json();
             setSelectedEquipmentCategoryIndex(result.index);
             setSelectedEquipmentCategoryName(result.name);
-            setSelectedEquipmentCategory(result.equipment);
             setControlList(result.equipment);
+            setPageLoader(false);
+            const fetchedArray = result.equipment;
+            const input = document.querySelector("input");
+            if (input.value) {
+                cycleFetchFilter(input, fetchedArray)
+            } else {
+                setSelectedEquipmentCategory(result.equipment);
+            }
         } catch (error) {
             console.log("error", error)
+            setError(error);
         }
     }
 
@@ -65,7 +80,10 @@ function SelectedEquipmentCategory() {
             )
         } else {
             return (
-                <button className='cycle' onClick={() => cycleFetch(next)}>↠</button>
+                <button className='cycle' onClick={() => {
+                    setPageLoader(true);
+                    cycleFetch(next);
+                }}>↠</button>
             )
         }
     }
@@ -77,7 +95,10 @@ function SelectedEquipmentCategory() {
             )
         } else {
             return (
-                <button className='cycle' onClick={() => cycleFetch(prev)}>↞</button>
+                <button className='cycle' onClick={() => {
+                    setPageLoader(true);
+                    cycleFetch(prev);
+                }}>↞</button>
             )
         }
     }
@@ -86,31 +107,40 @@ function SelectedEquipmentCategory() {
         const listClone = [...controlList];
         const inputValue = input.value.toLowerCase().trim();
         const newList = listClone.filter(item => item.index.includes(inputValue));
-        console.log(newList);
-        console.log(selectedEquipmentCategory);
         setSelectedEquipmentCategory(newList);
+    }
+
+    function cycleFetchFilter(input, array) {
+        const inputValue = input.value.toLowerCase().trim();
+        const filteredArray = array.filter(item => item.index.includes(inputValue));
+        setSelectedEquipmentCategory(filteredArray);
     }
 
   return (
     <div>
         <NavBar/>
         <h4 className='ec-h4'>Equipment Category:</h4>
-        <div className='cycle-buttons-div'>
-            {prevButton()}
-            <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
-            {nextButton()}
-        </div>
+        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
+        {pageLoader && <div className='content-container'><Loader/></div>}
+        {!pageLoader && 
+            <div className='cycle-buttons-div'>
+                {prevButton()}
+                <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
+                {nextButton()}
+            </div>
+        }
         <div className='ec-input-div'>
             <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>
         </div>
-
-        <div className='explore-list'>
-            {selectedEquipmentCategory && selectedEquipmentCategory.map((item) => {
-                return (
-                <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory}} key={item.index}>{item.name}</Link>
-                )
-            })}
-        </div>
+        {!pageLoader &&
+            <div className='explore-list'>
+                {selectedEquipmentCategory && selectedEquipmentCategory.map((item) => {
+                    return <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory}} key={item.index}>{item.name}</Link>
+                })}
+                {selectedEquipmentCategory.length === 0 && <p>No Results</p>}
+            </div>
+        }
+        
     </div>
   )
 }

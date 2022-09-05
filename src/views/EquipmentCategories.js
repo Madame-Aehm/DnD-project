@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import Loader from '../components/Loader';
 import NavBar from '../components/NavBar';
 
 function EquipmentCategories() {
 
     const [controlList, setcontrolList] = useState([])
     const [equipmentCategoriesList, setEquipmentCategoriesList] = useState([]);
+    const [pageLoader, setPageLoader] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchList = async() => {
       try {
@@ -13,8 +16,12 @@ function EquipmentCategories() {
         const result = await response.json();
         setEquipmentCategoriesList(result.results);
         setcontrolList(result.results);
+        setTimeout(() => {
+          setPageLoader(false);
+        }, 1000);
       } catch (error) {
         console.log("error", error)
+        setError(error);
       }
     }
   
@@ -32,15 +39,22 @@ function EquipmentCategories() {
   return (
     <div className='content-container'>
         <NavBar/>
-        <h1>Equipment Categories</h1>
-        <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>
-        <div className='explore-list'>
-        {equipmentCategoriesList.map((item) => {
-          return (
-            <Link className='explore-button' to={"/selectedequipmentcategory"} state={{url: item.url, array: equipmentCategoriesList}} key={item.index}>{item.name}</Link>
-          )
-        })}
-      </div>
+        {error && <p>Something went wrong.. Please reload.</p>}
+        {pageLoader && <Loader/>}
+        {!pageLoader && 
+          <>
+            <h1>Equipment Categories</h1>
+            <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>
+            <div className='explore-list'>
+              {equipmentCategoriesList.map((item) => {
+                return (
+                  <Link className='explore-button' to={"/selectedequipmentcategory"} state={{url: item.url, array: equipmentCategoriesList}} key={item.index}>{item.name}</Link>
+                )
+              })}
+              {equipmentCategoriesList.length === 0 && <p>No Results</p>}
+            </div>
+          </>
+        }
     </div>
   )
 }

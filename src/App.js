@@ -15,6 +15,10 @@ import Equipment from "./views/Equipment";
 import SelectedEquipment from "./views/SelectedEquipment";
 import EquipmentCategories from "./views/EquipmentCategories";
 import SelectedEquipmentCategory from "./views/SelectedEquipmentCategory";
+import Feats from "./views/Feats";
+import Features from "./views/Features";
+import SelectedFeature from "./views/SelectedFeature";
+import Languages from "./views/Languages";
 
 
 
@@ -40,7 +44,10 @@ function App() {
     <Route path="selectedequipment" element={ <SelectedEquipment/> } />
     <Route path="equipmentcategories" element={ <EquipmentCategories/> } />
     <Route path="selectedequipmentcategory" element={ <SelectedEquipmentCategory/> } />
-
+    <Route path="feats" element={ <Feats/> } />
+    <Route path="features" element={ <Features/> } />
+    <Route path="selectedfeature" element={ <SelectedFeature/> } />
+    <Route path="languages" element={ <Languages/> } />
 
 
   </Routes>

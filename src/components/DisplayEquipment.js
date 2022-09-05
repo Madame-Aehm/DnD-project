@@ -61,7 +61,6 @@ function DisplayEquipment(props) {
     if (selectedEquipment.url) {
   return (
     <div className='content-container'>
-
         <div className='display'>
             <h4>Equipment Category</h4>
             <p>{selectedEquipment.equipment_category.name}</p>
@@ -71,7 +70,6 @@ function DisplayEquipment(props) {
             {gearCategory()}
 
             {rarity()}
-
 
             <div className='e-choices'>
                 <div className='cost-weight'>

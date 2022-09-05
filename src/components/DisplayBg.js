@@ -5,7 +5,6 @@ function DisplayBg(props) {
     if (selectedBg.bonds) {
   return (
     <div className='content-container'>
-        <h1>{selectedBg.name}</h1>
         <div className='display'>
 
             <h4>Language Options</h4>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import DisplayEquipment from '../components/DisplayEquipment';
 import Loader from '../components/Loader';
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar';
 
-function SelectedEquipment() {
+function SelectedFeature() {
     const location = useLocation();
     const restURL = location.state.url;
     const cycleArray = location.state.array;
-    const [selectedEquipment, setSelectedEquipment] = useState([]);
+    const [selectedFeature, setSelectedFeature] = useState([]);
     const [pageLoader, setPageLoader] = useState(true);
     const [error, setError] = useState(null);
 
@@ -16,7 +15,7 @@ function SelectedEquipment() {
         try {
         const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
         const result = await response.json();
-        setSelectedEquipment(result);
+        setSelectedFeature(result);
         setPageLoader(false);
       } catch (error) {
         console.log("error", error)
@@ -30,15 +29,14 @@ function SelectedEquipment() {
 
     const cycleFetch = async(URL) => {
         try {
-        const response = await fetch(`https://www.dnd5eapi.co${URL}`);
-        const result = await response.json();
-        console.log(result)
-        setSelectedEquipment(result);
-        setPageLoader(false);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
+            const response = await fetch(`https://www.dnd5eapi.co${URL}`);
+            const result = await response.json();
+            setSelectedFeature(result);
+            setPageLoader(false);
+        } catch (error) {
+            console.log("error", error)
+            setError(error);
+        }
     }
 
     const [next, setNext] = useState("");
@@ -46,16 +44,16 @@ function SelectedEquipment() {
 
     function findArrayPosition() {
         for (let i = 0; i < cycleArray.length; i++) {
-            if (cycleArray[i].index === selectedEquipment.index) {
+            if (cycleArray[i].index === selectedFeature.index) {
                 cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
                 cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
             }
         }
     }
-
+  
     useEffect(() => {
         findArrayPosition();
-    }, [selectedEquipment])
+    }, [selectedFeature])
 
     function nextButton() {
         if (next === "end") {
@@ -88,24 +86,32 @@ function SelectedEquipment() {
     }
 
   return (
-    <div>
+    <div className='content-container'>
         <NavBar/>
-        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
-        {pageLoader && <div className='content-container'><Loader/></div>}
+        {error && <p>Something went wrong.. Please reload.</p>}
+        {pageLoader && <Loader/>}
         {!pageLoader &&
             <>
                 <div className='cycle-buttons-div'>
                     {prevButton()}
-                    <h1>{selectedEquipment.name}</h1>
+                    <h1>{selectedFeature.name}</h1>
                     {nextButton()}
                 </div>
-                <DisplayEquipment props={selectedEquipment}/>
+
+                <div className='display'>
+                    <h4>Level {selectedFeature.level} {selectedFeature.class.name}</h4>
+                    
+                <hr/>
+
+                    <h4>Description</h4>
+                    {selectedFeature.desc.map((item, i) => {
+                        return <p key={i}>{item}</p>
+                    })}
+                </div>
             </>
         }
-        
-
     </div>
   )
 }
 
-export default SelectedEquipment
+export default SelectedFeature

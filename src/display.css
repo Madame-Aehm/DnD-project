@@ -139,10 +139,11 @@ ul {
 
 .cycle-buttons-div {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   width: 100%;
+  min-height: 92px;
 }
 
 .cycle {
@@ -152,6 +153,7 @@ ul {
   border-radius: 8px;
   padding: 0.5em;
   cursor: pointer;
+  margin: 0 1em;
 }
 
 .cycle:disabled {
@@ -170,7 +172,6 @@ ul {
   width: 100%;
   text-align: center;
   margin-bottom: 0;
-
 }
 
 
