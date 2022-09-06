@@ -16,7 +16,6 @@ function Languages() {
             const response = await fetch("https://www.dnd5eapi.co/api/languages");
             const result = await response.json();
             setLanguagesList(result.results);
-            console.log(result)
             setTimeout(() => {
               setPageLoader(false);
             }, 1000);
@@ -37,17 +36,30 @@ function Languages() {
             const result = await response.json();
             setLanguage(result);
             setLoader(false);
-            console.log(result);
         } catch (error) {
             console.log("error", error)
             setError(error);
         }
     }
 
-
-
     function RemoveLoader() {
         setPageLoader(false);
+    }
+
+    function setFirstCheck() {
+        const allChecks = document.querySelectorAll("input");
+        const firstCheck = document.querySelector("input");
+        let isChecked = false;
+        for (let i = 0; i < allChecks.length; i++) {
+          if (allChecks[i].checked) {
+            isChecked = true;
+            break;
+          }
+        }
+        if (!isChecked && firstCheck) {
+          firstCheck.checked = true;
+          scoreFetch(firstCheck.value);
+        }
     }
 
   return (
@@ -95,6 +107,7 @@ function Languages() {
                 }
             </>
         }
+        {setFirstCheck()}
     </div>
   )
 }

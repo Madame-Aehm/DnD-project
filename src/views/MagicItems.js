@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 
-function Equipment() {
+function MagicItems() {
 
-  const [controlList, setcontrolList] = useState([]);
-  const [equipmentList, setEquipmentList] = useState([]);
+  const [controlList, setcontrolList] = useState([])
+  const [magicItemsList, setMagicItemsList] = useState([]);
   const [pageLoader, setPageLoader] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchList = async() => {
     try {
-      const response = await fetch("https://www.dnd5eapi.co/api/equipment");
+      const response = await fetch("https://www.dnd5eapi.co/api/magic-items");
       const result = await response.json();
-      setEquipmentList(result.results);
+      setMagicItemsList(result.results);
       setcontrolList(result.results);
       setTimeout(() => {
         setPageLoader(false);
@@ -33,9 +33,9 @@ function Equipment() {
     const listClone = [...controlList];
     const inputValue = input.value.toLowerCase().trim();
     const newList = listClone.filter(item => item.index.includes(inputValue));
-    setEquipmentList(newList);
+    setMagicItemsList(newList);
   }
-  
+
   function RemoveLoader() {
     setPageLoader(false);
   }
@@ -43,19 +43,19 @@ function Equipment() {
   return (
     <div className='content-container'>
         <NavBar/>
-        <h1>Equipment</h1>
+        <h1>Magic Items</h1>
         {error && <>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
           <>
             <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>
             <div className='explore-list'>
-              {equipmentList.map((item) => {
+              {magicItemsList.map((item) => {
                 return (
-                  <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: equipmentList}} key={item.index}>{item.name}</Link>
+                  <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: magicItemsList}} key={item.index}>{item.name}</Link>
                 )
               })}
-              {equipmentList.length === 0 && <p>No Results</p>}
+              {magicItemsList.length === 0 && <p>No Results</p>}
             </div>
           </>
         }
@@ -63,4 +63,4 @@ function Equipment() {
   )
 }
 
-export default Equipment
+export default MagicItems

@@ -19,6 +19,12 @@ import Feats from "./views/Feats";
 import Features from "./views/Features";
 import SelectedFeature from "./views/SelectedFeature";
 import Languages from "./views/Languages";
+import MagicItems from "./views/MagicItems";
+import MagicSchools from "./views/MagicSchools";
+import Proficiencies from "./views/Proficiencies";
+import SelectedProficiency from "./views/SelectedProficiency";
+import Monsters from "./views/Monsters";
+import SelectedMonster from "./views/SelectedMonster";
 
 
 
@@ -48,6 +54,12 @@ function App() {
     <Route path="features" element={ <Features/> } />
     <Route path="selectedfeature" element={ <SelectedFeature/> } />
     <Route path="languages" element={ <Languages/> } />
+    <Route path="magicitems" element={ <MagicItems/> } />
+    <Route path="magicschools" element={ <MagicSchools/> } />
+    <Route path="proficiencies" element={ <Proficiencies/> } />
+    <Route path="selectedproficiency" element={ <SelectedProficiency/> } />
+    <Route path="monsters" element={ <Monsters/> } />
+    <Route path="selectedmonster" element={ <SelectedMonster/> } />
 
 
   </Routes>
