@@ -4,67 +4,71 @@ import NavBar from '../components/NavBar'
 
 function DamageTypes() {
 
-    const [damageTypesList, setDamageTypesList] = useState([]);
-    const [pageLoader, setPageLoader] = useState(true);
-    const [loader, setLoader] = useState(true);
-    const [error, setError] = useState(null);
+  const [damageTypesList, setDamageTypesList] = useState([]);
+  const [pageLoader, setPageLoader] = useState(true);
+  const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(null);
 
-    const fetchList = async() => {
-      if (damageTypesList.length === 0) {
-        try {
-          const response = await fetch("https://www.dnd5eapi.co/api/damage-types");
-          const result = await response.json();
-          setDamageTypesList(result.results);
-          setTimeout(() => {
-            setPageLoader(false);
-          }, 1000);
-        } catch (error) {
-          console.log("error", error)
-          setError(error);
-        }
-      }
-    }
-
-    useEffect(() => {
-        fetchList();
-      }, []);
-
-    async function scoreFetch(restURL) {
+  const fetchList = async() => {
+    if (damageTypesList.length === 0) {
       try {
-          const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-          const result = await response.json();
-          setDamageTypesDescription(result.desc);
-          setdamageTypesTitle(result.name);
-          setLoader(false);
+        const response = await fetch("https://www.dnd5eapi.co/api/damage-types");
+        const result = await response.json();
+        setDamageTypesList(result.results);
+        setTimeout(() => {
+          setPageLoader(false);
+        }, 1000);
       } catch (error) {
-          console.log("error", error)
-          setError(error);
+        console.log("error", error)
+        setError(error);
       }
     }
+  }
 
-    const [damageTypesTitle, setdamageTypesTitle] = useState("")
-    const [damageTypesDescription, setDamageTypesDescription] = useState([]);
+  useEffect(() => {
+    fetchList();
+  }, []);
 
-    function setFirstCheck() {
-      const allChecks = document.querySelectorAll("input");
-      const firstCheck = document.querySelector("input");
-      let isChecked = false;
-      for (let i = 0; i < allChecks.length; i++) {
-        if (allChecks[i].checked) {
-          isChecked = true;
-          break;
-        }
-      }
-      if (!isChecked && firstCheck) {
-        firstCheck.checked = true;
-        scoreFetch(firstCheck.value);
+  async function scoreFetch(restURL) {
+    try {
+        const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
+        const result = await response.json();
+        setDamageTypesDescription(result.desc);
+        setdamageTypesTitle(result.name);
+        setLoader(false);
+    } catch (error) {
+        console.log("error", error)
+        setError(error);
+    }
+  }
+
+  const [damageTypesTitle, setdamageTypesTitle] = useState("")
+  const [damageTypesDescription, setDamageTypesDescription] = useState([]);
+
+  function setFirstCheck() {
+    const allChecks = document.querySelectorAll("input");
+    const firstCheck = document.querySelector("input");
+    let isChecked = false;
+    for (let i = 0; i < allChecks.length; i++) {
+      if (allChecks[i].checked) {
+        isChecked = true;
+        break;
       }
     }
+    if (!isChecked && firstCheck) {
+      firstCheck.checked = true;
+      scoreFetch(firstCheck.value);
+    }
+  }
+
+  function RemoveLoader() {
+    setPageLoader(false);
+  }
 
   return (
     <div className='content-container'>
         <NavBar/>
-        {error && <p>Something went wrong.. Please reload.</p>}
+        {error && <>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
           <>

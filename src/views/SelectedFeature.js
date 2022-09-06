@@ -85,10 +85,14 @@ function SelectedFeature() {
         }
     }
 
+    function RemoveLoader() {
+        setPageLoader(false);
+    }
+
   return (
     <div className='content-container'>
         <NavBar/>
-        {error && <p>Something went wrong.. Please reload.</p>}
+        {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader &&
             <>

@@ -10,31 +10,35 @@ function Backgrounds() {
   const [error, setError] = useState(null);
 
 
-    const fetchList = async() => {
-      if (bgList.length === 0) {
-        try {
-          const response = await fetch("https://www.dnd5eapi.co/api/backgrounds");
-          const result = await response.json();
-          setBgList(result.results);
-          setTimeout(() => {
-            setPageLoader(false);
-          }, 1000);
-        } catch (error) {
-          console.log("error", error)
-          setError(error);
-        }
+  const fetchList = async() => {
+    if (bgList.length === 0) {
+      try {
+        const response = await fetch("https://www.dnd5eapi.co/api/backgrounds");
+        const result = await response.json();
+        setBgList(result.results);
+        setTimeout(() => {
+          setPageLoader(false);
+        }, 1000);
+      } catch (error) {
+        console.log("error", error)
+        setError(error);
       }
     }
+  }
 
-    useEffect(() => {
-        fetchList();
-      }, []);
+  useEffect(() => {
+      fetchList();
+    }, []);
+
+  function RemoveLoader() {
+    setPageLoader(false);
+  }
 
   return (
     <div className='content-container'>
     <NavBar/>
     <h1>Backgrounds</h1>
-    {error && <p>Something went wrong.. Please reload.</p>}
+    {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
     {pageLoader && <Loader/>}
     {!pageLoader &&
       <>

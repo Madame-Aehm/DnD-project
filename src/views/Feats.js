@@ -28,13 +28,12 @@ function Feats() {
   
     useEffect(() => {
         fetchList();
-        }, []);
+    }, []);
 
     async function scoreFetch(restURL) {
         try {
             const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
             const result = await response.json();
-            console.log(result);
             setLoader(false);
             setFeat(result);
         } catch (error) {
@@ -59,11 +58,15 @@ function Feats() {
         }
       }
 
+    function RemoveLoader() {
+        setPageLoader(false);
+    }
+
   return (
     <div className='content-container'>
         <NavBar/>
         <h1>Feats</h1>
-        {error && <p>Something went wrong.. Please reload.</p>}
+        {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
             <>

@@ -13,7 +13,7 @@ function SelectedEquipment() {
     const [error, setError] = useState(null);
 
     const fetchList = async() => {
-        try {
+      try {
         const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
         const result = await response.json();
         setSelectedEquipment(result);
@@ -26,13 +26,12 @@ function SelectedEquipment() {
   
     useEffect(() => {
         fetchList();
-      }, []);
+    }, []);
 
     const cycleFetch = async(URL) => {
         try {
         const response = await fetch(`https://www.dnd5eapi.co${URL}`);
         const result = await response.json();
-        console.log(result)
         setSelectedEquipment(result);
         setPageLoader(false);
       } catch (error) {
@@ -87,10 +86,14 @@ function SelectedEquipment() {
         }
     }
 
+    function RemoveLoader() {
+        setPageLoader(false);
+    }
+
   return (
     <div>
         <NavBar/>
-        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
+        {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
         {pageLoader && <div className='content-container'><Loader/></div>}
         {!pageLoader &&
             <>

@@ -34,7 +34,7 @@ function SelectedEquipmentCategory() {
   
     useEffect(() => {
         fetchList();
-      }, []);
+    }, []);
 
     const cycleFetch = async(URL) => {
         try {
@@ -116,11 +116,15 @@ function SelectedEquipmentCategory() {
         setSelectedEquipmentCategory(filteredArray);
     }
 
+    function RemoveLoader() {
+        setPageLoader(false);
+    }
+
   return (
     <div>
         <NavBar/>
         <h4 className='ec-h4'>Equipment Category:</h4>
-        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
+        {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
         {pageLoader && <div className='content-container'><Loader/></div>}
         {!pageLoader && 
             <div className='cycle-buttons-div'>

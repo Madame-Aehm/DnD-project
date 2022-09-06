@@ -42,13 +42,19 @@ function Languages() {
             console.log("error", error)
             setError(error);
         }
-      }
+    }
+
+
+
+    function RemoveLoader() {
+        setPageLoader(false);
+    }
 
   return (
     <div className='content-container'>
         <NavBar/>
         <h1>Languages</h1>
-        {error && <p>Something went wrong.. Please reload.</p>}
+        {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
             <>

@@ -5,41 +5,45 @@ import NavBar from '../components/NavBar';
 
 function EquipmentCategories() {
 
-    const [controlList, setcontrolList] = useState([])
-    const [equipmentCategoriesList, setEquipmentCategoriesList] = useState([]);
-    const [pageLoader, setPageLoader] = useState(true);
-    const [error, setError] = useState(null);
+  const [controlList, setcontrolList] = useState([])
+  const [equipmentCategoriesList, setEquipmentCategoriesList] = useState([]);
+  const [pageLoader, setPageLoader] = useState(true);
+  const [error, setError] = useState(null);
 
-    const fetchList = async() => {
-      try {
-        const response = await fetch("https://www.dnd5eapi.co/api/equipment-categories");
-        const result = await response.json();
-        setEquipmentCategoriesList(result.results);
-        setcontrolList(result.results);
-        setTimeout(() => {
-          setPageLoader(false);
-        }, 1000);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
+  const fetchList = async() => {
+    try {
+      const response = await fetch("https://www.dnd5eapi.co/api/equipment-categories");
+      const result = await response.json();
+      setEquipmentCategoriesList(result.results);
+      setcontrolList(result.results);
+      setTimeout(() => {
+        setPageLoader(false);
+      }, 1000);
+    } catch (error) {
+      console.log("error", error)
+      setError(error);
     }
-  
-    useEffect(() => {
-      fetchList();
-    }, []);
+  }
 
-    function filter(input) {
-        const listClone = [...controlList];
-        const inputValue = input.value.toLowerCase().trim();
-        const newList = listClone.filter(item => item.index.includes(inputValue));
-        setEquipmentCategoriesList(newList);
-      }
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  function filter(input) {
+    const listClone = [...controlList];
+    const inputValue = input.value.toLowerCase().trim();
+    const newList = listClone.filter(item => item.index.includes(inputValue));
+    setEquipmentCategoriesList(newList);
+  }
+
+  function RemoveLoader() {
+    setPageLoader(false);
+  }
 
   return (
     <div className='content-container'>
         <NavBar/>
-        {error && <p>Something went wrong.. Please reload.</p>}
+        {error && <>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
           <>

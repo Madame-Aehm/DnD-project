@@ -15,7 +15,7 @@ function SelectedClass() {
   const [error, setError] = useState(null);
 
   const fetchList = async() => {
-      try {
+    try {
       const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
       const result = await response.json();
       setSelectedClass(result);
@@ -27,8 +27,8 @@ function SelectedClass() {
   }
 
   useEffect(() => {
-      fetchList();
-    }, []);
+    fetchList();
+  }, []);
 
   const cycleFetch = async(URL) => {
     try {
@@ -46,52 +46,56 @@ function SelectedClass() {
   const [prev, setPrev] = useState("");
 
   function findArrayPosition() {
-      for (let i = 0; i < cycleArray.length; i++) {
-          if (cycleArray[i].index === selectedClass.index) {
-              cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
-              cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
-          }
+    for (let i = 0; i < cycleArray.length; i++) {
+      if (cycleArray[i].index === selectedClass.index) {
+        cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
+        cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
       }
+    }
   }
 
   useEffect(() => {
-      findArrayPosition();
+    findArrayPosition();
   }, [selectedClass])
 
   function nextButton() {
-      if (next === "end") {
-          return (
-              <button className='cycle' disabled>↠</button>
-          )
-      } else {
-          return (
-              <button className='cycle' onClick={() => {
-                setPageLoader(true);
-                cycleFetch(next)
-              }}>↠</button>
-          )
-      }
+    if (next === "end") {
+      return (
+        <button className='cycle' disabled>↠</button>
+      )
+    } else {
+      return (
+        <button className='cycle' onClick={() => {
+          setPageLoader(true);
+          cycleFetch(next)
+        }}>↠</button>
+      )
+    }
   }
 
   function prevButton() {
-      if (prev === "end") {
-          return (
-              <button className='cycle' disabled>↞</button>
-          )
-      } else {
-          return (
-              <button className='cycle' onClick={() => {
-                setPageLoader(true);
-                cycleFetch(prev)
-              }}>↞</button>
-          )
-      }
+    if (prev === "end") {
+      return (
+        <button className='cycle' disabled>↞</button>
+      )
+    } else {
+      return (
+        <button className='cycle' onClick={() => {
+          setPageLoader(true);
+          cycleFetch(prev)
+        }}>↞</button>
+      )
+    }
+  }
+
+  function RemoveLoader() {
+    setPageLoader(false);
   }
 
   return (
     <>
       <NavBar/>
-      {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
+      {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
       {pageLoader && <div className='content-container'><Loader/></div>}
       {!pageLoader && 
         <>
