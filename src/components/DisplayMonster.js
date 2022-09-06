@@ -16,7 +16,7 @@ function DisplayMonster(props) {
       <hr/>
 
       <h3>Stats</h3>
-      <table>
+      <table className='stats-table'>
         <tbody>
           <tr>
             <th>Charisma</th>
@@ -64,74 +64,141 @@ function DisplayMonster(props) {
       <hr/>
 
       <h3>Speed</h3>
-      <table className='speed-table'>
+      <table>
         <tbody>
           {selectedMonster.speed.walk && 
             <tr>
-              <th>Walk</th>
+              <th>Walk: </th>
               <td>{selectedMonster.speed.walk}</td>
             </tr>
           }
           {selectedMonster.speed.climb &&
             <tr>
-              <th>Climb</th>
+              <th>Climb: </th>
               <td>{selectedMonster.speed.climb}</td>
             </tr>
           }
           {selectedMonster.speed.fly &&
             <tr>
-              <th>Fly</th>
+              <th>Fly: </th>
               <td>{selectedMonster.speed.fly}</td>
             </tr>
           }
           {selectedMonster.speed.burrow && 
             <tr>
-              <th>Burrow</th>
+              <th>Burrow: </th>
               <td>{selectedMonster.speed.burrow}</td>
             </tr>
           }
           {selectedMonster.speed.swim &&
             <tr>
-              <th>Swim</th>
+              <th>Swim: </th>
               <td>{selectedMonster.speed.swim}</td>
             </tr>
           }
         </tbody>
       </table>
 
+      <hr/>
+
+      <h3>Condition Immunities</h3>
+        {selectedMonster.condition_immunities.length > 0 &&
+          <>
+            <div className='mini-h-list'>
+              {selectedMonster.condition_immunities.map((item) => {
+                return <h6 key={item.index}>{item.name}</h6>
+              })}
+            </div>
+          </>
+        }
+        {selectedMonster.condition_immunities.length === 0 && <h6>None</h6>}
+
+      <hr/>
+
+      <h3>Damage Immunities</h3>
+        {selectedMonster.damage_immunities.length > 0 &&
+          <>
+            <div className='mini-h-list'>
+              {selectedMonster.damage_immunities.map((item) => {
+                return <h6 key={item}>{item}</h6>
+              })}
+            </div>
+          </>
+        }
+        {selectedMonster.damage_immunities.length === 0 && <h6>None</h6>}
+
+      <hr/>
+
+      <h3>Damage Resistances</h3>
+        {selectedMonster.damage_resistances.length > 0 &&
+          <>
+            <div className='mini-h-list'>
+              {selectedMonster.damage_resistances.map((item) => {
+                return <h6 key={item}>{item}</h6>
+              })}
+            </div>
+          </>
+        }
+        {selectedMonster.damage_resistances.length === 0 && <h6>None</h6>}
+
+      <hr/>
+
+      <h3>Damage Vulnerabilities</h3>
+        {selectedMonster.damage_vulnerabilities.length > 0 &&
+          <>
+            <div className='mini-h-list'>
+              {selectedMonster.damage_vulnerabilities.map((item) => {
+                return <h6 key={item}>{item}</h6>
+              })}
+            </div>
+          </>
+        }
+        {selectedMonster.damage_vulnerabilities.length === 0 && <h6>None</h6>}
+
+      <hr/>
+
       <h3>Actions</h3>
       {selectedMonster.actions.map((item) => {
         return (
-          <div className='actions-div' key={item.name}>
+          <div className='actions-div' key={item.desc}>
             <h4>{item.name}</h4>
-            {item.attack_bonus && <p>Attack Bonus: <b>{item.attack_bonus}</b></p>}
-            {item.actions.length > 0 && 
-              <>
-                {item.actions.map((action, i) => {
-                  return (
-                    <>
-                      <p><b>Type: </b>{action.type}</p>
-                      <p key={i}><b>{action.action_name}</b> x {action.count}</p>
-                      <p>.....</p>
-                    </>)
-                })}
-              </>
-            }
-            {item.damage && 
-              <>
-                {item.damage.map((damage) => {
-                  return (
-                    <p key={damage.desc}><b>{damage.damage_dice}</b> {damage.damage_type.name} damage</p>
-                  )
-                })}
-              </>
-            }
             <p>{item.desc}</p>
           <hr/>
           </div>
         )
       })}
 
+      {selectedMonster.legendary_actions.length > 0 &&
+        <>
+          <h3>Legendary Actions</h3>
+          {selectedMonster.legendary_actions.map((item) => {
+            return (
+              <div className='actions-div' key={item.desc}>
+                <h4>{item.name}</h4>
+                <p>{item.desc}</p>
+                <hr/>
+              </div>
+            )
+          })}
+        </>
+      }
+
+      {selectedMonster.special_abilities.length > 0 &&
+        <>
+          <h3>Special Abilities</h3>
+          {selectedMonster.special_abilities.map((item) => {
+            return (
+              <div className='actions-div' key={item.desc}>
+                <h4>{item.name}</h4>
+                <p>{item.desc}</p>
+                <hr/>
+              </div>
+            )
+          })}
+        </>
+      }
+
+      <p></p>
     </div>
   )
 }

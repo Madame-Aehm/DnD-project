@@ -1,34 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useMainFetch from '../hooks/useMainFetch';
 
 function MagicSchools() {
 
-  const [magicSchoolsList, setMagicSchoolsList] = useState([]);
-  const [magicSchool, setMagicSchool] = useState({});
-  const [pageLoader, setPageLoader] = useState(true);
-  const [loader, setLoader] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchList = async() => {
-    if (magicSchoolsList.length === 0) {
-      try {
-        const response = await fetch("https://www.dnd5eapi.co/api/magic-schools");
-        const result = await response.json();
-        setMagicSchoolsList(result.results);
-        setTimeout(() => {
-          setPageLoader(false);
-        }, 1000);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const {
+    controlList,
+    mainList: magicSchoolsList,
+    pageLoader,
+    error,
+  } = useMainFetch("https://www.dnd5eapi.co/api/magic-schools");
 
   async function scoreFetch(restURL) {
     try {
@@ -38,9 +20,14 @@ function MagicSchools() {
       setLoader(false);
     } catch (error) {
       console.log("error", error)
-      setError(error);
+      setSubError(error);
+      setLoader(false);
     }
   }
+
+  const [subError, setSubError] = useState(null);
+  const [magicSchool, setMagicSchool] = useState({});
+  const [loader, setLoader] = useState(true);
 
   function setFirstCheck() {
     const allChecks = document.querySelectorAll("input");
@@ -58,15 +45,11 @@ function MagicSchools() {
     }
   }
 
-  function RemoveLoader() {
-    setPageLoader(false);
-  }
-
   return (
     <div className='content-container'>
       <NavBar/>
       <h1>Magic Schools</h1>
-      {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
+      {error &&  <p>Something went wrong.. Please reload.</p>}
       {pageLoader && <Loader/>}
       {!pageLoader && 
         <>
@@ -90,6 +73,7 @@ function MagicSchools() {
           </div>
           {loader && <p>loading...</p>}
           <div className='display'>
+            {subError && <p>Something went wrong.. Please reload</p>}
             {!loader &&
               <>
                 <h3>{magicSchool.name}</h3>

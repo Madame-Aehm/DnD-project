@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
-import { removeHyphens, displayNicely } from '../components/DisplayNicely';
+import { removeHyphens, displayNicely } from '../components/Functions';
 import { Link } from "react-router-dom";
 import Loader from '../components/Loader';
 

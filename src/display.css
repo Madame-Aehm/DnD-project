@@ -64,28 +64,6 @@ ul {
   font-size: small;
 }
 
-table {
-  color: #2E4052;
-  font-size: small;
-  border-collapse: collapse;
-  border: solid 2px #2E4052;
-  text-align: left;
-  width: 100%;
-}
-
-tr {
-  border: solid 1px #2E4052;
-}
-
-td {
-  padding: 0 1em;
-}
-
-th {
-  padding: 0 1em;
-  border-left: solid 1px #2E4052;
-}
-
 .display {
   display: flex;
   flex-direction: column;
@@ -196,13 +174,6 @@ th {
   margin-bottom: 0;
 }
 
-.speed-table {
-  text-align: center;
-}
-.speed-table th {
-  border-right: solid 2px #2E4052;
-}
-
 .actions-div {
   width: 100%;
   text-align: center;
@@ -213,6 +184,33 @@ th {
 
 .tiny {
   width: 20%;
+}
+
+table {
+  color: #2E4052;
+  font-size: small;
+}
+
+.stats-table {
+  border-collapse: collapse;
+  border: solid 1px #2E4052;
+  max-width: 100%;
+}
+
+.stats-table tr {
+  border: solid 1px #2E4052;
+}
+
+.stats-table td {
+  padding: 0 1em;
+  border-left: solid 1px #2E4052;
+  text-align: center;
+}
+
+.stats-table th {
+  padding: 0 1em;
+  border-left: solid 1px #2E4052;
+  text-align: left;
 }
 
 

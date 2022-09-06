@@ -1,50 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useMainFetch from '../hooks/useMainFetch';
 
 function Conditions() {
 
-  const [conditionsList, setConditionsList] = useState([]);
-  const [pageLoader, setPageLoader] = useState(true);
-  const [loader, setLoader] = useState(true);
-  const [error, setError] = useState(null);
-
-
-  const fetchList = async() => {
-    if (conditionsList.length === 0) {
-      try {
-        const response = await fetch("https://www.dnd5eapi.co/api/conditions");
-        const result = await response.json();
-        setConditionsList(result.results);
-        setTimeout(() => {
-          setPageLoader(false);
-        }, 1000);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const {
+    controlList,
+    mainList: conditionsList,
+    pageLoader,
+    error,
+  } = useMainFetch("https://www.dnd5eapi.co/api/conditions");
 
   async function scoreFetch(restURL) {
     try {
         const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
         const result = await response.json();
-        setConditionsDescription(result.desc);
-        setconditionsTitle(result.name);
+        setCondition(result);
         setLoader(false);
     } catch (error) {
         console.log("error", error)
-        setError(error);
+        setSubError(error);
+        setLoader(false);
     }
   }
 
-  const [conditionsTitle, setconditionsTitle] = useState("");
-  const [conditionsDescription, setConditionsDescription] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [subError, setSubError] = useState(null);
+  const [condition, setCondition] = useState({});
 
   function setFirstCheck() {
     const allChecks = document.querySelectorAll("input");
@@ -62,15 +45,11 @@ function Conditions() {
     }
   }
 
-  function RemoveLoader() {
-    setPageLoader(false);
-  }
-
   return (
     <div className='content-container'>
       <NavBar/>
       <h1>Conditions</h1>
-      {error && <>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></>}
+      {error && <p>Something went wrong.. Please reload.</p>}
       {pageLoader && <Loader/>}
       {!pageLoader && 
         <>
@@ -97,8 +76,8 @@ function Conditions() {
           {!loader &&
             <>
               <div className='display'>
-                <h3>{conditionsTitle}</h3>
-                  {conditionsDescription.map((item, i) => {
+                <h3>{condition.name}</h3>
+                  {condition.desc.map((item, i) => {
                       return (
                           <p key={i}>{item}</p>
                       )

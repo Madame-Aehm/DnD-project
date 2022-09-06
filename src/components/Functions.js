@@ -19,6 +19,19 @@ function removeHyphens(string) {
 function MakeChecked() {
     const checks = document.querySelector("input");
       checks.checked = true;
-  }
+}
 
-export { displayNicely, removeHyphens, MakeChecked }
+function checkFirstCheck() {
+    const allChecks = document.querySelectorAll("input");
+    const firstCheck = document.querySelector("input").value;
+    let isChecked = false;
+    for (let i = 0; i < allChecks.length; i++) {
+        if (allChecks[i].checked) {
+        isChecked = true;
+        break;
+        }
+    }
+    return { isChecked, firstCheck }
+}
+
+export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck }

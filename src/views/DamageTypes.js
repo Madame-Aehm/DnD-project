@@ -1,49 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useMainFetch from '../hooks/useMainFetch';
 
 function DamageTypes() {
 
-  const [damageTypesList, setDamageTypesList] = useState([]);
-  const [pageLoader, setPageLoader] = useState(true);
-  const [loader, setLoader] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchList = async() => {
-    if (damageTypesList.length === 0) {
-      try {
-        const response = await fetch("https://www.dnd5eapi.co/api/damage-types");
-        const result = await response.json();
-        setDamageTypesList(result.results);
-        setTimeout(() => {
-          setPageLoader(false);
-        }, 1000);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchList();
-  }, []);
+  const {
+    controlList,
+    mainList: damageTypesList,
+    pageLoader,
+    error,
+  } = useMainFetch("https://www.dnd5eapi.co/api/damage-types");
 
   async function scoreFetch(restURL) {
     try {
         const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
         const result = await response.json();
-        setDamageTypesDescription(result.desc);
-        setdamageTypesTitle(result.name);
+        setDamageType(result);
         setLoader(false);
     } catch (error) {
         console.log("error", error)
-        setError(error);
+        setSubError(error);
+        setLoader(false);
     }
   }
 
-  const [damageTypesTitle, setdamageTypesTitle] = useState("")
-  const [damageTypesDescription, setDamageTypesDescription] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [subError, setSubError] = useState(null);
+  const [damageType, setDamageType] = useState({})
 
   function setFirstCheck() {
     const allChecks = document.querySelectorAll("input");
@@ -61,14 +45,10 @@ function DamageTypes() {
     }
   }
 
-  function RemoveLoader() {
-    setPageLoader(false);
-  }
-
   return (
     <div className='content-container'>
         <NavBar/>
-        {error && <>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></>}
+        {error &&<p>Something went wrong.. Please reload.</p>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
           <>
@@ -91,11 +71,12 @@ function DamageTypes() {
                   )
               })}
             </div>
+            {subError && <p>Something went wrong.. Please reload</p>}
             {loader && <p>loading...</p>}
             {!loader && 
               <div className='display'>
-                <h3>{damageTypesTitle}</h3>
-                {damageTypesDescription.map((item, i) => {
+                <h3>{damageType.name}</h3>
+                {damageType.desc.map((item, i) => {
                   return (
                       <p key={i}>{item}</p>
                   )

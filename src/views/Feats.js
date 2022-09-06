@@ -1,34 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar';
+import useMainFetch from '../hooks/useMainFetch';
 
 function Feats() {
 
-    const [featsList, setFeatsList] = useState([]);
-    const [pageLoader, setPageLoader] = useState(true);
-    const [loader, setLoader] = useState(true);
-    const [error, setError] = useState(null);
-    const [feat, setFeat] = useState({});
-
-    const fetchList = async() => {
-        if (featsList.length === 0) {
-          try {
-            const response = await fetch("https://www.dnd5eapi.co/api/feats");
-            const result = await response.json();
-            setFeatsList(result.results);
-            setTimeout(() => {
-              setPageLoader(false);
-            }, 1000);
-          } catch (error) {
-            console.log("error", error)
-            setError(error);
-          }
-        }
-      }
-  
-    useEffect(() => {
-        fetchList();
-    }, []);
+    const {
+        controlList,
+        mainList: featsList,
+        pageLoader,
+        error,
+      } = useMainFetch("https://www.dnd5eapi.co/api/feats");
 
     async function scoreFetch(restURL) {
         try {
@@ -38,9 +20,14 @@ function Feats() {
             setFeat(result);
         } catch (error) {
             console.log("error", error)
-            setError(error);
+            setSubError(error);
+            setLoader(false);
         }
     }
+
+    const [loader, setLoader] = useState(true);
+    const [feat, setFeat] = useState({});
+    const [subError, setSubError] = useState(null);
 
     function setFirstCheck() {
         const allChecks = document.querySelectorAll("input");
@@ -58,15 +45,11 @@ function Feats() {
         }
       }
 
-    function RemoveLoader() {
-        setPageLoader(false);
-    }
-
   return (
     <div className='content-container'>
         <NavBar/>
         <h1>Feats</h1>
-        {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
+        {error && <p>Something went wrong.. Please reload.</p>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
             <>
@@ -88,7 +71,7 @@ function Feats() {
                         )
                     })}
                 </div>
-
+                {subError && <p>Something went wrong.. Please reload</p>}
                 {loader && <p>loading...</p>}
                 {!loader &&
                     <>

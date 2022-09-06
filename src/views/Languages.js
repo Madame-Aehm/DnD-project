@@ -1,34 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useMainFetch from '../hooks/useMainFetch';
 
 function Languages() {
 
-    const [languagesList, setLanguagesList] = useState([]);
-    const [language, setLanguage] = useState({})
-    const [pageLoader, setPageLoader] = useState(true);
-    const [loader, setLoader] = useState(true);
-    const [error, setError] = useState(null);
-
-    const fetchList = async() => {
-        if (languagesList.length === 0) {
-          try {
-            const response = await fetch("https://www.dnd5eapi.co/api/languages");
-            const result = await response.json();
-            setLanguagesList(result.results);
-            setTimeout(() => {
-              setPageLoader(false);
-            }, 1000);
-          } catch (error) {
-            console.log("error", error)
-            setError(error);
-          }
-        }
-      }
-  
-    useEffect(() => {
-        fetchList();
-    }, []);
+    const {
+        controlList,
+        mainList: languagesList,
+        pageLoader,
+        error,
+      } = useMainFetch("https://www.dnd5eapi.co/api/languages");
 
     async function scoreFetch(restURL) {
         try {
@@ -38,13 +20,14 @@ function Languages() {
             setLoader(false);
         } catch (error) {
             console.log("error", error)
-            setError(error);
+            setSubError(error);
+            setLoader(false);
         }
     }
 
-    function RemoveLoader() {
-        setPageLoader(false);
-    }
+    const [subError, setSubError] = useState(null);
+    const [language, setLanguage] = useState({})
+    const [loader, setLoader] = useState(true);
 
     function setFirstCheck() {
         const allChecks = document.querySelectorAll("input");
@@ -66,7 +49,7 @@ function Languages() {
     <div className='content-container'>
         <NavBar/>
         <h1>Languages</h1>
-        {error && <>{RemoveLoader()} <p>Something went wrong.. Please reload.</p></>}
+        {error && <p>Something went wrong.. Please reload.</p>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
             <>
@@ -88,6 +71,7 @@ function Languages() {
                     )
                     })}
                 </div>
+                {subError && <p>Something went wrong.. Please reload</p>}
                 {loader && <p>loading...</p>}
                 {!loader &&
                     <>
