@@ -5,17 +5,17 @@ function DisplayMonster(props) {
   return (
     <div className='display'>
 
-      <h4>Type</h4>
+      <h3>Type</h3>
       <p>{selectedMonster.type}</p>
 
       <hr/>
 
-      <h4>Alignment</h4>
+      <h3>Alignment</h3>
       <p>{selectedMonster.alignment}</p>
 
       <hr/>
 
-      <h4>Stats</h4>
+      <h3>Stats</h3>
       <table>
         <tbody>
           <tr>
@@ -57,13 +57,13 @@ function DisplayMonster(props) {
         </tbody>
       </table>
 
-      <h4>Languages</h4>
+      <h3>Languages</h3>
       {selectedMonster.languages === "" && <p>No language</p>}
       {selectedMonster.languages !== "" && <p>{selectedMonster.languages}</p>}
 
       <hr/>
 
-      <h4>Speed</h4>
+      <h3>Speed</h3>
       <table className='speed-table'>
         <tbody>
           {selectedMonster.speed.walk && 
@@ -99,11 +99,35 @@ function DisplayMonster(props) {
         </tbody>
       </table>
 
-      <h4>Actions</h4>
+      <h3>Actions</h3>
       {selectedMonster.actions.map((item) => {
         return (
-          <div>
-            
+          <div className='actions-div' key={item.name}>
+            <h4>{item.name}</h4>
+            {item.attack_bonus && <p>Attack Bonus: <b>{item.attack_bonus}</b></p>}
+            {item.actions.length > 0 && 
+              <>
+                {item.actions.map((action, i) => {
+                  return (
+                    <>
+                      <p><b>Type: </b>{action.type}</p>
+                      <p key={i}><b>{action.action_name}</b> x {action.count}</p>
+                      <p>.....</p>
+                    </>)
+                })}
+              </>
+            }
+            {item.damage && 
+              <>
+                {item.damage.map((damage) => {
+                  return (
+                    <p key={damage.desc}><b>{damage.damage_dice}</b> {damage.damage_type.name} damage</p>
+                  )
+                })}
+              </>
+            }
+            <p>{item.desc}</p>
+          <hr/>
           </div>
         )
       })}

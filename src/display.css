@@ -203,6 +203,18 @@ th {
   border-right: solid 2px #2E4052;
 }
 
+.actions-div {
+  width: 100%;
+  text-align: center;
+}
+.actions-div hr {
+  width: 50%;
+}
+
+.tiny {
+  width: 20%;
+}
+
 
 
  
