@@ -2,10 +2,8 @@ import React from 'react'
 
 function DisplayClass(props) {
     const selectedClass = props.props;
-    if (selectedClass.proficiencies) {
  return (
     <div className='content-container'>
-            
         <div className='display'>
 
             <h4>Proficiencies:</h4>
@@ -82,11 +80,8 @@ function DisplayClass(props) {
     <hr/>
 
         </div>
-
-
-
     </div>
   )
-}}
+}
 
 export default DisplayClass

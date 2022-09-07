@@ -79,11 +79,11 @@ function SelectedEquipment() {
   return (
     <div>
         <NavBar/>
-        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
-        {pageLoader && <div className='content-container'><Loader/></div>}
+        {error && <p>Something went wrong.. Please reload.</p>}
+        {pageLoader &&<Loader/>}
         {!pageLoader &&
             <>  
-                {searchResult !== "" && <h4 className='ec-h4'>Showing results from "{searchResult}"</h4>}
+                {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult}"</h4>}
                 <div className='cycle-buttons-div'>
                     {prevButton()}
                     <h1>{selectedEquipment.name}</h1>
@@ -92,8 +92,6 @@ function SelectedEquipment() {
                 <DisplayEquipment props={selectedEquipment}/>
             </>
         }
-        
-
     </div>
   )
 }

@@ -55,7 +55,7 @@ function Alignments() {
           <div className='checkbox-container-2'>
             {alignmentsList.map((item) => {
                 return (
-                  <div className='larger-checkbox' key={item.index}>
+                  <div key={item.index}>
                       <input type={"radio"} 
                         name={"alignments"} 
                         value={item.url} id={item.index} 
@@ -65,7 +65,7 @@ function Alignments() {
                             scoreFetch(item.url)
                           }
                         }/>
-                      <label htmlFor={item.index}>{item.name}</label>
+                      <label htmlFor={item.index}><div className='stacked-checkbox'>{item.name}</div></label>
                   </div>
                 )
             })}

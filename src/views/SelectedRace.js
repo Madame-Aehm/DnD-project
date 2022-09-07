@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import DisplayClass from '../components/DisplayClass';
-import DisplaySubclass from '../components/DisplaySubclass';
+import DisplayRace from '../components/DisplayRace';
+import DisplaySubrace from '../components/DisplaySubrace';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 
-function SelectedClass() {
+function SelectedRace() {
 
   const location = useLocation();
   const restURL = location.state.url;
   const cycleArray = location.state.array;
-  const [selectedClass, setSelectedClass] = useState([]);
+  const [selectedRace, setSelectedRace] = useState([]);
   const [pageLoader, setPageLoader] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,8 +18,7 @@ function SelectedClass() {
     try {
       const response = await fetch(`https://www.dnd5eapi.co${URL}`);
       const result = await response.json();
-      setSelectedClass(result);
-      console.log(result);
+      setSelectedRace(result);
       setPageLoader(false);
     } catch (error) {
       console.log("error", error)
@@ -37,7 +36,7 @@ function SelectedClass() {
 
   function findArrayPosition() {
     for (let i = 0; i < cycleArray.length; i++) {
-      if (cycleArray[i].index === selectedClass.index) {
+      if (cycleArray[i].index === selectedRace.index) {
         cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
         cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
       }
@@ -46,7 +45,7 @@ function SelectedClass() {
 
   useEffect(() => {
     findArrayPosition();
-  }, [selectedClass])
+  }, [selectedRace])
 
   function nextButton() {
     if (next === "end") {
@@ -79,7 +78,7 @@ function SelectedClass() {
   }
 
   return (
-    <>
+    <div className='content-container'>
       <NavBar/>
       {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
       {pageLoader && <div className='content-container'><Loader/></div>}
@@ -87,15 +86,16 @@ function SelectedClass() {
         <>
           <div className='cycle-buttons-div'>
             {prevButton()}
-            <h1>{selectedClass.name}</h1>
+            <h1>{selectedRace.name}</h1>
             {nextButton()}
           </div>
-          {selectedClass.proficiencies && <DisplayClass props={selectedClass} />}
-          {selectedClass.class && <DisplaySubclass props={selectedClass} />}
+          {selectedRace.subraces && <DisplayRace props={selectedRace} />}
+          {selectedRace.race && <DisplaySubrace props={selectedRace} />}
         </>
       }
-    </>
+
+    </div>
   )
 }
 
-export default SelectedClass
+export default SelectedRace

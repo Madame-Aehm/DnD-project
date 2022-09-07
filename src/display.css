@@ -4,7 +4,7 @@ p {
   margin: 0.5em;
 }
 
-label {
+label > div {
   padding: 0.5em;
   background-color: #412234;
   border: solid 3px white;
@@ -12,13 +12,21 @@ label {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
+}
+
+.stacked-checkbox {
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 input[type="radio"] {
   display: none;
 }
 
-input[type="radio"]:checked + label {
+input[type="radio"]:checked + label > div {
   border-color: #412234;
   background-color: white;
   color: #412234;
@@ -73,31 +81,32 @@ ul {
   border-radius: 12px;
   height: fit-content;
   margin-bottom: 20px;
+  padding-bottom: 1em;
 }
 
 .checkbox-container-1 {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   gap: 2em;
   width: 80%;
-  margin: 1em;
 }
 
 .checkbox-container-2 {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-around;
   gap: 0.5em;
   width: 80%;
   text-align: center;
 }
 
-.larger-checkbox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 100px;
+.checkbox-container-3 {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  justify-content: space-around;
+  gap: 0.3em 1em;
+  width: 80%;
 }
 
 .mini-h-list {
@@ -218,6 +227,18 @@ table {
   text-align: left;
 }
 
+.spell-table {
+  width: 90%;
+  text-align: left;
+}
 
+
+
+@media only screen and (min-width: 400px) {
+  .checkbox-container-3 {
+      grid-template-columns: repeat(3, 1fr);
+  }
+ 
+}
 
  

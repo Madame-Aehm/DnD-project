@@ -53,10 +53,10 @@ function MagicSchools() {
       {pageLoader && <Loader/>}
       {!pageLoader && 
         <>
-          <div className='checkbox-container-2'>
+          <div className='checkbox-container-3'>
             {magicSchoolsList.map((item) => {
                 return (
-                  <div className='larger-checkbox' key={item.index}>
+                  <div key={item.index}>
                       <input type={"radio"} 
                         name={"magicschools"} 
                         value={item.url} id={item.index} 
@@ -66,7 +66,7 @@ function MagicSchools() {
                             scoreFetch(item.url)
                           }
                         }/>
-                      <label htmlFor={item.index}>{item.name}</label>
+                      <label htmlFor={item.index}><div>{item.name}</div></label>
                   </div>
                 )
             })}

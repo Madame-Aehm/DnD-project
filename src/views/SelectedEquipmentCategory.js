@@ -100,7 +100,7 @@ function SelectedEquipmentCategory() {
         const filteredArray = array.filter(item => item.index.includes(inputValue));
         setSelectedEquipmentCategory(filteredArray);
     }
-
+    
   return (
     <div>
         <NavBar/>
@@ -108,7 +108,7 @@ function SelectedEquipmentCategory() {
         {pageLoader && <div className='content-container'><Loader/></div>}
         {!pageLoader && 
             <>
-                {searchResult !== "" && <h4 className='ec-h4'>Showing results from "{searchResult}"</h4>}
+                {searchResult !== "" && <h4 className='ec-h4'>Showing category results for "{searchResult}"</h4>}
                 <div className='cycle-buttons-div'>
                     {prevButton()}
                     <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
@@ -122,11 +122,13 @@ function SelectedEquipmentCategory() {
         {!pageLoader &&
             <div className='explore-list'>
                 {selectedEquipmentCategory && selectedEquipmentCategory.map((item) => {
-                    return <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory}} key={item.index}>{item.name}</Link>
+                    return <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory, searchResult: ""}} key={item.index}>{item.name}</Link>
                 })}
                 {selectedEquipmentCategory.length === 0 && <p>No Results</p>}
             </div>
         }
+
+        {console.log(selectedEquipmentCategory)}
         
     </div>
   )

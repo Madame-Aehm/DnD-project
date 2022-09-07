@@ -68,7 +68,7 @@ function AbilityScores() {
                                 scoreFetch(item.url)
                               }
                             }/>
-                          <label htmlFor={item.index}>{item.name}</label>
+                          <label htmlFor={item.index}><div>{item.name}</div></label>
                       </div>
                   )
               })}

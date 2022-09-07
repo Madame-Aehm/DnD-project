@@ -53,10 +53,10 @@ function Languages() {
         {pageLoader && <Loader/>}
         {!pageLoader && 
             <>
-                <div className='checkbox-container-2'>
+                <div className='checkbox-container-3'>
                     {languagesList.map((item) => {
                     return (
-                        <div className='larger-checkbox' key={item.index}>
+                        <div key={item.index}>
                             <input type={"radio"} 
                                 name={"conditions"} 
                                 value={item.url} id={item.index} 
@@ -66,7 +66,7 @@ function Languages() {
                                     scoreFetch(item.url)
                                 }
                                 }/>
-                            <label htmlFor={item.index}>{item.name}</label>
+                            <label htmlFor={item.index}><div>{item.name}</div></label>
                         </div>
                     )
                     })}
@@ -85,7 +85,6 @@ function Languages() {
                                     return <h6 key={i}>{item}</h6>
                                 })}
                             </div>
-                        <p></p>
                         </div>
                     </>
                 }
