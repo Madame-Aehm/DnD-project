@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Alignments() {
 
   const {
-    controlList,
-    mainList: alignmentsList,
+    object,
+    array: alignmentsList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/alignments");

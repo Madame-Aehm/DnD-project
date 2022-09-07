@@ -7,8 +7,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Backgrounds() {
 
   const {
-    controlList,
-    mainList: bgList,
+    object,
+    array: bgList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/backgrounds");

@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Conditions() {
 
   const {
-    controlList,
-    mainList: conditionsList,
+    object,
+    array: conditionsList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/conditions");

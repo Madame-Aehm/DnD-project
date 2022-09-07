@@ -161,6 +161,11 @@ ul {
   cursor: initial;
 }
 
+.search-result-div {
+  text-align: center;
+  padding-top: 1em;
+}
+
 .ec-input-div {
   width: 100%;
   margin-bottom: 1em;

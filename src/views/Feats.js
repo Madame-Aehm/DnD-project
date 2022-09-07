@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Feats() {
 
     const {
-        controlList,
-        mainList: featsList,
+        object,
+        array: featsList,
         pageLoader,
         error,
       } = useMainFetch("https://www.dnd5eapi.co/api/feats");

@@ -8,28 +8,13 @@ function SelectedEquipment() {
     const location = useLocation();
     const restURL = location.state.url;
     const cycleArray = location.state.array;
+    const searchResult = location.state.searchResult;
     const [selectedEquipment, setSelectedEquipment] = useState([]);
     const [pageLoader, setPageLoader] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchList = async() => {
-      try {
-        const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-        const result = await response.json();
-        setSelectedEquipment(result);
-        setPageLoader(false);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
-    }
-  
-    useEffect(() => {
-        fetchList();
-    }, []);
-
     const cycleFetch = async(URL) => {
-        try {
+    try {
         const response = await fetch(`https://www.dnd5eapi.co${URL}`);
         const result = await response.json();
         setSelectedEquipment(result);
@@ -37,8 +22,13 @@ function SelectedEquipment() {
       } catch (error) {
         console.log("error", error)
         setError(error);
+        setPageLoader(false);
       }
     }
+
+    useEffect(() => {
+        cycleFetch(restURL);
+    }, []);
 
     const [next, setNext] = useState("");
     const [prev, setPrev] = useState("");
@@ -86,17 +76,14 @@ function SelectedEquipment() {
         }
     }
 
-    function RemoveLoader() {
-        setPageLoader(false);
-    }
-
   return (
     <div>
         <NavBar/>
-        {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
+        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
         {pageLoader && <div className='content-container'><Loader/></div>}
         {!pageLoader &&
-            <>
+            <>  
+                {searchResult !== "" && <h4 className='ec-h4'>Showing results from "{searchResult}"</h4>}
                 <div className='cycle-buttons-div'>
                     {prevButton()}
                     <h1>{selectedEquipment.name}</h1>

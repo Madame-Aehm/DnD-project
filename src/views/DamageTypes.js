@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function DamageTypes() {
 
   const {
-    controlList,
-    mainList: damageTypesList,
+    object,
+    array: damageTypesList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/damage-types");

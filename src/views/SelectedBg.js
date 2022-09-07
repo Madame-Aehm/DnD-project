@@ -27,7 +27,7 @@ function SelectedBg() {
   }
 
   useEffect(() => {
-      fetchList();
+      cycleFetch(restURL);
     }, []);
 
   const cycleFetch = async(URL) => {

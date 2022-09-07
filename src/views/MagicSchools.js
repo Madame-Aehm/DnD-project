@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function MagicSchools() {
 
   const {
-    controlList,
-    mainList: magicSchoolsList,
+    object,
+    array: magicSchoolsList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/magic-schools");

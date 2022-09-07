@@ -8,33 +8,13 @@ function SelectedEquipmentCategory() {
     const location = useLocation();
     const restURL = location.state.url;
     const cycleArray = location.state.array;
+    const searchResult = location.state.searchResult;
     const [controlList, setControlList] = useState([]);
     const [selectedEquipmentCategory, setSelectedEquipmentCategory] = useState([]);
     const [selectedEquipmentCategoryName, setSelectedEquipmentCategoryName] = useState([]);
     const [selectedEquipmentCategoryIndex , setSelectedEquipmentCategoryIndex] = useState("");
     const [pageLoader, setPageLoader] = useState(true);
     const [error, setError] = useState(null);
-
-    const fetchList = async() => {
-        try {
-        const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-        const result = await response.json();
-        setSelectedEquipmentCategoryIndex(result.index);
-        setSelectedEquipmentCategoryName(result.name);
-        setSelectedEquipmentCategory(result.equipment);
-        setControlList(result.equipment);
-        setTimeout(() => {
-            setPageLoader(false);
-        }, 1000);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-      }
-    }
-  
-    useEffect(() => {
-        fetchList();
-    }, []);
 
     const cycleFetch = async(URL) => {
         try {
@@ -54,8 +34,13 @@ function SelectedEquipmentCategory() {
         } catch (error) {
             console.log("error", error)
             setError(error);
+            setPageLoader(false);
         }
     }
+
+    useEffect(() => {
+        cycleFetch(restURL);
+    }, []);
 
     const [next, setNext] = useState("");
     const [prev, setPrev] = useState("");
@@ -116,22 +101,20 @@ function SelectedEquipmentCategory() {
         setSelectedEquipmentCategory(filteredArray);
     }
 
-    function RemoveLoader() {
-        setPageLoader(false);
-    }
-
   return (
     <div>
         <NavBar/>
-        <h4 className='ec-h4'>Equipment Category:</h4>
-        {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
+        {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
         {pageLoader && <div className='content-container'><Loader/></div>}
         {!pageLoader && 
-            <div className='cycle-buttons-div'>
-                {prevButton()}
-                <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
-                {nextButton()}
-            </div>
+            <>
+                {searchResult !== "" && <h4 className='ec-h4'>Showing results from "{searchResult}"</h4>}
+                <div className='cycle-buttons-div'>
+                    {prevButton()}
+                    <h1 className='ec-h1'>{selectedEquipmentCategoryName}</h1>
+                    {nextButton()}
+                </div>
+            </>
         }
         <div className='ec-input-div'>
             <input className='textbox' type={"text"} placeholder={"Search"} onChange={(e) => filter(e.target)}></input>

@@ -6,8 +6,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Languages() {
 
     const {
-        controlList,
-        mainList: languagesList,
+        object,
+        array: languagesList,
         pageLoader,
         error,
       } = useMainFetch("https://www.dnd5eapi.co/api/languages");

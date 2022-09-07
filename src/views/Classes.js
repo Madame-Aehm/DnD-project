@@ -7,8 +7,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function Classes() {
 
   const {
-    controlList,
-    mainList: classList,
+    object,
+    array: classList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/classes");

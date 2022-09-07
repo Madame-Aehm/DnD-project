@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 function useMainFetch(mainURL) {
-  const [controlList, setControlList] = useState([])
-  const [mainList, setMainList] = useState([]);
+  const [array, setArray] = useState([]);
+  const [object, setObject] = useState ({});
   const [pageLoader, setPageLoader] = useState(true);
   const [error, setError] = useState(null);
 
@@ -10,8 +10,8 @@ function useMainFetch(mainURL) {
     try {
       const response = await fetch(mainURL);
       const result = await response.json();
-      setMainList(result.results);
-      setControlList(result.results)
+      setObject(result);
+      setArray(result.results);
       setTimeout(() => {
         setPageLoader(false);
       }, 1000);
@@ -27,7 +27,7 @@ function useMainFetch(mainURL) {
   }, [mainURL]);
 
   return (
-    { controlList, mainList, pageLoader, error }
+    { object, array, pageLoader, error }
   )
 }
 

@@ -8,8 +8,8 @@ import useMainFetch from '../hooks/useMainFetch';
 function AbilityScores() {
 
   const {
-    controlList,
-    mainList: abilityScoresList,
+    object,
+    array: abilityScoresList,
     pageLoader,
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/ability-scores");
