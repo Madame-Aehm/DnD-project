@@ -14,6 +14,7 @@ function Explore() {
     try {
       const response = await fetch("https://www.dnd5eapi.co/api/");
       const result = await response.json();
+      console.log(result);
       const convert = Object.entries(result).map(([key, value]) => ({"endpoint": key, "url": value}));
       setExploreList(convert);
       setTimeout(() => {
@@ -39,7 +40,12 @@ function Explore() {
       <div className='explore-list'>
         {!pageLoader && exploreList.map((item, i) => {
           return (
-            <Link className='explore-button' to={'/' + removeHyphens(item.endpoint)} key={i}>{displayNicely(item.endpoint)}</Link>
+            <Link className='explore-button' 
+              to={'/' + removeHyphens(item.endpoint)} 
+              state={{url: item.url, title: item.endpoint}} 
+              key={i}>
+                {displayNicely(item.endpoint)}
+            </Link>
           )
         })}
       </div>

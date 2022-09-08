@@ -32,7 +32,7 @@ input[type="radio"]:checked + label > div {
   color: #412234;
 }
 
-input[type="text"] {
+input[type="text"], [type="password"] {
   padding: 0.5em;
   border: solid 2px #412234;
   border-radius: 8px;
