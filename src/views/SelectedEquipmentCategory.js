@@ -127,9 +127,6 @@ function SelectedEquipmentCategory() {
                 {selectedEquipmentCategory.length === 0 && <p>No Results</p>}
             </div>
         }
-
-        {console.log(selectedEquipmentCategory)}
-        
     </div>
   )
 }

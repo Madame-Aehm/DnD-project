@@ -34,4 +34,22 @@ function checkFirstCheck() {
     return { isChecked, firstCheck }
 }
 
-export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck }
+function emailValidation(emailInput) {
+    if (emailInput.value.includes("@")) {
+      return true;
+    } else {
+      alert("Please check email and try again")
+      return false;
+    }
+  }
+
+  function passwordValidation(passwordInput) {
+    if (passwordInput.value.length >= 6) {
+        return true;
+    } else {
+        alert("Password must be at least 6 characters")
+        return false;
+    }
+  }
+
+export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck, emailValidation, passwordValidation }
