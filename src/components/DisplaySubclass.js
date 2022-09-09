@@ -1,5 +1,5 @@
 import React from 'react'
-import MagicItems from '../views/MagicItems';
+import MagicItems from '../views-explore/MagicItems';
 
 function DisplaySubclass(props) {
   const selectedClass = props.props;
