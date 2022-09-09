@@ -33,13 +33,14 @@ import SelectedSpell from "./views-explore/SelectedSpell";
 import SubClasses from "./views-explore/SubClasses";
 import Subraces from "./views-explore/Subraces";
 import Traits from "./views-explore/Traits";
-import SelectedTraitOrProperty from "./views-explore/SelectedTraitOrProperty";
+import SelectedTrait from "./views-explore/SelectedTrait";
 import WeaponProperties from "./views-explore/WeaponProperties";
 import SignUp from "./views/SignUp";
 import LogInSuccess from "./views/LogInSuccess";
-import PrivateRouteTest from "./views/PrivateRouteTest";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthContextProvider } from "./context/AuthContext";
+import Favourites from "./views/Favourites";
+import Characters from "./views/Characters";
 
 
 
@@ -50,18 +51,15 @@ function App() {
     <AuthContextProvider>
       <Routes>
 
-          <Route path="private" element={ 
-            <ProtectedRoute> 
-              <PrivateRouteTest/> 
-            </ProtectedRoute> } 
-          />
-
       <Route path="*" element={ <HereBeDragons/> } />
       <Route path="/" element={ <Home/> } />
         <Route path="login" element={ <Login/>}  />
           <Route path="login-success" element={ <LogInSuccess/> } />
         <Route path="signup" element={ <SignUp/> } />
+        <Route path="favourites" element={ <ProtectedRoute> <Favourites/> </ProtectedRoute>  } />
+        <Route path="characters" element={ <ProtectedRoute> <Characters/> </ProtectedRoute> } />
         <Route path="explore" element={ <Explore/> } />
+
           <Route path="abilityscores" element={ <AbilityScores /> } />
           <Route path="alignments" element={ <Alignments/> } />
           <Route path="classes" element={ <Classes/> } />
@@ -92,8 +90,9 @@ function App() {
           <Route path="subclasses" element={ <SubClasses/> } />
           <Route path="subraces" element={ <Subraces/> } />
           <Route path="traits" element={ <Traits/> } />
+            <Route path="selectedtrait" element={ <SelectedTrait/> } />
           <Route path="weaponproperties" element={ <WeaponProperties/> } />
-            <Route path="selectedtrait" element={ <SelectedTraitOrProperty/> } />
+            
       
     
         

@@ -45,7 +45,7 @@ code {
   align-items: center;
 }
 
-.nav-links a {
+.nav-links .hide {
   color: #412234;
   text-decoration: none;
   font-weight: bold;
@@ -54,13 +54,73 @@ code {
   transition: 0.2s;
 }
 
-.nav-links a:active {
-  font-size: 1.2em;
-  transition: 0.2s;
-}
-
 .home-banner .hide {
   display: none;
+}
+
+.menu {
+  align-self: flex-start;
+  margin-top: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox]:checked ~ .not-logged {
+  height: 39px;
+  transition: 0.2s;
+  visibility: visible;
+}
+
+input[type=checkbox]:checked ~ .logged {
+  height: 199px;
+  transition: 0.2s;
+  visibility: visible;
+}
+
+.menu label {
+  align-self: flex-end;
+}
+
+.menu > ul {
+  visibility: hidden;
+  align-self: flex-end;
+  margin: 0;
+  margin-top: 6px;
+  height: 0;
+  list-style: none;
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 0;
+  transition: 0.2s;
+  overflow: hidden;
+  font-size: medium;
+  font-weight: bold;
+  text-align: center;
+}
+
+.logged li {
+  padding: 1em;
+}
+
+.menu li:active {
+  background-color: #412234;
+  color: white;
+}
+
+.menu a:last-child li {
+  border-top: solid 1px #412234;
+  padding: 0.5em 2.5em;
+}
+
+.menu
+
+.logged a, .not-logged a {
+  text-decoration: none;
+  color: #412234;
 }
 
 .content-container {
@@ -86,6 +146,7 @@ code {
   height: 23px;
   border-radius: 12px;
   border: solid 2px white;
+  cursor: pointer;
 }
 
 .explore-button:hover {

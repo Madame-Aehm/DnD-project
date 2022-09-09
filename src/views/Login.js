@@ -20,18 +20,20 @@ function Login() {
         <div className='form'>
           <input className='log-input' type={"text"} placeholder={"Email"} id={"email"} required></input>
           <input className='log-input' type={"password"} placeholder={"Password"} id={"password"} required></input>
-          <a className='explore-button' onClick={ () => {
-          const emailInput = document.querySelector("#email");
-          const passwordInput = document.querySelector("#password");
-          const validEmail = emailValidation(emailInput);
-          const validPassword = passwordValidation(passwordInput);
-          if (validEmail && validPassword) {
-            alert("validation success");
-            handleLogin(emailInput.value, passwordInput.value);
-            }
-          }}>Login</a>
+          <div className='login-signup'>
+            <a className='explore-button' onClick={ () => {
+            const emailInput = document.querySelector("#email");
+            const passwordInput = document.querySelector("#password");
+            const validEmail = emailValidation(emailInput);
+            const validPassword = passwordValidation(passwordInput);
+            if (validEmail && validPassword) {
+              handleLogin(emailInput.value, passwordInput.value);
+              }
+            }}>Login</a>
+            <p>No account? <Link to='/signup'>Sign up</Link>!</p>
+          </div>
         </div>
-        <p>No account? <a href='signup'>Sign up</a>!</p>
+        
     </div>
   )
 }

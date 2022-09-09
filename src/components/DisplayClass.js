@@ -27,6 +27,7 @@ function DisplayClass(props) {
     <hr/>
 
             <h4>Starting Equipment</h4>
+            {selectedClass.starting_equipment.length === 0 && <p>None</p>}
             <table>
                 <tbody>
                     {selectedClass.starting_equipment.map((item) => {
@@ -76,8 +77,6 @@ function DisplayClass(props) {
             {!selectedClass.spellcasting && 
                 <div><h4>No Spellcasting</h4></div>
             }
-
-    <hr/>
 
         </div>
     </div>

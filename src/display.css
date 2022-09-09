@@ -129,14 +129,6 @@ ul {
   justify-content: center;
 }
 
-.e-choices div:first-of-type {
-  border-right: solid 1px #2E4052;
-}
-
-.e-choices div:last-of-type {
-  border-left: solid 1px #2E4052;
-}
-
 .aligns-with {
   margin-left: 1em;
   text-decoration: underline;

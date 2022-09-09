@@ -22,6 +22,7 @@ function Explore() {
     } catch (error) {
       console.log("error", error);
       setError(error);
+      setPageLoader(false);
     }
   }
 

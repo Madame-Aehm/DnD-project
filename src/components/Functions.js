@@ -22,23 +22,24 @@ function MakeChecked() {
 }
 
 function checkFirstCheck() {
-    const allChecks = document.querySelectorAll("input");
-    const firstCheck = document.querySelector("input").value;
-    let isChecked = false;
-    for (let i = 0; i < allChecks.length; i++) {
-        if (allChecks[i].checked) {
-        isChecked = true;
-        break;
-        }
-    }
-    return { isChecked, firstCheck }
+  const allChecks = document.querySelectorAll("input[type='radio']");
+  const firstCheckbox = document.querySelector("input[type='radio']");
+  const value = firstCheckbox.value;
+  let isChecked = false;
+  for (let i = 0; i < allChecks.length; i++) {
+      if (allChecks[i].checked) {
+      isChecked = true;
+      break;
+      }
+  }
+  return { isChecked, value }
 }
 
 function emailValidation(emailInput) {
     if (emailInput.value.includes("@")) {
       return true;
     } else {
-      alert("Please check email and try again")
+      alert("Invalid email, please try again");
       return false;
     }
   }
@@ -52,4 +53,9 @@ function emailValidation(emailInput) {
     }
   }
 
-export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck, emailValidation, passwordValidation }
+  function emailToName(string) {
+    const atPosition = string.search("@");
+    return string.slice(0, atPosition);
+  }
+
+export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck, emailValidation, passwordValidation, emailToName }

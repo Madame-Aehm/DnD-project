@@ -30,8 +30,8 @@ function DamageTypes() {
   const [damageType, setDamageType] = useState({})
 
   function setFirstCheck() {
-    const allChecks = document.querySelectorAll("input");
-    const firstCheck = document.querySelector("input");
+    const allChecks = document.querySelectorAll("input[type='radio']");
+    const firstCheck = document.querySelector("input[type='radio']");
     let isChecked = false;
     for (let i = 0; i < allChecks.length; i++) {
       if (allChecks[i].checked) {

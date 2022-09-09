@@ -62,25 +62,21 @@ function DisplayBg(props) {
 
             <h4>Bonds</h4>
             <h5>Choose {selectedBg.bonds.choose} from:</h5>
-            <ul>
                 {selectedBg.bonds.from.options.map((item, i) => {
                     return (
-                        <li key={i}>"{item.string}"</li>
+                        <p key={i}>"{item.string}"</p>
                     )
                 })}
-            </ul>
 
     <hr/>
 
             <h4>Flaws</h4>
             <h5>Choose {selectedBg.flaws.choose} from:</h5>
-            <ul>
                 {selectedBg.flaws.from.options.map((item, i) => {
                     return (
-                        <li key={i}>"{item.string}"</li>
+                        <p key={i}>"{item.string}"</p>
                     )
                 })}
-            </ul>
 
     <hr/>
 

@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function Home() {
 
-  const { user, setUser, login, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <div>
@@ -18,12 +18,18 @@ function Home() {
         <h1>Welcome</h1>
         {!user && 
           <div className='login-signup'>
-            <a className='explore-button' href='/login'>Login</a>
-            <p>No account? <a href='signup'>Sign up</a>!</p>
+            <Link className='explore-button' to='/login'>Login</Link>
+            <p>No account? <Link to='signup'>Sign up</Link>!</p>
           </div>
         }
-        <a className='explore-button' href='/explore'>Explore</a>
-        {user && <a className='explore-button' onClick={logout}>Logout</a>}
+        <Link className='explore-button' to='/explore'>Explore</Link>
+        {user && 
+        <>
+          <Link className='explore-button' to={'/favourites'}>My Favourites</Link>
+          <Link className='explore-button' to={'/characters'}>My Characters</Link>
+          <br/>
+          <a className='explore-button' onClick={logout}>Logout</a>
+        </>}
       </div>
     </div>
   )

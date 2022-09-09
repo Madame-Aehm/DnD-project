@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../config';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { emailToName } from '../components/Functions';
 
 export const AuthContext = createContext();
 
@@ -10,47 +11,72 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
 
   const registerNewUser = (email, password) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("user", user);
-        setUser(user);
-        redirect("/login-success");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error", error);
-        alert(errorMessage);
-      });
+    if (user) {
+      alert(user.email + " is still logged in. Please log out first");
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("user", user);
+          setUser(user);
+          alert("Welcome, " + emailToName(user.email));
+          redirect("/login-success", {replace: true});
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("error", error);
+          alert(errorMessage);
+        });
+      }
   };
 
   const login = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("user", user);
-        setUser(user);
-        redirect("/login-success");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error", error);
-        alert(errorMessage);
-      });
+    if (user) {
+      alert(user.email + " is still logged in. Please log out first");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log("user", user);
+          setUser(user);
+          redirect("/login-success", {replace: true});
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("error", error);
+          alert(errorMessage);
+        });
+      }
   };
 
   const logout = () => {
-    signOut(auth)
+    if (window.confirm("Are you sure you want to log out?")) {
+      signOut(auth)
       .then(() => {
         setUser(null);
+        redirect("/login-success");
       })
       .catch((error) => {
         console.log("error", error);
         alert(error);
       });
+    }
   };
+
+  const permDelete = () => {
+    if (window.confirm("Are you <b>sure</b> you want to perminently delete your account?")) {
+      if (window.confirm("Are you <b>positive</b> you really really want to PERMINENTLY delete your account?")){
+        deleteUser(user).then(() => {
+          alert("Account perminently deleted.")
+          redirect("/");
+          }).catch((error) => {
+            alert(error);
+          });
+      }
+    }
+  }
 
   const checkForUser = () => {
     onAuthStateChanged(auth, (user) => {
@@ -68,7 +94,7 @@ export const AuthContextProvider = (props) => {
 
 
   return (
-      <AuthContext.Provider value ={{ user, setUser, registerNewUser, login, logout }}>
+      <AuthContext.Provider value ={{ user, setUser, registerNewUser, login, logout, permDelete }}>
         {props.children}
       </AuthContext.Provider>
   )
