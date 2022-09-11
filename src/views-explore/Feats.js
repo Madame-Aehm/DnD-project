@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { checkFirstCheck } from '../components/Functions';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar';
 import useMainFetch from '../hooks/useMainFetch';
+import useSubFetch from '../hooks/useSubFetch';
 
 function Feats() {
 
@@ -12,38 +14,16 @@ function Feats() {
         error,
       } = useMainFetch("https://www.dnd5eapi.co/api/feats");
 
-    async function scoreFetch(restURL) {
-        try {
-            const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-            const result = await response.json();
-            setLoader(false);
-            setFeat(result);
-        } catch (error) {
-            console.log("error", error)
-            setSubError(error);
-            setLoader(false);
-        }
+      const [restURL, setRestURL] = useState("/api/feats/grappler");
+      const {
+        selected: feat, 
+        loader, 
+        subError
+      } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
+    
+      function handleCheckboxChange (url) {
+        setRestURL(url);
     }
-
-    const [loader, setLoader] = useState(true);
-    const [feat, setFeat] = useState({});
-    const [subError, setSubError] = useState(null);
-
-    function setFirstCheck() {
-        const allChecks = document.querySelectorAll("input[type='radio']");
-        const firstCheck = document.querySelector("input[type='radio']");
-        let isChecked = false;
-        for (let i = 0; i < allChecks.length; i++) {
-          if (allChecks[i].checked) {
-            isChecked = true;
-            break;
-          }
-        }
-        if (!isChecked && firstCheck) {
-          firstCheck.checked = true;
-          scoreFetch(firstCheck.value);
-        }
-      }
 
   return (
     <div className='content-container'>
@@ -61,16 +41,14 @@ function Feats() {
                                     name={"feats"} 
                                     value={item.url} id={item.index} 
                                     onChange={
-                                    (e) => {
-                                        setLoader(true);
-                                        scoreFetch(item.url)
-                                    }
+                                    (e) => {handleCheckboxChange(item.url)}
                                     }/>
                                 <label htmlFor={item.index}><div>{item.name}</div></label>
                             </div>
                         )
                     })}
                 </div>
+                {checkFirstCheck()}
                 {subError && <p>Something went wrong.. Please reload</p>}
                 {loader && <p>loading...</p>}
                 {!loader &&
@@ -95,7 +73,6 @@ function Feats() {
                 }
             </>
         }
-        {setFirstCheck()}
     </div>
   )
 }

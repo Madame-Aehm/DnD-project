@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { checkFirstCheck } from '../components/Functions';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 import useMainFetch from '../hooks/useMainFetch';
+import useSubFetch from '../hooks/useSubFetch';
 
 function Conditions() {
 
@@ -12,38 +14,16 @@ function Conditions() {
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/conditions");
 
-  async function scoreFetch(restURL) {
-    try {
-        const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-        const result = await response.json();
-        setCondition(result);
-        setLoader(false);
-    } catch (error) {
-        console.log("error", error)
-        setSubError(error);
-        setLoader(false);
-    }
-  }
+  const [restURL, setRestURL] = useState("/api/conditions/blinded");
+  const {
+    selected: condition, 
+    loader, 
+    subError
+  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
 
-  const [loader, setLoader] = useState(true);
-  const [subError, setSubError] = useState(null);
-  const [condition, setCondition] = useState({});
-
-  function setFirstCheck() {
-    const allChecks = document.querySelectorAll("input[type='radio']");
-    const firstCheck = document.querySelector("input[type='radio']");
-    let isChecked = false;
-    for (let i = 0; i < allChecks.length; i++) {
-      if (allChecks[i].checked) {
-        isChecked = true;
-        break;
-      }
-    }
-    if (!isChecked && firstCheck) {
-      firstCheck.checked = true;
-      scoreFetch(firstCheck.value);
-    }
-  }
+  function handleCheckboxChange (url) {
+    setRestURL(url);
+}
 
   return (
     <div className='content-container'>
@@ -61,16 +41,14 @@ function Conditions() {
                     name={"conditions"} 
                     value={item.url} id={item.index} 
                     onChange={
-                      (e) => {
-                        setLoader(true);
-                        scoreFetch(item.url)
-                      }
+                      (e) => {handleCheckboxChange(item.url)}
                     }/>
                   <label htmlFor={item.index}><div>{item.name}</div></label>
                 </div>
               )
             })}
           </div>
+          {checkFirstCheck()}
           
           {loader && <p>loading...</p>}
           {!loader &&
@@ -87,7 +65,6 @@ function Conditions() {
           }
         </>
       }
-      {setFirstCheck()}
 
     </div>
   )

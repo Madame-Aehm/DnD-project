@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { checkFirstCheck } from '../components/Functions';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 import useMainFetch from '../hooks/useMainFetch';
+import useSubFetch from '../hooks/useSubFetch';
 
 function DamageTypes() {
 
@@ -12,38 +14,16 @@ function DamageTypes() {
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/damage-types");
 
-  async function scoreFetch(restURL) {
-    try {
-        const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-        const result = await response.json();
-        setDamageType(result);
-        setLoader(false);
-    } catch (error) {
-        console.log("error", error)
-        setSubError(error);
-        setLoader(false);
-    }
-  }
+  const [restURL, setRestURL] = useState("/api/damage-types/acid");
+  const {
+    selected: damageType, 
+    loader, 
+    subError
+  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
 
-  const [loader, setLoader] = useState(true);
-  const [subError, setSubError] = useState(null);
-  const [damageType, setDamageType] = useState({})
-
-  function setFirstCheck() {
-    const allChecks = document.querySelectorAll("input[type='radio']");
-    const firstCheck = document.querySelector("input[type='radio']");
-    let isChecked = false;
-    for (let i = 0; i < allChecks.length; i++) {
-      if (allChecks[i].checked) {
-        isChecked = true;
-        break;
-      }
-    }
-    if (!isChecked && firstCheck) {
-      firstCheck.checked = true;
-      scoreFetch(firstCheck.value);
-    }
-  }
+  function handleCheckboxChange (url) {
+    setRestURL(url);
+}
 
   return (
     <div className='content-container'>
@@ -61,16 +41,14 @@ function DamageTypes() {
                             name={"damage-types"} 
                             value={item.url} id={item.index} 
                             onChange={
-                              (e) => {
-                                setLoader(true);
-                                scoreFetch(item.url)
-                              }
+                              (e) => {handleCheckboxChange(item.url)}
                             }/>
                           <label htmlFor={item.index}><div>{item.name}</div></label>
                       </div>
                   )
               })}
             </div>
+            {checkFirstCheck()}
             {subError && <p>Something went wrong.. Please reload</p>}
             {loader && <p>loading...</p>}
             {!loader && 
@@ -85,7 +63,6 @@ function DamageTypes() {
             }
           </>
         }
-        {setFirstCheck()}
 
     </div>
   )

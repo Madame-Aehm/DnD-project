@@ -1,3 +1,6 @@
+import { isContentEditable } from "@testing-library/user-event/dist/utils";
+import useSubFetch from "../hooks/useSubFetch";
+
 function displayNicely(string) {
     let noHyphens = string.replace("-", " ");
     noHyphens = noHyphens.replace("-", " ");
@@ -17,22 +20,24 @@ function removeHyphens(string) {
 }
 
 function MakeChecked() {
-    const checks = document.querySelector("input");
+    const checks = document.querySelector("input[type='radio']");
       checks.checked = true;
 }
 
 function checkFirstCheck() {
   const allChecks = document.querySelectorAll("input[type='radio']");
-  const firstCheckbox = document.querySelector("input[type='radio']");
-  const value = firstCheckbox.value;
+  const firstCheck = document.querySelector("input[type='radio']");
   let isChecked = false;
   for (let i = 0; i < allChecks.length; i++) {
-      if (allChecks[i].checked) {
+    if (allChecks[i].checked) {
       isChecked = true;
       break;
-      }
+    }
   }
-  return { isChecked, value }
+  if (!isChecked && firstCheck) {
+    firstCheck.checked = true;
+    // useSubFetch(firstCheck.value);
+  }
 }
 
 function emailValidation(emailInput) {

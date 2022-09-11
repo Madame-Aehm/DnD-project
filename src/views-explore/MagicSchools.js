@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { checkFirstCheck } from '../components/Functions';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 import useMainFetch from '../hooks/useMainFetch';
+import useSubFetch from '../hooks/useSubFetch';
 
 function MagicSchools() {
 
@@ -12,37 +14,15 @@ function MagicSchools() {
     error,
   } = useMainFetch("https://www.dnd5eapi.co/api/magic-schools");
 
-  async function scoreFetch(restURL) {
-    try {
-      const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-      const result = await response.json();
-      setMagicSchool(result);
-      setLoader(false);
-    } catch (error) {
-      console.log("error", error)
-      setSubError(error);
-      setLoader(false);
-    }
-  }
+  const [restURL, setRestURL] = useState("/api/magic-schools/abjuration");
+  const {
+    selected: magicSchool, 
+    loader, 
+    subError
+  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
 
-  const [subError, setSubError] = useState(null);
-  const [magicSchool, setMagicSchool] = useState({});
-  const [loader, setLoader] = useState(true);
-
-  function setFirstCheck() {
-    const allChecks = document.querySelectorAll("input[type='radio']");
-    const firstCheck = document.querySelector("input[type='radio']");
-    let isChecked = false;
-    for (let i = 0; i < allChecks.length; i++) {
-      if (allChecks[i].checked) {
-        isChecked = true;
-        break;
-      }
-    }
-    if (!isChecked && firstCheck) {
-      firstCheck.checked = true;
-      scoreFetch(firstCheck.value);
-    }
+  function handleCheckboxChange (url) {
+    setRestURL(url);
   }
 
   return (
@@ -61,16 +41,14 @@ function MagicSchools() {
                         name={"magicschools"} 
                         value={item.url} id={item.index} 
                         onChange={
-                          (e) => {
-                            setLoader(true);
-                            scoreFetch(item.url)
-                          }
+                          (e) => {handleCheckboxChange(item.url)}
                         }/>
                       <label htmlFor={item.index}><div>{item.name}</div></label>
                   </div>
                 )
             })}
           </div>
+          {checkFirstCheck()}
           {loader && <p>loading...</p>}
           <div className='display'>
             {subError && <p>Something went wrong.. Please reload</p>}
@@ -83,7 +61,6 @@ function MagicSchools() {
           </div>
         </>
       }
-      {setFirstCheck()}
     </div>
   )
 }

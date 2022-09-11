@@ -3,12 +3,15 @@ import { useLocation } from 'react-router-dom';
 import DisplayEquipment from '../components/DisplayEquipment';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useMainFetch from '../hooks/useMainFetch';
 
 function SelectedEquipment() {
+
     const location = useLocation();
     const restURL = location.state.url;
     const cycleArray = location.state.array;
     const searchResult = location.state.searchResult;
+
     const [selectedEquipment, setSelectedEquipment] = useState([]);
     const [pageLoader, setPageLoader] = useState(true);
     const [error, setError] = useState(null);

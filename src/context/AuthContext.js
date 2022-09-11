@@ -66,8 +66,8 @@ export const AuthContextProvider = (props) => {
   };
 
   const permDelete = () => {
-    if (window.confirm("Are you <b>sure</b> you want to perminently delete your account?")) {
-      if (window.confirm("Are you <b>positive</b> you really really want to PERMINENTLY delete your account?")){
+    if (window.confirm("Are you SURE you want to perminently delete your account?")) {
+      if (window.confirm("Are you positive you really really want to PERMINENTLY delete your account?")){
         deleteUser(user).then(() => {
           alert("Account perminently deleted.")
           redirect("/");
