@@ -43,16 +43,30 @@ function DisplayEquipment(props) {
 
         <hr/>
 
-        {selectedEquipment.desc.length > 0 &&
-            <>
-                <h4>Description</h4>
-                {selectedEquipment.desc.map((item, i) => {
-                    return (
-                    <p key={i}>{item}</p>
-                    )
-                })}
-            </>
-        }
+            {selectedEquipment.desc.length > 0 &&
+                <>
+                    <h4>Description</h4>
+                    {selectedEquipment.desc.map((item, i) => {
+                        return (
+                        <p key={i}>{item}</p>
+                        )
+                    })}
+                </>
+            }
+
+            {selectedEquipment.contents && 
+                <>
+                    <h4>Contents</h4>
+                    <div className='mini-h-list'>
+                        {selectedEquipment.contents.length === 0 && <p>Empty</p>}
+                        {selectedEquipment.contents.length > 0 && selectedEquipment.contents.map((item) => {
+                            return (
+                                <h6 key={item.item.index}>{item.quantity} x {item.item.name}</h6>
+                            )
+                        })}
+                    </div>
+                </>
+            }
             
         </div>
     </div>

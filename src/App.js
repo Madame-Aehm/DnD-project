@@ -41,6 +41,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthContextProvider } from "./context/AuthContext";
 import Favourites from "./views/Favourites";
 import Characters from "./views/Characters";
+import RuleSections from "./views-explore/RuleSections";
+import Rules from "./views-explore/Rules";
 
 
 
@@ -84,6 +86,8 @@ function App() {
             <Route path="selectedmonster" element={ <SelectedMonster/> } />
           <Route path="races" element={ <Races/> } />
             <Route path="selectedrace" element={ <SelectedRace/> } />
+          <Route path="rulesections" element={ <RuleSections/> } />
+          <Route path="rules" element={ <Rules/> } />
           <Route path="skills" element={ <Skills/> } />
           <Route path="spells" element={ <Spells/> } />
             <Route path="selectedspell" element={ <SelectedSpell/> } />

@@ -1,96 +1,48 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import CycleNext from '../components/CycleNext';
+import CyclePrev from '../components/CyclePrev';
 import DisplayEquipment from '../components/DisplayEquipment';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
-import useMainFetch from '../hooks/useMainFetch';
+import useFindArrayPosition from '../hooks/useFindArrayPosition';
+import useSubFetch from '../hooks/useSubFetch';
 
 function SelectedEquipment() {
 
     const location = useLocation();
-    const restURL = location.state.url;
+    const [restURL, setRestURL] = useState(location.state.url);
     const cycleArray = location.state.array;
     const searchResult = location.state.searchResult;
-
-    const [selectedEquipment, setSelectedEquipment] = useState([]);
-    const [pageLoader, setPageLoader] = useState(true);
-    const [error, setError] = useState(null);
-
-    const cycleFetch = async(URL) => {
-    try {
-        const response = await fetch(`https://www.dnd5eapi.co${URL}`);
-        const result = await response.json();
-        setSelectedEquipment(result);
-        setPageLoader(false);
-      } catch (error) {
-        console.log("error", error)
-        setError(error);
-        setPageLoader(false);
-      }
+  
+    const {
+      selected: selectedEquipment, 
+      loader: pageLoader, 
+      subError: error
+    } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
+  
+    function handleOnClick (url) {
+      setRestURL(url);
     }
-
-    useEffect(() => {
-        cycleFetch(restURL);
-    }, []);
-
-    const [next, setNext] = useState("");
-    const [prev, setPrev] = useState("");
-
-    function findArrayPosition() {
-        for (let i = 0; i < cycleArray.length; i++) {
-            if (cycleArray[i].index === selectedEquipment.index) {
-                cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
-                cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
-            }
-        }
-    }
-
-    useEffect(() => {
-        findArrayPosition();
-    }, [selectedEquipment])
-
-    function nextButton() {
-        if (next === "end") {
-            return (
-                <button className='cycle' disabled>↠</button>
-            )
-        } else {
-            return (
-                <button className='cycle' onClick={() => {
-                    setPageLoader(true);
-                    cycleFetch(next);
-                }}>↠</button>
-            )
-        }
-    }
-
-    function prevButton() {
-        if (prev === "end") {
-            return (
-                <button className='cycle' disabled>↞</button>
-            )
-        } else {
-            return (
-                <button className='cycle' onClick={() => {
-                    setPageLoader(true);
-                    cycleFetch(prev);
-                }}>↞</button>
-            )
-        }
-    }
+  
+    const {
+      next,
+      prev
+    } = useFindArrayPosition(cycleArray, selectedEquipment);
 
   return (
     <div>
         <NavBar/>
         {error && <p>Something went wrong.. Please reload.</p>}
         {pageLoader &&<Loader/>}
+        <h4 className='ec-h4'>Equipment</h4>
         {!pageLoader &&
             <>  
                 {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult}"</h4>}
                 <div className='cycle-buttons-div'>
-                    {prevButton()}
+                    <CyclePrev prev={prev} handleOnClick={handleOnClick} />
                     <h1>{selectedEquipment.name}</h1>
-                    {nextButton()}
+                    <CycleNext next={next} handleOnClick={handleOnClick} />
                 </div>
                 <DisplayEquipment props={selectedEquipment}/>
             </>

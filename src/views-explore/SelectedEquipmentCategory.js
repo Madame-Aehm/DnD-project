@@ -106,6 +106,7 @@ function SelectedEquipmentCategory() {
         <NavBar/>
         {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
         {pageLoader && <div className='content-container'><Loader/></div>}
+        <h4 className='ec-h4'>Equipment Categories</h4>
         {!pageLoader && 
             <>
                 {searchResult !== "" && <h4 className='ec-h4'>Showing category results for "{searchResult}"</h4>}

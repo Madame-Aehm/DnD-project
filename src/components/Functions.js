@@ -1,5 +1,3 @@
-import { isContentEditable } from "@testing-library/user-event/dist/utils";
-import useSubFetch from "../hooks/useSubFetch";
 
 function displayNicely(string) {
     let noHyphens = string.replace("-", " ");
@@ -17,11 +15,6 @@ function displayNicely(string) {
 function removeHyphens(string) {
     let noHyphens = string.replace("-", "");
     return noHyphens;
-}
-
-function MakeChecked() {
-    const checks = document.querySelector("input[type='radio']");
-      checks.checked = true;
 }
 
 function checkFirstCheck() {
@@ -63,4 +56,4 @@ function emailValidation(emailInput) {
     return string.slice(0, atPosition);
   }
 
-export { displayNicely, removeHyphens, MakeChecked, checkFirstCheck, emailValidation, passwordValidation, emailToName }
+export { displayNicely, removeHyphens, checkFirstCheck, emailValidation, passwordValidation, emailToName }

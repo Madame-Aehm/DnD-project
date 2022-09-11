@@ -1,111 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import CycleNext from '../components/CycleNext';
+import CyclePrev from '../components/CyclePrev';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
+import useFindArrayPosition from '../hooks/useFindArrayPosition';
+import useSubFetch from '../hooks/useSubFetch';
 
 function SelectedProficiency() {
 
   const location = useLocation();
-  const restURL = location.state.url;
+  const [restURL, setRestURL] = useState(location.state.url);
   const cycleArray = location.state.array;
-  const [selectedProficiency, setSelectedProficiency] = useState({});
-  const [pageLoader, setPageLoader] = useState(true);
-  const [error, setError] = useState(null);
+  const searchResult = location.state.searchResult;
 
-  const fetchList = async() => {
-    try {
-      const response = await fetch(`https://www.dnd5eapi.co${restURL}`);
-      const result = await response.json();
-      console.log(result);
-      setSelectedProficiency(result);
-      setPageLoader(false);
-    } catch (error) {
-      console.log("error", error)
-      setError(error);
-    }
+  const {
+    selected: selectedProficiency, 
+    loader: pageLoader, 
+    subError: error
+  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
+
+  function handleOnClick (url) {
+    setRestURL(url);
   }
 
-  useEffect(() => {
-      fetchList();
-  }, []);
-
-  const cycleFetch = async(URL) => {
-    try {
-        const response = await fetch(`https://www.dnd5eapi.co${URL}`);
-        const result = await response.json();
-        console.log(result);
-        setSelectedProficiency(result);
-        setPageLoader(false);
-    } catch (error) {
-        console.log("error", error)
-        setError(error);
-    }
-}
-
-  const [next, setNext] = useState("");
-  const [prev, setPrev] = useState("");
-
-  function findArrayPosition() {
-    for (let i = 0; i < cycleArray.length; i++) {
-      if (cycleArray[i].index === selectedProficiency.index) {
-        cycleArray[i + 1] ? setNext(cycleArray[i + 1].url) : setNext("end");
-        cycleArray[i - 1] ? setPrev(cycleArray[i - 1].url) : setPrev("end");
-      }
-    }
-  }
-
-  useEffect(() => {
-    findArrayPosition();
-  }, [selectedProficiency])
-
-  function nextButton() {
-    if (next === "end") {
-      return (
-        <button className='cycle' disabled>↠</button>
-      )
-    } else {
-      return (
-        <button className='cycle' onClick={() => {
-          setPageLoader(true);
-          cycleFetch(next);
-        }}>↠</button>
-      )
-    }
-  }
-
-  function prevButton() {
-    if (prev === "end") {
-      return (
-        <button className='cycle' disabled>↞</button>
-      )
-    } else {
-      return (
-        <button className='cycle' onClick={() => {
-          setPageLoader(true);
-          cycleFetch(prev);
-        }}>↞</button>
-      )
-    }
-  }
-
-  
-
-  function RemoveLoader() {
-    setPageLoader(false);
-  }
+  const {
+    next,
+    prev
+  } = useFindArrayPosition(cycleArray, selectedProficiency);
 
   return (
     <div className='content-container'>
       <NavBar/>
-      {error && <div className='content-container'>{RemoveLoader()}<p>Something went wrong.. Please reload.</p></div>}
+      {error && <div className='content-container'><p>Something went wrong.. Please reload.</p></div>}
       {pageLoader && <div className='content-container'><Loader/></div>}
-      <h4 className='ec-h4'>Proficiency</h4>
+      <h4 className='ec-h4'>Proficiencies</h4>
       {!pageLoader && 
         <>
+          {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult}"</h4>}
           <div className='cycle-buttons-div'>
-              {prevButton()}
+              <CyclePrev prev={prev} handleOnClick={handleOnClick} />
               <h1 className='ec-h1'>{selectedProficiency.name}</h1>
-              {nextButton()}
+              <CycleNext next={next} handleOnClick={handleOnClick} />
           </div>
 
           <div className='display'>
