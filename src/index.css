@@ -126,8 +126,6 @@ input[type=checkbox]:checked ~ .logged {
   padding: 0.5em 2.5em;
 }
 
-.menu
-
 .logged a, .not-logged a {
   text-decoration: none;
   color: #412234;
@@ -169,6 +167,11 @@ h1 {
   color: #412234;
   margin-top: 0;
   margin-bottom: 0.2em;
+}
+
+.welcome-user {
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .login-signup {
@@ -259,6 +262,49 @@ p a:hover {
   0% {top: 0}
   50% {top: 5px}
   100% {top: 0}
+}
+
+#scroll-button {
+  display: none;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  background-color: #412234;
+  color: white;
+  border: solid 2px white;
+  border-radius: 8px;
+  padding: 0.5em;
+  opacity: 0.5;
+}
+
+#scroll-button:hover {
+  opacity: 1;
+}
+
+.character-card-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.character-card {
+  width: 100%;
+  padding: 1em;
+  background-color: white;
+  border: solid 1px #2E4052;
+  border-radius: 8px;
+}
+
+select {
+  width: 300px;
+  padding: 0.5em;
+  font-size: large;
+  border: solid 2px #412234;
+  border-radius: 8px;
+
 }
 
 

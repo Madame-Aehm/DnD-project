@@ -45,17 +45,15 @@ import RuleSections from "./views-explore/RuleSections";
 import Rules from "./views-explore/Rules";
 
 
-
 function App() {
   return (
 <>
 <BrowserRouter>
     <AuthContextProvider>
       <Routes>
-
       <Route path="*" element={ <HereBeDragons/> } />
       <Route path="/" element={ <Home/> } />
-        <Route path="login" element={ <Login/>}  />
+        <Route path="login" element={ <Login/> } />
           <Route path="login-success" element={ <LogInSuccess/> } />
         <Route path="signup" element={ <SignUp/> } />
         <Route path="favourites" element={ <ProtectedRoute> <Favourites/> </ProtectedRoute>  } />
