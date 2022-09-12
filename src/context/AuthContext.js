@@ -12,7 +12,7 @@ export const AuthContextProvider = (props) => {
 
   const registerNewUser = (email, password) => {
     if (user) {
-      alert(user.email + " is still logged in. Please log out first");
+      alert(emailToName(user.email) + " is still logged in. Please log out first");
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -33,7 +33,7 @@ export const AuthContextProvider = (props) => {
 
   const login = (email, password) => {
     if (user) {
-      alert(user.email + " is still logged in. Please log out first");
+      alert(emailToName(user.email) + " is still logged in. Please log out first");
     } else {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -66,10 +66,10 @@ export const AuthContextProvider = (props) => {
   };
 
   const permDelete = () => {
-    if (window.confirm("Are you SURE you want to perminently delete your account?")) {
-      if (window.confirm("Are you positive you really really want to PERMINENTLY delete your account?")){
+    if (window.confirm("Are you SURE you want to permanently delete your account?")) {
+      if (window.confirm("Are you positive you really really want to PERMANENTLY delete your account?")){
         deleteUser(user).then(() => {
-          alert("Account perminently deleted.")
+          alert("Account permanently deleted.")
           redirect("/");
           }).catch((error) => {
             alert(error);
