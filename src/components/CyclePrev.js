@@ -7,7 +7,7 @@ function CyclePrev({ prev, handleOnClick }) {
     )
   } else {
     return (
-      <button className='cycle' onClick={() => {handleOnClick(prev)}}>↠</button>
+      <button className='cycle' onClick={() => {handleOnClick(prev)}}>↞</button>
     )
   }
 }

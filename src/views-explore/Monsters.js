@@ -32,7 +32,7 @@ function Monsters() {
             <div className='explore-list'>
               {filteredList.map((item) => {
                 return (
-                  <Link className='explore-button' to={"/selectedmonster"} state={{url: item.url, array: filteredList, searchResult: filter}} key={item.index}>{item.name}</Link>
+                  <Link className='explore-button' to={"/selectedmonster"} state={{url: item.url, array: filteredList, searchResult: filter, category: "Monsters"}} key={item.index}>{item.name}</Link>
                 )
               })}
               {filteredList.length === 0 && <p>No Results</p>}

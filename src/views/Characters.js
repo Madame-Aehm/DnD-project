@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../config";
 import { AuthContext } from '../context/AuthContext';
-import { async } from '@firebase/util';
-
-
 
 function Characters() {
 
   const { user } = useContext(AuthContext);
+  const [pageLoader, setPageLoader] = useState(true);
   const [classList, setClassList] = useState([]);
   const [raceList, setRaceList] = useState([]);
   const [charactersArray, setCharactersArray] = useState(null); 
@@ -19,18 +17,15 @@ function Characters() {
 
 
   const fetchClasses = async() => {
-    if (classList === 0) {
+    if (classList.length === 0) {
       try {
         const response = await fetch("https://www.dnd5eapi.co/api/classes");
         const result = await response.json();
         setClassList(result.results);
-        console.log(result.results);
       } catch (error) {
         console.log("error", error);
-        // setError(error);
       }
     }
-    
   }
 
   const fetchRaces = async() => {
@@ -39,10 +34,8 @@ function Characters() {
         const response = await fetch("https://www.dnd5eapi.co/api/races");
         const result = await response.json();
         setRaceList(result.results);
-        console.log(result.results);
       } catch (error) {
         console.log("error", error);
-        // setError(error);
       }
     }
   }
@@ -60,14 +53,14 @@ function Characters() {
       setEnterCharacterClass("");
       setEnterCharacterRace("");
       const dropdowns = document.querySelectorAll("select");
-      dropdowns.value = "";
-
+      dropdowns.forEach((dropdown) => {
+        dropdown.selectedIndex = "0";
+      })
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }
   
-
   async function getCharacters () {
     const querySnapshot = await getDocs(collection(db, "Characters_user" + user.uid));
     const array = [];
@@ -77,6 +70,15 @@ function Characters() {
       array.push(data);
     });
     setCharactersArray(array);
+  }
+
+  async function deleteCharacter (character) {
+    if (window.confirm("Are you sure you want to delete " + character.name + "?")) {
+      const newArray = charactersArray.filter((v) => v.id != character.id);
+      setCharactersArray(newArray);
+      await deleteDoc(doc(db, "Characters_user" + user.uid, character.id));
+      alert(character.name + " has been deleted.");
+    }
   }
   
   const handleCharacterNameChange = (e) => {
@@ -103,8 +105,6 @@ function Characters() {
       <NavBar/>
       <h1>Characters</h1>
       <input type={"text"} placeholder={"Character Name"} value={enterCharacterName} onChange={handleCharacterNameChange} required></input>
-      {/* <input type={"text"} placeholder={"Character Class"} value={enterCharacterClass} onChange={handleCharacterClassChange}></input>
-      <input type={"text"} placeholder={"Character Race"} value={enterCharacterRace} onChange={handleCharacterRaceChange}></input> */}
       <select id='character-class' name='character-class' onChange={handleCharacterClassChange} required>
         <option value={""}>Select Class...</option>
         {classList && classList.map((item) => {
@@ -121,13 +121,15 @@ function Characters() {
           )
         })}
       </select>
-      <button className='explore-button' onClick={() => addCharacter()}>Add Character</button>
+      <button type={"submit"} className='explore-button' onClick={() => addCharacter()}>Create Character</button>
+
       <h3>My Characters:</h3>
       <div className='character-card-display'>
         {charactersArray && charactersArray.map((character) => {
           return (
             <div className='character-card' key={character.id}>
               <h4>{character.name}, the {character.class} {character.race}</h4>
+              <button onClick={() => deleteCharacter(character)}>Delete</button>
             </div>
           )
         })}

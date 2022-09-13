@@ -9,8 +9,9 @@ function SignUp() {
 
   const { registerNewUser } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+  const toLogin = () => navigate("/login", {replace: true});
 
-  const redirect = useNavigate();
   const handleRegister = (email, password) => {
     registerNewUser(email, password);
   }
@@ -32,7 +33,7 @@ function SignUp() {
                 handleRegister(emailInput.value, passwordInput.value);
               }
             }}>Sign up!</a>
-            <p>Already have an account? <Link to='/login'>Log-in</Link>!</p>
+            <p>Already have an account? <a onClick={toLogin} style={({cursor: "pointer"})}>Log-in</a>!</p>
           </div>
         </div>
     </div>

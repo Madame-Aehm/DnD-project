@@ -54,7 +54,7 @@ function DisplayEquipment(props) {
                 </>
             }
 
-            {selectedEquipment.contents && 
+            {selectedEquipment.contents && selectedEquipment.contents.length > 0 && 
                 <>
                     <h4>Contents</h4>
                     <div className='mini-h-list'>

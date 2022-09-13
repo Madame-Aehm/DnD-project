@@ -80,13 +80,13 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:checked ~ .not-logged {
-  height: 39px;
+  height: 104px;
   transition: 0.2s;
   visibility: visible;
 }
 
 input[type=checkbox]:checked ~ .logged {
-  height: 199px;
+  height: 248px;
   transition: 0.2s;
   visibility: visible;
 }
@@ -96,6 +96,7 @@ input[type=checkbox]:checked ~ .logged {
 }
 
 .menu > ul {
+  min-width: 144px;
   visibility: hidden;
   align-self: flex-end;
   margin: 0;
@@ -112,8 +113,8 @@ input[type=checkbox]:checked ~ .logged {
   text-align: center;
 }
 
-.logged li {
-  padding: 1em;
+li {
+  padding: 15px;
 }
 
 .menu li:active {
@@ -121,14 +122,15 @@ input[type=checkbox]:checked ~ .logged {
   color: white;
 }
 
-.menu a:last-child li {
+.logged a:last-child li {
   border-top: solid 1px #412234;
-  padding: 0.5em 2.5em;
+  padding: 10px
 }
 
 .logged a, .not-logged a {
   text-decoration: none;
   color: #412234;
+  cursor: pointer;
 }
 
 .content-container {
@@ -304,7 +306,27 @@ select {
   font-size: large;
   border: solid 2px #412234;
   border-radius: 8px;
+}
 
+.add-fav-container {
+  display: flex;
+  align-items: center;
+}
+
+.fav-button {
+  background-color: transparent;
+  color: #412234;
+  border: none;
+  font-size: xx-large;
+}
+
+.not-fav-button {
+  background-color: transparent;
+  color: #412234;
+  border: none;
+  font-size: xx-large;
+  opacity: 0.5;
+  cursor: pointer;
 }
 
 

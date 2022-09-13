@@ -37,6 +37,7 @@ input[type="text"], [type="password"] {
   border: solid 2px #412234;
   border-radius: 8px;
   font-size: large;
+  width: 80%;
 }
 
 h3 {
@@ -223,8 +224,6 @@ table {
   width: 90%;
   text-align: left;
 }
-
-
 
 @media only screen and (min-width: 400px) {
   .checkbox-container-3 {
