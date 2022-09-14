@@ -17,7 +17,6 @@ function SelectedSpell() {
   const location = useLocation();
   const [restURL, setRestURL] = useState(location.state.url);
   const cycleArray = location.state.array;
-  console.log(cycleArray);
   const searchResult = location.state.searchResult;
   const category = location.state.category;
 
@@ -25,8 +24,7 @@ function SelectedSpell() {
     selected: selectedSpell, 
     loader: pageLoader, 
     subError: error
-  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`)
-  console.log(selectedSpell);
+  } = useSubFetch(`https://www.dnd5eapi.co${restURL}`);
 
   function handleOnClick (url) {
     setRestURL(url);
@@ -36,8 +34,6 @@ function SelectedSpell() {
     next,
     prev
   } = useFindArrayPosition(cycleArray, selectedSpell);
-  console.log(prev);
-  console.log(next);
 
   async function addFavourite() {
     if (alreadyFavourited) {

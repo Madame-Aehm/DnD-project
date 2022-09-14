@@ -89,7 +89,7 @@ function SelectedEquipment() {
     <div>
         <NavBar/>
         {error && <p>Something went wrong.. Please reload.</p>}
-        {pageLoader &&<Loader/>}
+        {pageLoader && <Loader/>}
         {!pageLoader &&
             <>  
               <h4 className='ec-h4'>{category}</h4>

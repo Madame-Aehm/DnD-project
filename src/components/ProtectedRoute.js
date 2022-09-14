@@ -5,7 +5,13 @@ import useCheckUser from '../hooks/useCheckUser'
 function ProtectedRoute({ children }) {
   const loggedIn = useCheckUser();
   return (
-    <>{loggedIn ? children : <Navigate to="/login"/>}</>
+    <>
+      {loggedIn ? children : 
+        setTimeout(() => {
+          <Navigate to="/login"/>
+        }, 1000)
+      }
+    </>
   )
 }
 

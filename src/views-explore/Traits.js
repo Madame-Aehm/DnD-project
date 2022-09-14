@@ -32,7 +32,7 @@ function Traits() {
           <div className='explore-list'>
             {filteredList.map((item) => {
               return (
-                <Link className='explore-button' to={"/selectedtrait"} state={{url: item.url, array: filteredList, searchResult: filter}} key={item.index}>{item.name}</Link>
+                <Link className='explore-button' to={"/selectedtrait"} state={{url: item.url, array: filteredList, searchResult: filter, category: "Traits"}} key={item.index}>{item.name}</Link>
               )
             })}
             {filteredList.length === 0 && <p>No Results</p>}

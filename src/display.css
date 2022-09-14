@@ -4,7 +4,7 @@ p {
   margin: 0.5em;
 }
 
-label > div {
+.checkLabel > div {
   padding: 0.5em;
   background-color: #412234;
   border: solid 3px white;
@@ -115,11 +115,13 @@ ul {
   flex-flow: row wrap;
   width: 100%;
   justify-content: space-around;
+  text-align: center;
 }
 
 .mini-h-list hr {
   width: 50%;
 }
+
 
 .e-choices {
   margin-top: 0.5em;
@@ -223,6 +225,34 @@ table {
 .spell-table {
   width: 90%;
   text-align: left;
+}
+
+.display-link {
+  text-decoration: none;
+  color: #2E4052;
+}
+
+.display-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.testing {
+  height: 100px;
+  overflow: hidden;
+}
+
+.choose-stats {
+  border: solid 2px #412234;
+  color: #412234;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  width: 90%;
+  text-align: center;
+}
+
+td > input {
+  width: 70%
 }
 
 @media only screen and (min-width: 400px) {

@@ -32,7 +32,7 @@ function Features() {
             <div className='explore-list'>
                 {filteredList.map((item) => {
                 return (
-                    <Link className='explore-button' to={"/selectedfeature"} state={{url: item.url, array: filteredList, searchResult: filter}} key={item.index}>{item.name}</Link>
+                    <Link className='explore-button' to={"/selectedfeature"} state={{url: item.url, array: filteredList, searchResult: filter, category: "Features"}} key={item.index}>{item.name}</Link>
                 )
                 })}
                 {filteredList.length === 0 && <p>No Results</p>}

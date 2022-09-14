@@ -43,6 +43,7 @@ import Favourites from "./views/Favourites";
 import Characters from "./views/Characters";
 import RuleSections from "./views-explore/RuleSections";
 import Rules from "./views-explore/Rules";
+import NewCharacter from "./views/NewCharacter";
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="signup" element={ <SignUp/> } />
         <Route path="favourites" element={ <ProtectedRoute> <Favourites/> </ProtectedRoute>  } />
         <Route path="characters" element={ <ProtectedRoute> <Characters/> </ProtectedRoute> } />
+          <Route path="newcharacter" element={ <ProtectedRoute> <NewCharacter/> </ProtectedRoute> } />
         <Route path="explore" element={ <Explore/> } />
 
           <Route path="abilityscores" element={ <AbilityScores /> } />

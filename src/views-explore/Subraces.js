@@ -24,7 +24,7 @@ function Subraces() {
           <div className='explore-list'>
             {racesList.map((item) => {
               return (
-                <Link className='explore-button' to={"/selectedrace"} state={{url: item.url, array: racesList}} key={item.index}>{item.name}</Link>
+                <Link className='explore-button' to={"/selectedrace"} state={{url: item.url, array: racesList, searchResult: "", category: "Races"}} key={item.index}>{item.name}</Link>
               )
             })}
           </div>

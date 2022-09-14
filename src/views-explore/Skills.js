@@ -43,7 +43,7 @@ function Skills() {
                       onChange={
                       (e) => {handleCheckboxChange(item.url)}
                       }/>
-                  <label htmlFor={item.index}><div>{item.name}</div></label>
+                  <label className='checkLabel' htmlFor={item.index}><div>{item.name}</div></label>
                 </div>
               )
             })}

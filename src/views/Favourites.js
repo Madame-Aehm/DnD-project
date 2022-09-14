@@ -3,17 +3,22 @@ import NavBar from '../components/NavBar'
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../config";
 import { AuthContext } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
+import DisplayFavourite from '../components/DisplayFavourite';
 
 function Favourites() {
   const { user } = useContext(AuthContext);
   const [pageLoader, setPageLoader] = useState(true);
   const [favouritesArray, setFavouritesArray] = useState([]);
+  const [selectedFav, setSelectedFav] = useState("all");
   const equipmentArray = favouritesArray.filter((item) => item.fav_category === "Equipment");
   const magicItemsArray = favouritesArray.filter((item) => item.fav_category === "Magic Items");
   const monstersArray = favouritesArray.filter((item) => item.fav_category === "Monsters");
   const spellsArray = favouritesArray.filter((item) => item.fav_category === "Spells");
+  const featuresArray = favouritesArray.filter((item) => item.fav_category === "Features");
+  const classesArray = favouritesArray.filter((item) => item.fav_category === "Classes");
+  const racesArray = favouritesArray.filter((item) => item.fav_category === "Races");
+  const traitsArray = favouritesArray.filter((item) => item.fav_category === "Traits");
 
   async function getFavourites () {
     const querySnapshot = await getDocs(collection(db, "Favourites_user" + user.uid));
@@ -34,8 +39,11 @@ function Favourites() {
       const newArray = favouritesArray.filter((v) => v.id != favourite.id);
       setFavouritesArray(newArray);
       await deleteDoc(doc(db, "Favourites_user" + user.uid, favourite.id));
-      alert(favourite.name + " has been deleted.");
     }
+  }
+
+  const handleOnChange = (e) => {
+    setSelectedFav(e.target.value);
   }
 
   useEffect(() => {
@@ -48,90 +56,54 @@ function Favourites() {
       {pageLoader &&<Loader/>}
       {!pageLoader && <>
         <h1>Favourites</h1>
-
-        <h3>Equipment</h3>
-        <div className='character-card-display'>
-          {equipmentArray.length === 0 && <p>You haven't favourited any Equipment</p>}
-          {equipmentArray.length > 0 && equipmentArray.map((item) => {
-            return (
-              <div className='character-card' key={item.id}>
-                <h4>{item.name}</h4>
-                <Link 
-                  to={"/selectedequipment"} 
-                  state={{url: item.url, 
-                    array: equipmentArray, 
-                    searchResult: "Favourite ", 
-                    category: item.fav_category}}>
-                  View Page
-                </Link>
-                <button onClick={() => deleteFavourite(item)}>Delete</button>
-              </div>
-            )
-          })}
+        <div className='select-fav-div'>
+          <label htmlFor='select-fav'>Show...</label>
+          <select id='select-fav' onChange={handleOnChange}>
+            <option value={"all"}>All</option>
+            <option value={"Equipment"}>Equipment</option>
+            <option value={"Magic Items"}>Magic Items</option>
+            <option value={"Monsters"}>Monsters</option>
+            <option value={"Spells"}>Spells</option>
+            <option value={"Features"}>Features</option>
+            <option value={"Classes"}>Classes/Subclasses</option>
+            <option value={"Races"}>Races/Subraces</option>
+            <option value={"Traits"}>Traits</option>
+          </select>
         </div>
 
-        <h3>Magic Items</h3>
-        <div className='character-card-display'>
-          {magicItemsArray.length === 0 && <p>You haven't favourited any Magic Items</p>}
-          {magicItemsArray.length > 0 && magicItemsArray.map((item) => {
-            return (
-              <div className='character-card' key={item.id}>
-                <h4>{item.name}</h4>
-                <Link
-                  to={"/selectedequipment"}
-                  state={{url: item.url, 
-                    array: magicItemsArray, 
-                    searchResult: "Favourite ", 
-                    category: item.fav_category}}>
-                  View Page
-                </Link>
-                <button onClick={() => deleteFavourite(item)}>Delete</button>
-              </div>
-            )
-          })}
-        </div>
-        
-        <h3>Monsters</h3>
-        <div className='character-card-display'>
-          {monstersArray.length === 0 && <p>You haven't favourited any Monsters</p>}
-          {monstersArray.length > 0 && monstersArray.map((item) => {
-            return (
-              <div className='character-card' key={item.id}>
-                <h4>{item.name}</h4>
-                <Link
-                  to={"/selectedmonster"}
-                  state={{url: item.url, 
-                    array: monstersArray, 
-                    searchResult: "Favourite ", 
-                    category: item.fav_category}}>
-                  View Page
-                </Link>
-                <button onClick={() => deleteFavourite(item)}>Delete</button>
-              </div>
-            )
-          })}
-        </div>
+        {(selectedFav === "Equipment" || selectedFav === "all") && <>
+          <h3>Equipment</h3>
+          <DisplayFavourite array={equipmentArray} deleteFavourite={deleteFavourite} linkTo={"/selectedequipment"} />
+        </>}
+        {(selectedFav === "Magic Items" || selectedFav === "all") && <>
+          <h3>Magic Items</h3>
+          <DisplayFavourite array={magicItemsArray} deleteFavourite={deleteFavourite} linkTo={"/selectedequipment"} />
+        </>}
+        {(selectedFav === "Monsters" || selectedFav === "all") && <>
+          <h3>Monsters</h3>
+          <DisplayFavourite array={monstersArray} deleteFavourite={deleteFavourite} linkTo={"/selectedmonster"} />
+        </>}
+        {(selectedFav === "Spells" || selectedFav === "all") && <>
+          <h3>Spells</h3>
+          <DisplayFavourite array={spellsArray} deleteFavourite={deleteFavourite} linkTo={"/selectedspell"} />
+        </>}
+        {(selectedFav === "Features" || selectedFav === "all") && <>
+          <h3>Features</h3>
+          <DisplayFavourite array={featuresArray} deleteFavourite={deleteFavourite} linkTo={"/selectedfeature"} />
+        </>}
+        {(selectedFav === "Classes" || selectedFav === "all") && <>
+          <h3>Classes</h3>
+          <DisplayFavourite array={classesArray} deleteFavourite={deleteFavourite} linkTo={"/selectedclass"} />
+        </>}
+        {(selectedFav === "Races" || selectedFav === "all") && <>
+          <h3>Races</h3>
+          <DisplayFavourite array={racesArray} deleteFavourite={deleteFavourite} linkTo={"/selectedrace"} />
+        </>}
+        {(selectedFav === "Traits" || selectedFav === "all") && <>
+          <h3>Traits</h3>
+          <DisplayFavourite array={traitsArray} deleteFavourite={deleteFavourite} linkTo={"/selectedtrait"} />
+        </>}
 
-        <h3>Spells</h3>
-        <div className='character-card-display'>
-          {spellsArray.length === 0 && <p>You haven't favourited any Monsters</p>}
-          {spellsArray.length > 0 && spellsArray.map((item) => {
-            return (
-              <div className='character-card' key={item.id}>
-                <h4>{item.name}</h4>
-                <Link
-                  to={"/selectedspell"}
-                  state={{url: item.url, 
-                    array: spellsArray, 
-                    searchResult: "Favourite ", 
-                    category: item.fav_category}}>
-                  View Page
-                </Link>
-                <button onClick={() => deleteFavourite(item)}>Delete</button>
-              </div>
-            )
-          })}
-        </div>
 
       </>}
     </div>

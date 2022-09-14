@@ -26,7 +26,6 @@ function NavBar() {
               <label htmlFor={"menu-toggle"}>
                 <a className='hide'>Menu</a>
               </label>
-              <div className='close-menu'></div>
               {!user && 
                 <ul className='not-logged'>
                   <NavLink to={"/explore"} style={({isActive}) => ({

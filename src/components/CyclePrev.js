@@ -3,7 +3,7 @@ import React from 'react'
 function CyclePrev({ prev, handleOnClick }) {
   if (prev === "end") {
     return (
-      <button className='cycle' disabled>↠</button>
+      <button className='cycle' disabled>↞</button>
     )
   } else {
     return (

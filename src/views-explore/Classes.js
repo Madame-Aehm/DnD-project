@@ -24,7 +24,7 @@ function Classes() {
             <div className='explore-list'>
               {classList.map((item) => {
                 return (
-                  <Link className='explore-button' to={"/selectedclass"} state={{url: item.url, array: classList}} key={item.index}>{item.name}</Link>
+                  <Link className='explore-button' to={"/selectedclass"} state={{url: item.url, array: classList, searchResult: "", category: "Classes"}} key={item.index}>{item.name}</Link>
                 )
               })}
             </div>
