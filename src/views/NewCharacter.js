@@ -110,8 +110,9 @@ function NewCharacter() {
     }
   }
 
-  const standardArray = [15, 14, 13, 12, 10, 8];
+  
   const shuffle = () => {
+    const standardArray = [15, 14, 13, 12, 10, 8];
     standardArray.sort(() => Math.random() - 0.5);
     setSTR(standardArray[0]);
     setDEX(standardArray[1]);
@@ -121,22 +122,46 @@ function NewCharacter() {
     setCHA(standardArray[5]);
   }
   const handleOnChangeSTR = (e) => {
-    setSTR(e.target.value);
+    if (e.target.value < 20) {
+      setSTR(e.target.value);
+    } else {
+      setSTR(20);
+    }
   };
   const handleOnChangeDEX = (e) => {
-    setDEX(e.target.value);
+    if (e.target.value < 20) {
+      setDEX(e.target.value);
+    } else {
+      setDEX(20);
+    }
   };
   const handleOnChangeCON = (e) => {
-    setCON(e.target.value);
+    if (e.target.value < 20) {
+      setCON(e.target.value);
+    } else {
+      setCON(20);
+    }
   };
   const handleOnChangeINT = (e) => {
-    setINT(e.target.value);
+    if (e.target.value < 20) {
+      setINT(e.target.value);
+    } else {
+      setINT(20);
+    }
   };
   const handleOnChangeWIS = (e) => {
-    setWIS(e.target.value);
+    if (e.target.value < 20) {
+      setWIS(e.target.value);
+    } else {
+      setWIS(20);
+    }
   };
   const handleOnChangeCHA = (e) => {
-    setCHA(e.target.value);
+    if (e.target.value < 20) {
+      setCHA(e.target.value);
+    } else {
+      setCHA(20);
+    }
   };
 
   function checkAbilityBonus(bonus) {

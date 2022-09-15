@@ -9,7 +9,6 @@ import useSubFetch from '../hooks/useSubFetch';
 function AbilityScores() {
 
   const {
-    object,
     array: abilityScoresList,
     pageLoader,
     error,

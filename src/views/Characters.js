@@ -41,19 +41,24 @@ function Characters() {
       <NavBar/>
         <h3>My Characters:</h3>
         <div className='character-card-display'>
-          {charactersArray && charactersArray.map((character) => {
-            return (
-              <label htmlFor='see-more' className='character-card' key={character.id}>
-                <h4>{character.name}, the {character.class} {character.race}</h4>
-                  <DisplayMyCharacter character={character}/>
-                <button onClick={() => deleteCharacter(character)}>Delete</button>
-                <input type={"checkbox"} id={"see-more"}/>
+          {(charactersArray && charactersArray.length === 0) && <p>You haven't created any characters yet.</p>}
+          {(charactersArray && charactersArray.length > 0) &&
+            charactersArray.map((character) => {
+              return (
+                <label htmlFor='see-more' className='character-card add-pointer' key={character.id}>
+                  <h4>{character.name}, the {character.class} {character.race}</h4>
+                  <input type={"checkbox"} id={"see-more"}/>
+                  <div className='character-display'>
+                    <DisplayMyCharacter character={character}/>
+                  </div>
+                  <button onClick={() => deleteCharacter(character)}>Delete</button>
               </label>
-            )
-          })}
+              )
+            })}
         </div>
 
         <Link className='explore-button' to={"/newcharacter"}>Create New Character</Link>
+        <br/>
 
     </div>
   )

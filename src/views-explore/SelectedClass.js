@@ -72,6 +72,7 @@ function SelectedClass() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

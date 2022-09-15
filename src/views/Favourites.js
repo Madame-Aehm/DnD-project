@@ -39,6 +39,7 @@ function Favourites() {
       const newArray = favouritesArray.filter((v) => v.id != favourite.id);
       setFavouritesArray(newArray);
       await deleteDoc(doc(db, "Favourites_user" + user.uid, favourite.id));
+      alert(favourite.name + "deleted.")
     }
   }
 

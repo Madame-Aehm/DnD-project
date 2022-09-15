@@ -123,7 +123,7 @@ function SelectedEquipmentCategory() {
         {!pageLoader &&
             <div className='explore-list'>
                 {selectedEquipmentCategory && selectedEquipmentCategory.map((item) => {
-                    return <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory, searchResult: ""}} key={item.index}>{item.name}</Link>
+                    return <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: selectedEquipmentCategory, searchResult: "", category: "Equipment"}} key={item.index}>{item.name}</Link>
                 })}
                 {selectedEquipmentCategory.length === 0 && <p>No Results</p>}
             </div>

@@ -162,11 +162,6 @@ h1 {
   margin-bottom: 0.2em;
 }
 
-.welcome-user {
-  display: flex;
-  flex-flow: row wrap;
-}
-
 .login-signup {
   display: flex;
   flex-direction: column;
@@ -193,10 +188,6 @@ p a:hover {
   flex-direction: column;
   align-items: center;
   gap: 1em;
-}
-
-.log-input {
-  width: 80%;
 }
 
 .login-button {
@@ -291,6 +282,15 @@ p a:hover {
   border-radius: 8px;
 }
 
+.add-pointer {
+  cursor: pointer;
+}
+
+.add-pointer:hover {
+  transition: 0.2s;
+  box-shadow: 1px 1px 3px #2E4052;
+}
+
 .character-card > div {
   display: flex;
   justify-content: space-between;
@@ -311,7 +311,6 @@ p a:hover {
 .character-card a:active {
   background-color: #2E4052;
   color: white;
-
 }
 
 .character-card button {

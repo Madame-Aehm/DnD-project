@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { auth } from '../config';
+import { auth, db } from '../config';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, deleteUser } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { emailToName } from '../components/Functions';
+import { doc, deleteDoc, getDocs, collection } from "firebase/firestore";
 
 export const AuthContext = createContext();
 
@@ -65,10 +66,25 @@ export const AuthContextProvider = (props) => {
     }
   };
 
+  async function deleteUserCollections() {
+    await deleteDoc(doc(db, "Favourites_user" + user.uid));
+    await deleteDoc(doc(db, "Characters_user" + user.uid));
+  }
+
+  async function getCollections () {
+    const favourites = await getDocs(collection(db, "Favourites_user" + user.uid));
+    favourites.forEach((doc) => {
+      console.log(doc);
+      const data = doc.data();
+      data.id = doc.id;
+    });
+  }
+
   const permDelete = () => {
     if (window.confirm("Are you SURE you want to permanently delete your account?")) {
       if (window.confirm("Are you positive you really really want to PERMANENTLY delete your account?")){
         deleteUser(user).then(() => {
+          deleteUserCollections();
           alert("Account permanently deleted.")
           redirect("/");
           }).catch((error) => {

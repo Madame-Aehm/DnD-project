@@ -69,6 +69,7 @@ function SelectedSpell() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

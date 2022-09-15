@@ -70,6 +70,7 @@ function SelectedMonster() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

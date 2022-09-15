@@ -69,6 +69,7 @@ function SelectedEquipment() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

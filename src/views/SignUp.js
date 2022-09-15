@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { emailValidation, passwordValidation } from '../components/Functions';
 import NavBar from '../components/NavBar'
 import { AuthContext } from '../context/AuthContext';
@@ -8,9 +8,6 @@ import { AuthContext } from '../context/AuthContext';
 function SignUp() {
 
   const { registerNewUser } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-  const toLogin = () => navigate("/login", {replace: true});
 
   const handleRegister = (email, password) => {
     registerNewUser(email, password);
@@ -24,7 +21,7 @@ function SignUp() {
           <input className='log-input' type={"text"} placeholder={"Email"} id={"email"} required></input>
           <input className='log-input' type={"password"} placeholder={"Password"} id={"password"} required></input>
           <div className='login-signup'>
-            <a className='explore-button' onClick={ () => {
+            <button className='explore-button' onClick={ () => {
               const emailInput = document.querySelector("#email");
               const passwordInput = document.querySelector("#password");
               const validEmail = emailValidation(emailInput);
@@ -32,8 +29,8 @@ function SignUp() {
               if (validEmail && validPassword) {
                 handleRegister(emailInput.value, passwordInput.value);
               }
-            }}>Sign up!</a>
-            <p>Already have an account? <a onClick={toLogin} style={({cursor: "pointer"})}>Log-in</a>!</p>
+            }}>Sign up!</button>
+            <p>Already have an account? <Link to={"/login"} replace={true} style={({cursor: "pointer"})}>Log-in</Link>!</p>
           </div>
         </div>
     </div>

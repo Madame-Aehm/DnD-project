@@ -70,6 +70,7 @@ function SelectedTrait() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

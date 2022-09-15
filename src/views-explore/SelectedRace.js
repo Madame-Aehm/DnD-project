@@ -72,6 +72,7 @@ function SelectedRace() {
   }
 
   useEffect(() => {
+    user &&
     getLocalFavourites();
   }, []);
 

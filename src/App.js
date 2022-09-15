@@ -96,10 +96,7 @@ function App() {
           <Route path="traits" element={ <Traits/> } />
             <Route path="selectedtrait" element={ <SelectedTrait/> } />
           <Route path="weaponproperties" element={ <WeaponProperties/> } />
-            
-      
-    
-        
+          
       </Routes>
     </AuthContextProvider>
 </BrowserRouter>
