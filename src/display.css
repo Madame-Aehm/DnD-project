@@ -255,21 +255,6 @@ td > input {
   width: 70%
 }
 
-.character-display {
-   display: flex;
-   flex-direction: column;
-   height: 0px;
-   visibility: hidden;
-   overflow: hidden;
-   transition: 0.2s;
-}
-
-input[type=checkbox]:checked ~ .character-display {
-  visibility: initial;
-  height: 350px;
-  transition: 0.2s;
-}
-
 @media only screen and (min-width: 400px) {
   .checkbox-container-3 {
       grid-template-columns: repeat(3, 1fr);

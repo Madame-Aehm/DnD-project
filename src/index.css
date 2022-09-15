@@ -32,6 +32,7 @@ code {
   left: 0;
   right: 0;
   margin: 0 auto;
+  z-index: 2;
 }
 
 .nav-links {
@@ -327,6 +328,38 @@ p a:hover {
   border-color: #412234;
   background-color: white;
   color: #412234;
+}
+
+.character-display {
+  display: flex;
+  flex-direction: column;
+  height: 0px;
+  visibility: hidden;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+input[type=checkbox]:checked ~ .character-display {
+ visibility: initial;
+ height: 350px;
+ transition: 0.2s;
+}
+
+.down, .up {
+  font-size: large;
+  color: #412234;
+}
+
+.up {
+  display: none;
+}
+
+input[type=checkbox]:checked ~ .test > .down {
+  display: block;
+}
+
+input[type=checkbox]:checked ~ .test > .up {
+  display: none;
 }
 
 select {
