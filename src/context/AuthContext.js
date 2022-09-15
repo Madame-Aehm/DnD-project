@@ -18,7 +18,6 @@ export const AuthContextProvider = (props) => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("user", user);
           setUser(user);
           alert("Welcome, " + emailToName(user.email));
           redirect("/login-success", {replace: true});
@@ -39,7 +38,6 @@ export const AuthContextProvider = (props) => {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("user", user);
           setUser(user);
           redirect("/login-success", {replace: true});
         })
@@ -66,25 +64,23 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  async function deleteUserCollections() {
-    await deleteDoc(doc(db, "Favourites_user" + user.uid));
-    await deleteDoc(doc(db, "Characters_user" + user.uid));
+  async function deleteSingleDoc(setDoc, location) {
+    await deleteDoc(doc(db, location + user.uid, setDoc.id));
   }
 
-  async function getCollections () {
+  async function getThenDeleteCollection () {
     const favourites = await getDocs(collection(db, "Favourites_user" + user.uid));
     favourites.forEach((doc) => {
-      console.log(doc);
-      const data = doc.data();
-      data.id = doc.id;
+      deleteSingleDoc(doc, "Favourites_user");
     });
   }
+ 
 
   const permDelete = () => {
     if (window.confirm("Are you SURE you want to permanently delete your account?")) {
       if (window.confirm("Are you positive you really really want to PERMANENTLY delete your account?")){
         deleteUser(user).then(() => {
-          deleteUserCollections();
+          getThenDeleteCollection();
           alert("Account permanently deleted.")
           redirect("/");
           }).catch((error) => {

@@ -1,33 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { emailToName } from '../components/Functions';
 import NavBar from '../components/NavBar'
 import { AuthContext } from '../context/AuthContext';
-import { doc, deleteDoc, getDocs, collection } from "firebase/firestore";
-import { db } from "../config";
 
 
 function Home() {
-
   const { user, logout } = useContext(AuthContext);
-  // const [userID, setUserID] = useState("");
-
-  // async function getCollections () {
-  //   const favourites = await getDocs(collection(db, "Favourites_user" + userID));
-  //   favourites.forEach((doc) => {
-  //     console.log(doc);
-  //     const data = doc.data();
-  //     data.id = doc.id;
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     getCollections();
-  //   }, 1000);
-  // }, [setUserID])
   
-
   return (
     <div>
       <div className='home-banner'>

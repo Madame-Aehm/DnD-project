@@ -164,12 +164,12 @@ function NewCharacter() {
     }
   };
 
-  function checkAbilityBonus(bonus) {
+  function checkAbilityBonus() {
     for (let i = 0; i < character.stats.length; i++) {
-      for (let j = 0; j < bonus.length; j++) {
-        if (character.stats[i].index === bonus[j].ability_score.index) {
+      for (let j = 0; j < abilityBonuses.length; j++) {
+        if (character.stats[i].index === abilityBonuses[j].ability_score.index) {
           console.log("match found");
-          character.stats[i].bonus = bonus[j].bonus;
+          character.stats[i].bonus = abilityBonuses[j].bonus;
         }
       }
     } return character
@@ -233,7 +233,7 @@ function NewCharacter() {
           {review && 
               <div className='display'>
                 <h4>{character.name}, the {character.class} {character.race}</h4>
-                <DisplayMyCharacter character={character}/>
+                <DisplayMyCharacter character={character} />
                 <button className='explore-button' onClick={() => addCharacter()}>Create Character</button>
               </div>
           }
