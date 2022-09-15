@@ -63,24 +63,13 @@ export const AuthContextProvider = (props) => {
       });
     }
   };
-
-  async function deleteSingleDoc(setDoc, location) {
-    await deleteDoc(doc(db, location + user.uid, setDoc.id));
-  }
-
-  async function getThenDeleteCollection () {
-    const favourites = await getDocs(collection(db, "Favourites_user" + user.uid));
-    favourites.forEach((doc) => {
-      deleteSingleDoc(doc, "Favourites_user");
-    });
-  }
  
-
   const permDelete = () => {
     if (window.confirm("Are you SURE you want to permanently delete your account?")) {
       if (window.confirm("Are you positive you really really want to PERMANENTLY delete your account?")){
         deleteUser(user).then(() => {
-          getThenDeleteCollection();
+          getThenDeleteFavourites();
+          getThenDeleteCharacters();
           alert("Account permanently deleted.")
           redirect("/");
           }).catch((error) => {
@@ -88,6 +77,24 @@ export const AuthContextProvider = (props) => {
           });
       }
     }
+  }
+
+  async function getThenDeleteFavourites () {
+    const favourites = await getDocs(collection(db, "Favourites_user" + user.uid));
+    favourites.forEach((doc) => {
+      deleteSingleDoc(doc, "Favourites_user");
+    });
+  }
+
+  async function getThenDeleteCharacters () {
+    const favourites = await getDocs(collection(db, "Characters_user" + user.uid));
+    favourites.forEach((doc) => {
+      deleteSingleDoc(doc, "Characters_user");
+    });
+  }
+
+  async function deleteSingleDoc(setDoc, location) {
+    await deleteDoc(doc(db, location + user.uid, setDoc.id));
   }
 
   const checkForUser = () => {
