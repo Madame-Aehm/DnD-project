@@ -10,6 +10,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = (props) => {
   const redirect = useNavigate();
   const [user, setUser] = useState(null);
+  const [extraCheck, setExtraCheck] = useState(true);
 
   const registerNewUser = (email, password) => {
     if (user) {
@@ -101,8 +102,10 @@ export const AuthContextProvider = (props) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        setExtraCheck(false);
       } else {
         setUser(null);
+        setExtraCheck(false);
       }
     });
   };
@@ -113,7 +116,7 @@ export const AuthContextProvider = (props) => {
 
 
   return (
-      <AuthContext.Provider value ={{ user, setUser, registerNewUser, login, logout, permDelete }}>
+      <AuthContext.Provider value ={{ user, setUser, registerNewUser, login, logout, permDelete, extraCheck }}>
         {props.children}
       </AuthContext.Provider>
   )

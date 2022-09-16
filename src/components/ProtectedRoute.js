@@ -1,16 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom';
-import useCheckUser from '../hooks/useCheckUser'
+import { AuthContext } from '../context/AuthContext';
 
 function ProtectedRoute({ children }) {
-  const loggedIn = useCheckUser();
+  const { user, extraCheck } = useContext(AuthContext);
   return (
     <>
-      {loggedIn ? children : 
-        setTimeout(() => {
-          <Navigate to="/login"/>
-        }, 1000)
-      }
+      {extraCheck ? <p>Access to this page is restricted to logged-in users only.</p> : user ? children : <Navigate to="/login"/>}
     </>
   )
 }

@@ -111,41 +111,41 @@ function Selected() {
         {error && <p>Something went wrong.. Please reload.</p>}
         {pageLoader && <Loader/>}
         {!pageLoader &&
-            <>  
-              <h4 className='ec-h4'>{category}</h4>
-              {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult} {searchResult === "Favourite " && <>{category}</>}"</h4>}
-              <div className='cycle-buttons-div'>
-                <CyclePrev prev={prev} handleOnClick={handleOnClick} />
-                <div className='add-fav-container'>
-                  <h1>{selected.name}</h1>
-                  {user && 
-                    <>
-                      {!alreadyFavourited && <button className='not-fav-button' title={"Add to Favourites"} onClick={() => addFavourite()}>♥</button>}
-                      {alreadyFavourited && <button className='fav-button' title={selected.name + " is in your Favourites"} disabled>♥</button>}
-                    </>
-                  }
-                </div>
-                <CycleNext next={next} handleOnClick={handleOnClick} />
+          <>  
+            <h4 className='ec-h4'>{category}</h4>
+            {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult} {searchResult === "Favourite " && <>{category}</>}"</h4>}
+            <div className='cycle-buttons-div'>
+              <CyclePrev prev={prev} handleOnClick={handleOnClick} />
+              <div className='add-fav-container'>
+                <h1>{selected.name}</h1>
+                {user && 
+                  <>
+                    {!alreadyFavourited && <button className='not-fav-button' title={"Add to Favourites"} onClick={() => addFavourite()}>♥</button>}
+                    {alreadyFavourited && <button className='fav-button' title={selected.name + " is in your Favourites"} disabled>♥</button>}
+                  </>
+                }
               </div>
-              {(category === "Equipment" || category === "Magic Items") && <DisplayEquipment props={selected}/>}
-              {category === "Classes" && <DisplayClass props={selected} />}
-              {category === "Subclasses" && <DisplaySubclass props={selected} handleOnClick={handleOnClick} />}
-              {category === "Monsters" && <DisplayMonster props={selected} />}
-              {category === "Backgrounds" && <DisplayBg props={selected} />}
-              {category === "Features" && <DisplayFeature props={selected} />}
-              {category === "Races" && <DisplayRace props={selected} />}
-              {category === "Subraces" && <DisplaySubrace props={selected} handleOnClick={handleOnClick} />}
-              {category === "Proficiencies" && <DisplayProficiency props={selected} />}
-              {category === "Spells" && <DisplaySpell props={selected} />}
-              {category === "Traits" && <DisplayTrait props={selected} />}
-              {category === "Conditions" && <DisplayCondition props={selected} />}
-              {category === "Damage Types" && <DisplayDamageType props={selected} />}
-              {category === "Feats" && <DisplayFeat props={selected} />}
-              {category === "Languages" && <DisplayLanguage props={selected} />}
-              {category === "Magic Schools" && <DisplayMagicSchool props={selected} />}
-              {category === "Skills" && <DisplaySkill props={selected} />}
-              {category === "Weapon Properties" && <DisplayWP props={selected} />}
-            </>
+              <CycleNext next={next} handleOnClick={handleOnClick} />
+            </div>
+            {category === "Backgrounds" && <DisplayBg props={selected} />}
+            {category === "Classes" && <DisplayClass props={selected} />}
+            {category === "Subclasses" && <DisplaySubclass props={selected} handleOnClick={handleOnClick} />}
+            {category === "Conditions" && <DisplayCondition props={selected} />}
+            {category === "Damage Types" && <DisplayDamageType props={selected} />}
+            {(category === "Equipment" || category === "Magic Items") && <DisplayEquipment props={selected}/>}
+            {category === "Feats" && <DisplayFeat props={selected} />}
+            {category === "Features" && <DisplayFeature props={selected} />}
+            {category === "Languages" && <DisplayLanguage props={selected} />}
+            {category === "Magic Schools" && <DisplayMagicSchool props={selected} />}
+            {category === "Monsters" && <DisplayMonster props={selected} />}
+            {category === "Proficiencies" && <DisplayProficiency props={selected} />}
+            {category === "Races" && <DisplayRace props={selected} />}
+            {category === "Subraces" && <DisplaySubrace props={selected} handleOnClick={handleOnClick} />}
+            {category === "Skills" && <DisplaySkill props={selected} />}
+            {category === "Spells" && <DisplaySpell props={selected} />}
+            {category === "Traits" && <DisplayTrait props={selected} />}
+            {category === "Weapon Properties" && <DisplayWP props={selected} />}
+          </>
         }
     </div>
   )

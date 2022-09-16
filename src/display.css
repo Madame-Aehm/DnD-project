@@ -178,7 +178,7 @@ ul {
 
 .ec-h4 {
   color: #412234;
-  width: 100%;
+  max-width: 100%;
   text-align: center;
   margin-bottom: 0;
 }

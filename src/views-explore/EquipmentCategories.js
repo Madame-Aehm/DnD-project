@@ -7,7 +7,6 @@ import useMainFetch from '../hooks/useMainFetch';
 function EquipmentCategories() {
 
   const {
-    object,
     array,
     pageLoader,
     error,
