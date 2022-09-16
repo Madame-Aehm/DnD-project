@@ -47,7 +47,7 @@ export const AuthContextProvider = (props) => {
           console.log("error", error);
           alert(errorMessage);
         });
-      }
+    }
   };
 
   const logout = () => {

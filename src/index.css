@@ -2,8 +2,6 @@ body {
   margin: 0;
   background-color: #BDD9BF;
 
-
-
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -345,12 +343,12 @@ input[type=checkbox]:checked ~ .character-display {
  transition: 0.2s;
 }
 
-.down, .up {
+#down, #up {
   font-size: large;
   color: #412234;
 }
 
-.up {
+#up {
   display: none;
 }
 

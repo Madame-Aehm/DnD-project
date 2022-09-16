@@ -3,7 +3,8 @@ import React from 'react'
 function DisplayMonster(props) {
   const selectedMonster = props.props;
   return (
-    <div className='display'>
+    <div className='content-container'>
+      <div className='display'>
 
       <h3>Type</h3>
       <p>{selectedMonster.type}</p>
@@ -200,6 +201,8 @@ function DisplayMonster(props) {
 
       <p></p>
     </div>
+  </div>
+    
   )
 }
 

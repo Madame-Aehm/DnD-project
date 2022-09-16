@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function DisplayFavourite({ array, deleteFavourite, linkTo }) {
+function DisplayFavourite({ array, deleteFavourite }) {
   return (
     <div className='character-card-display'>
     {array.length === 0 && <p>No favourites yet</p>}
@@ -11,7 +11,7 @@ function DisplayFavourite({ array, deleteFavourite, linkTo }) {
           <h4>{item.name}</h4>
           <div>
             <Link 
-              to={linkTo} 
+              to={"/selected"} 
               state={{url: item.url, 
                 array: array, 
                 searchResult: "Favourite ", 

@@ -3,7 +3,6 @@ import React from 'react'
 function DisplayEquipment(props) {
     const selectedEquipment = props.props;
 
-    if (selectedEquipment.url) {
   return (
     <div className='content-container'>
         <div className='display'>
@@ -71,6 +70,6 @@ function DisplayEquipment(props) {
         </div>
     </div>
   )
-}}
+}
 
 export default DisplayEquipment

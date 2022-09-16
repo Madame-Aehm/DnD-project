@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
-import { removeHyphens, displayNicely } from '../components/Functions';
+import { displayNicely } from '../components/Functions';
 import { Link } from "react-router-dom";
 import Loader from '../components/Loader';
 
@@ -19,6 +19,7 @@ function Explore() {
       setTimeout(() => {
         setPageLoader(false);
       }, 1000);
+      setError(null);
     } catch (error) {
       console.log("error", error);
       setError(error);
@@ -41,8 +42,8 @@ function Explore() {
         {!pageLoader && exploreList.map((item, i) => {
           return (
             <Link className='explore-button' 
-              to={'/' + removeHyphens(item.endpoint)} 
-              state={{url: item.url, title: item.endpoint}} 
+              to={'/' + item.endpoint} 
+              state={{url: item.url, title: displayNicely(item.endpoint)}} 
               key={i}>
                 {displayNicely(item.endpoint)}
             </Link>

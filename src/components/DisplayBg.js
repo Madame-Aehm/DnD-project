@@ -2,7 +2,6 @@ import React from 'react'
 
 function DisplayBg(props) {
     const selectedBg = props.props;
-    if (selectedBg.bonds) {
   return (
     <div className='content-container'>
         <div className='display'>
@@ -100,6 +99,6 @@ function DisplayBg(props) {
         </div>
     </div>
   )
-}}
+}
 
 export default DisplayBg

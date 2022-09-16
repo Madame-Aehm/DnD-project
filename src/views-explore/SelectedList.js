@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar'
 import useMainFetch from '../hooks/useMainFetch';
 
-function MagicItems() {
+function SelectedList() {
+
+  const location = useLocation();
 
   const {
-    object,
+    url,
+    title
+  } = location.state;
+
+  const {
     array,
     pageLoader,
     error,
-  } = useMainFetch("https://www.dnd5eapi.co/api/magic-items");
+  } = useMainFetch(`https://www.dnd5eapi.co${url}`);
 
   const [filter, setFilter] = useState("");
-  const filteredList = array.filter((item) => item.index.includes(filter));
+  const filteredList = array.filter((item) => item.name.toLowerCase().includes(filter));
 
   const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+    setFilter(e.target.value.toLowerCase());
   };
-
 
   return (
     <div className='content-container'>
         <NavBar/>
-        <h1>Magic Items</h1>
+        <h1>{title}</h1>
         {error && <p>Something went wrong.. Please reload.</p>}
         {pageLoader && <Loader/>}
         {!pageLoader && 
@@ -33,7 +38,7 @@ function MagicItems() {
             <div className='explore-list'>
               {filteredList.map((item) => {
                 return (
-                  <Link className='explore-button' to={"/selectedequipment"} state={{url: item.url, array: filteredList, searchResult: filter, category: "Magic Items"}} key={item.index}>{item.name}</Link>
+                  <Link className='explore-button' to={"/selected"} state={{url: item.url, array: filteredList, searchResult: filter, category: title}} key={item.index}>{item.name}</Link>
                 )
               })}
               {filteredList.length === 0 && <p>No Results</p>}
@@ -44,4 +49,4 @@ function MagicItems() {
   )
 }
 
-export default MagicItems
+export default SelectedList

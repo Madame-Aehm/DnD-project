@@ -12,7 +12,6 @@ function Characters() {
   const { user } = useContext(AuthContext);
   const [charactersArray, setCharactersArray] = useState(null); 
   const [loader, setLoader] = useState(true);
-  const [arrow, setArrow] = useState("Down");
   
   async function getCharacters () {
     const querySnapshot = await getDocs(collection(db, "Characters_user" + user.uid));
@@ -39,26 +38,6 @@ function Characters() {
     getCharacters();
   }, []);
 
-  const testing = () => {
-    const arrow = document.getElementById("arrow");
-    if (arrow.innerHTML === "⇟") {
-      console.log("down")
-      arrow.innerHTML = "⇞";
-    } else {
-      console.log("up")
-      arrow.innerHTML = "⇟";
-    }
-  }
-
-  const testing2 = () => {
-    if (arrow === "Up") {
-      console.log("up")
-      setArrow("Down");
-    } else {
-      console.log("down")
-      setArrow("Up");
-    }
-  }
 
   return (
     <div className='content-container'>
@@ -72,17 +51,13 @@ function Characters() {
             {(charactersArray && charactersArray.length > 0) &&
               charactersArray.map((character) => {
                 return (
-                  <label htmlFor={character.id} className='character-card add-pointer' key={character.id} onClick={testing2}>
+                  <label htmlFor={character.id} className='character-card add-pointer' key={character.id}>
                     <h4>{character.name}, the {character.class} {character.race}</h4>
                     <input className='see-more' type={"checkbox"} id={character.id}/>
                     <div className='character-display'>
                       <DisplayMyCharacter character={character}/>
                     </div>
-                    <div className='test'>
-                      <button onClick={() => deleteCharacter(character)}>Delete</button>
-                      <p id='arrow'>{arrow}</p>
-                    </div>
-                    
+                    <button onClick={() => deleteCharacter(character)}>Delete</button>
                 </label>
                 )
               })}
