@@ -12,7 +12,8 @@ function Favourites() {
   const [favouritesArray, setFavouritesArray] = useState([]);
   const [selectedFav, setSelectedFav] = useState("all");
   const backgroundsArray = favouritesArray.filter((item) => item.fav_category === "Backgrounds");
-  const classesArray = favouritesArray.filter((item) => (item.fav_category === "Classes" || item.fav_category === "Subclasses"));
+  const classesArray = favouritesArray.filter((item) => item.fav_category === "Classes");
+  const subclassesArray = favouritesArray.filter((item) => item.fav_category === "Subclasses");
   const conditionsArray = favouritesArray.filter((item) => item.fav_category === "Conditions");
   const damageTypesArray = favouritesArray.filter((item) => item.fav_category === "Damage Types");
   const equipmentArray = favouritesArray.filter((item) => item.fav_category === "Equipment");
@@ -23,7 +24,8 @@ function Favourites() {
   const magicSchoolsArray = favouritesArray.filter((item) => item.fav_category === "Magic Schools");
   const monstersArray = favouritesArray.filter((item) => item.fav_category === "Monsters");
   const proficienciesArray = favouritesArray.filter((item) => item.fav_category === "Proficiencies");
-  const racesArray = favouritesArray.filter((item) => (item.fav_category === "Races" || item.fav_category === "Subraces"));
+  const racesArray = favouritesArray.filter((item) => item.fav_category === "Races");
+  const subracesArray = favouritesArray.filter((item) => item.fav_category === "Subraces");
   const skillsArray = favouritesArray.filter((item) => item.fav_category === "Skills");
   const spellsArray = favouritesArray.filter((item) => item.fav_category === "Spells");
   const traitsArray = favouritesArray.filter((item) => item.fav_category === "Traits");
@@ -68,7 +70,8 @@ function Favourites() {
           <select id='select-fav' onChange={handleOnChange}>
             <option value={"all"}>All</option>
             <option value={"Backgrounds"}>Backgrounds</option>
-            <option value={"Classes"}>Classes/Subclasses</option>
+            <option value={"Classes"}>Classes</option>
+            <option value={"Subclasses"}>Subclasses</option>
             <option value={"Conditions"}>Conditions</option>
             <option value={"Damage Types"}>Damage Types</option>
             <option value={"Equipment"}>Equipment</option>
@@ -79,7 +82,8 @@ function Favourites() {
             <option value={"Magic Schools"}>Magic Schools</option>
             <option value={"Monsters"}>Monsters</option>
             <option value={"Proficiencies"}>Proficiencies</option>
-            <option value={"Races"}>Races/Subraces</option>
+            <option value={"Races"}>Races</option>
+            <option value={"Subraces"}>Subraces</option>
             <option value={"Skills"}>Skills</option>
             <option value={"Spells"}>Spells</option>
             <option value={"Traits"}>Traits</option>
@@ -94,6 +98,10 @@ function Favourites() {
         {(selectedFav === "Classes" || selectedFav === "all") && <>
           <h3>Classes</h3>
           <DisplayFavourite array={classesArray} deleteFavourite={deleteFavourite} />
+        </>}
+        {(selectedFav === "Subclasses" || selectedFav === "all") && <>
+          <h3>Subclasses</h3>
+          <DisplayFavourite array={subclassesArray} deleteFavourite={deleteFavourite} />
         </>}
         {(selectedFav === "Conditions" || selectedFav === "all") && <>
           <h3>Conditions</h3>
@@ -138,6 +146,10 @@ function Favourites() {
         {(selectedFav === "Races" || selectedFav === "all") && <>
           <h3>Races</h3>
           <DisplayFavourite array={racesArray} deleteFavourite={deleteFavourite} />
+        </>}
+        {(selectedFav === "Subraces" || selectedFav === "all") && <>
+          <h3>Subraces</h3>
+          <DisplayFavourite array={subracesArray} deleteFavourite={deleteFavourite} />
         </>}
         {(selectedFav === "Skills" || selectedFav === "all") && <>
           <h3>Skills</h3>
