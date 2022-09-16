@@ -129,7 +129,7 @@ function Selected() {
             </div>
             {category === "Backgrounds" && <DisplayBg props={selected} />}
             {category === "Classes" && <DisplayClass props={selected} />}
-            {category === "Subclasses" && <DisplaySubclass props={selected} handleOnClick={handleOnClick} />}
+            {category === "Subclasses" && <DisplaySubclass props={selected} />}
             {category === "Conditions" && <DisplayCondition props={selected} />}
             {category === "Damage Types" && <DisplayDamageType props={selected} />}
             {(category === "Equipment" || category === "Magic Items") && <DisplayEquipment props={selected}/>}
@@ -140,7 +140,7 @@ function Selected() {
             {category === "Monsters" && <DisplayMonster props={selected} />}
             {category === "Proficiencies" && <DisplayProficiency props={selected} />}
             {category === "Races" && <DisplayRace props={selected} />}
-            {category === "Subraces" && <DisplaySubrace props={selected} handleOnClick={handleOnClick} />}
+            {category === "Subraces" && <DisplaySubrace props={selected} />}
             {category === "Skills" && <DisplaySkill props={selected} />}
             {category === "Spells" && <DisplaySpell props={selected} />}
             {category === "Traits" && <DisplayTrait props={selected} />}

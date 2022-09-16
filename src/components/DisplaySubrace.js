@@ -1,11 +1,11 @@
 import React from 'react'
 
-function DisplaySubrace({ props, handleOnClick }) {
-  const selectedRace = props;
+function DisplaySubrace(props) {
+  const selectedRace = props.props;
   return (
     <div className='content-container'>
       <div className='display'>
-        <h3>Subclass of <a className='display-link' onClick={() => handleOnClick(selectedRace.race.url)}>{selectedRace.race.name}</a></h3>
+        <h3>Subrace of {selectedRace.race.name}</h3>
 
         <h4>Ability Bonuses</h4>
         <div className='mini-h-list'>

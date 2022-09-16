@@ -1,11 +1,11 @@
 import React from 'react'
 
-function DisplaySubclass({ props, handleOnClick} ) {
-  const selectedClass = props;
+function DisplaySubclass(props) {
+  const selectedClass = props.props;
   return (
     <div className='content-container'>
       <div className='display'>
-        <h3>Subclass of <a className='display-link' onClick={() => handleOnClick(selectedClass.class.url)}>{selectedClass.class.name}</a></h3>
+        <h3>Subclass of {selectedClass.class.name}</h3>
         <h4>{selectedClass.subclass_flavor}</h4>
         <hr/>
         {selectedClass.spells.length > 0 &&
