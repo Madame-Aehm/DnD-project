@@ -113,7 +113,7 @@ function Selected() {
         {!pageLoader &&
           <>  
             <h4 className='ec-h4'>{category}</h4>
-            {searchResult !== "" && <h4 className='ec-h4'>Showing results for "{searchResult} {searchResult === "Favourite " && <>{category}</>}"</h4>}
+            {(searchResult !== "" && searchResult !== " ") && <h4 className='ec-h4'>Showing results for "{searchResult} {searchResult === "Favourite " && <>{category}</>}"</h4>}
             <div className='cycle-buttons-div'>
               <CyclePrev prev={prev} handleOnClick={handleOnClick} />
               <div className='add-fav-container'>
