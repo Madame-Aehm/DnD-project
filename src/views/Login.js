@@ -19,8 +19,20 @@ function Login() {
     setShowOrHide("Show");
   }
 
-  const handleLogin = (email, password) => {
-    login(email, password);
+  const validateAndLogin = () => {
+    const emailInput = document.querySelector("#email");
+    const passwordInput = document.querySelector("#password");
+    const validEmail = emailValidation(emailInput);
+    const validPassword = passwordValidation(passwordInput);
+    if (validEmail && validPassword) {
+      login(emailInput.value.trim(), passwordInput.value);
+    }
+  }
+
+  function hitEnter(e) {
+    if (e.key === "Enter") {
+      validateAndLogin();
+    }
   }
 
   return (
@@ -36,26 +48,16 @@ function Login() {
         {!user &&
           <>
             <div className='form'>
-              <input type={"text"} placeholder={"Email"} id={"email"} required></input>
-              <input type={passwordType} placeholder={"Password"} id={"password"} required></input>
+              <input type={"text"} placeholder={"Email"} id={"email"} onKeyPress={(e) => hitEnter(e)} required></input>
+              <input type={passwordType} placeholder={"Password"} id={"password"} onKeyPress={(e) => hitEnter(e)} required></input>
               <p onClick={togglePasswordType} className='hide-password'>{showOrHide}</p>
               <div className='login-signup move-up'>
-                <button className='explore-button' onClick={ () => {
-                const emailInput = document.querySelector("#email");
-                const passwordInput = document.querySelector("#password");
-                const validEmail = emailValidation(emailInput);
-                const validPassword = passwordValidation(passwordInput);
-                if (validEmail && validPassword) {
-                  handleLogin(emailInput.value, passwordInput.value);
-                  }
-                }}>Login</button>
+                <button className='explore-button' onClick={ () => {validateAndLogin()}}>Login</button>
                 <p>No account? <Link to={"/signup"} replace={true} style={({cursor: "pointer"})}>Sign up</Link>!</p>
               </div>
             </div>
           </>
         }
-        
-        
     </div>
   )
 }
