@@ -181,6 +181,18 @@ p a:hover {
   text-decoration: underline;
 }
 
+.hide-password {
+  position: relative;
+  top: -54px;
+  left: 105px;
+  min-width: 30px;
+}
+
+.move-up {
+  position: relative;
+  top: -50px;
+}
+
 .form {
   width: 80%;
   display: flex;
@@ -341,15 +353,12 @@ input[type=checkbox]:checked ~ .character-display {
  visibility: initial;
  height: 350px;
  transition: 0.2s;
+ overflow-y: scroll;
 }
 
-#down, #up {
+.arrow {
   font-size: large;
   color: #412234;
-}
-
-#up {
-  display: none;
 }
 
 input[type=checkbox]:checked ~ .test > .down {

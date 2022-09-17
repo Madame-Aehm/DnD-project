@@ -12,6 +12,17 @@ function Characters() {
   const { user } = useContext(AuthContext);
   const [charactersArray, setCharactersArray] = useState(null); 
   const [loader, setLoader] = useState(true);
+  const [arrow, setArrow] = useState("⇟");
+
+  // const toggleArrow = () => {
+  //   if (arrow === "⇟") {
+  //     setArrow("⇞");
+  //     console.log("open")
+  //     return;
+  //   }
+  //   setArrow("⇟");
+  //   console.log("close");
+  // }
   
   async function getCharacters () {
     const querySnapshot = await getDocs(collection(db, "Characters_user" + user.uid));
@@ -58,6 +69,7 @@ function Characters() {
                       <DisplayMyCharacter character={character}/>
                     </div>
                     <button onClick={() => deleteCharacter(character)}>Delete</button>
+                    <p className='arrow'>{arrow}</p>
                 </label>
                 )
               })}

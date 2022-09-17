@@ -40,23 +40,7 @@ input[type="text"], [type="password"] {
   width: 80%;
 }
 
-h3 {
-  color: #2E4052;
-  margin: 0.3em;
-}
-
-h4 {
-  color: #2E4052;
-  margin: 0.3em;
-}
-
-h5 {
-  color: #2E4052;
-  margin: 0.3em;
-
-}
-
-h6 {
+h3, h4, h5, h6 {
   color: #2E4052;
   margin: 0.3em;
 }
@@ -102,14 +86,6 @@ ul {
   text-align: center;
 }
 
-.checkbox-container-3 {
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  justify-content: space-around;
-  gap: 0.3em 1em;
-  width: 80%;
-}
-
 .mini-h-list {
   display: flex;
   flex-flow: row wrap;
@@ -121,7 +97,6 @@ ul {
 .mini-h-list hr {
   width: 50%;
 }
-
 
 .e-choices {
   margin-top: 0.5em;
@@ -187,12 +162,9 @@ ul {
   width: 100%;
   text-align: center;
 }
+
 .actions-div hr {
   width: 50%;
-}
-
-.tiny {
-  width: 20%;
 }
 
 table {
@@ -227,21 +199,6 @@ table {
   text-align: left;
 }
 
-.display-link {
-  text-decoration: none;
-  color: #2E4052;
-}
-
-.display-link:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.testing {
-  height: 100px;
-  overflow: hidden;
-}
-
 .choose-stats {
   border: solid 2px #412234;
   color: #412234;
@@ -255,11 +212,5 @@ td > input {
   width: 70%
 }
 
-@media only screen and (min-width: 400px) {
-  .checkbox-container-3 {
-      grid-template-columns: repeat(3, 1fr);
-  }
- 
-}
 
  

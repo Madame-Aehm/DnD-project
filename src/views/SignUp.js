@@ -8,6 +8,18 @@ import { AuthContext } from '../context/AuthContext';
 function SignUp() {
 
   const { registerNewUser } = useContext(AuthContext);
+  const [passwordType, setPasswordType] = useState("password");
+  const [showOrHide, setShowOrHide] = useState("show");
+
+  const togglePasswordType = () => {
+    if (passwordType === "password") {
+      setPasswordType("text");
+      setShowOrHide("Hide")
+      return;
+    }
+    setPasswordType("password");
+    setShowOrHide("Show");
+  }
 
   const handleRegister = (email, password) => {
     registerNewUser(email, password);
@@ -19,8 +31,9 @@ function SignUp() {
       <h1>Sign Up!</h1>
       <div className='form'>
           <input className='log-input' type={"text"} placeholder={"Email"} id={"email"} required></input>
-          <input className='log-input' type={"password"} placeholder={"Password"} id={"password"} required></input>
-          <div className='login-signup'>
+          <input className='log-input' type={passwordType} placeholder={"Password"} id={"password"} required></input>
+          <p onClick={togglePasswordType} className='hide-password'>{showOrHide}</p>
+          <div className='login-signup move-up'>
             <button className='explore-button' onClick={ () => {
               const emailInput = document.querySelector("#email");
               const passwordInput = document.querySelector("#password");
