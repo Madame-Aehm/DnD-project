@@ -12,7 +12,6 @@ import SignUp from "./views/SignUp";
 import LogInSuccess from "./views/LogInSuccess";
 import Favourites from "./views/Favourites";
 import Characters from "./views/Characters";
-import RuleSections from "./views-explore/RuleSections";
 import Rules from "./views-explore/Rules";
 import NewCharacter from "./views/NewCharacter";
 import HereBeDragons from "./components/HereBeDragons";
@@ -56,9 +55,8 @@ function App() {
           <Route path="monsters" element={ <SelectedList/> } />
           <Route path="proficiencies" element={ <SelectedList/> } />
           <Route path="races" element={ <SelectedList/> } />
-
-          <Route path="rules" element={ <Rules/> } />
-          <Route path="rulesections" element={ <RuleSections/> } />
+          <Route path="rules" element={ <SelectedList/> } />
+          <Route path="rule-sections" element={ <SelectedList/> } />
 
           <Route path="skills" element={ <SelectedList/> } />
           <Route path="spells" element={ <SelectedList/> } />

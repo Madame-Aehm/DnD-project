@@ -40,7 +40,7 @@ input[type="text"], [type="password"] {
   width: 80%;
 }
 
-h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
   color: #2E4052;
   margin: 0.3em;
 }
@@ -210,6 +210,10 @@ table {
 
 td > input {
   width: 70%
+}
+
+.rules li {
+  color: #2E4052;
 }
 
 

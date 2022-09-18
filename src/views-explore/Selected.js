@@ -27,6 +27,7 @@ import DisplayLanguage from '../components/DisplayLanguage';
 import DisplayMagicSchool from '../components/DisplayMagicSchool';
 import DisplaySkill from '../components/DisplaySkill';
 import DisplayWP from '../components/DisplayWP';
+import DisplayRuleSection from '../components/DisplayRuleSection';
 
 function Selected() {
   const { user } = useContext(AuthContext);
@@ -145,6 +146,7 @@ function Selected() {
             {category === "Spells" && <DisplaySpell props={selected} />}
             {category === "Traits" && <DisplayTrait props={selected} />}
             {category === "Weapon Properties" && <DisplayWP props={selected} />}
+            {(category === "Rule Sections" || category === "Rules") && <DisplayRuleSection props={selected} />}
           </>
         }
     </div>

@@ -18,6 +18,7 @@ function SelectedList() {
     pageLoader,
     error,
   } = useMainFetch(`https://www.dnd5eapi.co${url}`);
+  console.log(array);
 
   const [filter, setFilter] = useState("");
   const filteredList = array.filter((item) => item.name.toLowerCase().includes(filter));
@@ -25,6 +26,14 @@ function SelectedList() {
   const handleFilterChange = (e) => {
     setFilter(e.target.value.toLowerCase());
   };
+
+  function subList() {
+    if (title !== "Equipment Categories") {
+      return "/selected"
+    } else {
+      return "/sub-list"
+    }
+  }
 
   return (
     <div className='content-container'>
@@ -38,7 +47,7 @@ function SelectedList() {
             <div className='explore-list'>
               {filteredList.map((item) => {
                 return (
-                  <Link className='explore-button' to={"/selected"} state={{url: item.url, array: filteredList, searchResult: filter, category: title}} key={item.index}>{item.name}</Link>
+                  <Link className='explore-button' to={subList()} state={{url: item.url, array: filteredList, searchResult: filter, category: title}} key={item.index}>{item.name}</Link>
                 )
               })}
               {filteredList.length === 0 && <p>No Results</p>}
