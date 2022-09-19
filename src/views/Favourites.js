@@ -27,6 +27,7 @@ function Favourites() {
   const racesArray = favouritesArray.filter((item) => item.fav_category === "Races");
   const subracesArray = favouritesArray.filter((item) => item.fav_category === "Subraces");
   const ruleSectionsArray = favouritesArray.filter((item) => item.fav_category === "Rule Sections");
+  const rulesArray = favouritesArray.filter((item) => item.fav_category === "Rules");
   const skillsArray = favouritesArray.filter((item) => item.fav_category === "Skills");
   const spellsArray = favouritesArray.filter((item) => item.fav_category === "Spells");
   const traitsArray = favouritesArray.filter((item) => item.fav_category === "Traits");
@@ -86,6 +87,7 @@ function Favourites() {
             <option value={"Races"}>Races</option>
             <option value={"Subraces"}>Subraces</option>
             <option value={"Rule Sections"}>Rule Sections</option>
+            <option value={"Rules"}>Rules</option>
             <option value={"Skills"}>Skills</option>
             <option value={"Spells"}>Spells</option>
             <option value={"Traits"}>Traits</option>
@@ -156,6 +158,10 @@ function Favourites() {
         {(selectedFav === "Rule Sections" || selectedFav === "all") && <>
           <h3>Rule Sections</h3>
           <DisplayFavourite array={ruleSectionsArray} deleteFavourite={deleteFavourite} />
+        </>}
+        {(selectedFav === "Rules" || selectedFav === "all") && <>
+          <h3>Rules</h3>
+          <DisplayFavourite array={rulesArray} deleteFavourite={deleteFavourite} />
         </>}
         {(selectedFav === "Skills" || selectedFav === "all") && <>
           <h3>Skills</h3>

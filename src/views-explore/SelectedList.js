@@ -18,7 +18,6 @@ function SelectedList() {
     pageLoader,
     error,
   } = useMainFetch(`https://www.dnd5eapi.co${url}`);
-  console.log(array);
 
   const [filter, setFilter] = useState("");
   const filteredList = array.filter((item) => item.name.toLowerCase().includes(filter));
