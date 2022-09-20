@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { checkFirstCheck } from '../components/Functions';
 import Loader from '../components/Loader';
 import NavBar from '../components/NavBar';
-import '../display.css';
 import useMainFetch from '../hooks/useMainFetch';
 import useSubFetch from '../hooks/useSubFetch';
 
